@@ -172,15 +172,17 @@ class Ranker:
         for (key, _), r in zip(todo, res): self.cache[key] = r
 
     # -------------------------------------------------------------- search
-    def beam(self, goal, page, pool, width=None):
+    def beam(self, goal, page, pool, width=None, start=(), boots_fixed=None):
+        """Beam search slot by slot. `start` locks the first items; `boots_fixed` the boots."""
         cfg = self.cfg
         width = width or cfg.beam_width
         states = [((), None, 0.0, [])]
         for slot, lvl, ne in cfg.slots:
             calls, cands = [], []
+            choices = [start[slot - 1]] if slot <= len(start) else pool
             for path, boots, score, hist in states:
-                boot_opts = list(BOOTS) if slot == 2 else [boots]
-                for c in pool:
+                boot_opts = ([boots_fixed] if boots_fixed else list(BOOTS)) if slot == 2 else [boots]
+                for c in choices:
                     if c in path or not legal(path + (c,)): continue
                     for b in boot_opts:
                         calls.append((path + (c,), b, lvl, ne, page))
@@ -206,21 +208,22 @@ class Ranker:
         rows.sort(key=lambda x: x[0])
         return rows
 
-    def optimize(self, goal, pool=None, page=None):
+    def optimize(self, goal, pool=None, page=None, start=(), boots=None):
         """Beam search, then the best rune page, repeated until the page is stable.
-        A fixed `page` skips the rune search."""
+        A fixed `page` skips the rune search; `start` locks the first items, `boots` the boots."""
         pool = dict(pool or GOAL_POOL[goal])
         fixed = page is not None
         page = page or START_PAGE
-        path, boots, score, hist = self.beam(goal, page, pool)
+        kw = {"start": tuple(start), "boots_fixed": boots}
+        path, boots, score, hist = self.beam(goal, page, pool, **kw)
         if not fixed:
             ranked = self.page_scores(goal, path, boots)
             page = ranked[0][1]
-            path, boots, score, hist = self.beam(goal, page, pool)
+            path, boots, score, hist = self.beam(goal, page, pool, **kw)
             ranked = self.page_scores(goal, path, boots)
             if ranked[0][1] != page:
                 page = ranked[0][1]
-                path, boots, score, hist = self.beam(goal, page, pool)
+                path, boots, score, hist = self.beam(goal, page, pool, **kw)
                 ranked = self.page_scores(goal, path, boots)
         else:
             ranked = self.page_scores(goal, path, boots, [page])

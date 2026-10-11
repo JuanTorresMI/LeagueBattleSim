@@ -146,8 +146,13 @@ def cmd_optimize(a):
         if mults: r.set_mults(mults)
         else: print("calibration", r.calibrate(), file=sys.stderr)
         page = None if a.runes == "auto" else RunePage.parse(a.runes)
-        pool_items = SPK.AP_ONHIT_POOL if a.ap else SPK.GOAL_POOL[a.goal]
-        res = r.optimize(a.goal, pool_items, page)
+        pool_items = dict(SPK.AP_ONHIT_POOL if a.ap else SPK.GOAL_POOL[a.goal])
+        start = [find_item(x) for x in a.start.split(",")] if a.start else []
+        for x in (a.exclude.split(",") if a.exclude else []): pool_items.pop(find_item(x), None)
+        boots = find_item(a.boots) if a.boots else None
+        if boots and boots not in SPK.BOOTS: raise SystemExit(f"--boots: choose from {list(SPK.BOOTS.values())}")
+        if any(i not in SPK.POOL for i in start): raise SystemExit("--start takes items from `kalista items` (not boots)")
+        res = r.optimize(a.goal, pool_items, page, start, boots)
     finally:
         if pool: pool.close(); pool.join()
     view = r.path_view(res)
@@ -235,6 +240,9 @@ def main(argv=None):
     p.add_argument("--goal", choices=list(SPK.GOALS), default="practical")
     p.add_argument("--runes", default="auto", help="'auto' (search 24 pages) or a page like 'Press the Attack / Alacrity / Cut Down'")
     p.add_argument("--ap", action="store_true", help="AP and on-hit items only")
+    p.add_argument("--start", help="lock the first items, in order, e.g. 'bc,shieldbow'; the search fills the rest")
+    p.add_argument("--exclude", help="items the search may not use, e.g. 'statikk,ga'")
+    p.add_argument("--boots", help="lock the boots (berserker, steelcaps, mercs)")
     p.add_argument("--recalibrate", action="store_true", help="recompute enemy damage instead of reading spikes.json")
     p.add_argument("--json", action="store_true")
     add_scenario(p, lane=False); p.set_defaults(fn=cmd_optimize)
