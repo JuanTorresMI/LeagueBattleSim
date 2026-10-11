@@ -62,6 +62,20 @@
    "avg_kill_s": 7.42,
    "avg_duel": 0.285,
    "duel_wins": 20
+  },
+  "carry": {
+   "page": "Lethal Tempo / Bloodline / Last Stand",
+   "boots": "Plated Steelcaps",
+   "items": [
+    "Immortal Shieldbow",
+    "Yun Tal Wildarrows",
+    "Lord Dominik's Regards",
+    "Runaan's Hurricane",
+    "Blade of The Ruined King"
+   ],
+   "avg_kill_s": 3.98,
+   "avg_duel": 0.278,
+   "duel_wins": 19
   }
  },
  "ap_build": {

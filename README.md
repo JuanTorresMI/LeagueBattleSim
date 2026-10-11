@@ -1,4 +1,4 @@
-# LoL DPS Checker v5 (patch 16.20.1)
+# LoL DPS Checker v6 (patch 16.20.1)
 
 ## Quick start
 Plain Python 3, no packages (pytest only for tests).
@@ -6,6 +6,10 @@ Plain Python 3, no packages (pytest only for tests).
   **kalista_spikes.html** (open it in a browser; its build editor runs the simulator in-page).
 - `./kalista optimize --goal practical`: best build for one goal (`kill`, `duel`, `practical`, `safe`).
 - `./kalista build yuntal ie ldr zerks --level 13`: check any build (`./kalista items` lists names).
+- `./kalista teamfight shieldbow yuntal ldr steelcaps --level 13`: the build in 2v2, 3v3 and 5v5 fights
+  (`--scenario 5v5 --targeting back` prints the fight's timeline).
+- `./kalista optimize --goal carry`: best build for solo queue skirmishes *and* teamfights.
+  `--start bc,shieldbow`, `--exclude statikk`, `--boots steelcaps` steer the search.
 - `./kalista --help` for scenario flags (threats, kiting, weights, real enemy kits, Vayne, Soul-Mark).
 - `pytest` (about 2 s), `pytest --runslow` (adds a full pipeline run).
 - Assumptions and their wiki status: `docs/ASSUMPTIONS.md`. Change log by version below.
@@ -222,3 +226,24 @@ measure: Dusk and Dawn's spear, Gunblade at 18, Kraken's missing-health curve.
   (uncalibrated) unless `--calibrate-kits` scales them to the same targets as the class
   profiles (e.g. Caitlyn ×1.24, Nautilus ×2.51 for the duel target).
 - The class profiles and default results are unchanged.
+
+## v6.0: team fights and the solo queue carry goal
+- `lolsim/teamfight.py`: Kalista (the full engine) with allies against an enemy team. Every
+  other unit, on both sides, is a class profile or real kit on its own event queue with the
+  same targeting rules (`config/teamfight.json`): tanks, carries and mages hit what is in
+  front, bruisers dive the carries, units arrive with role-based engage delays, stuns delay
+  their targets. Teams mirror each other except that Kalista replaces the enemy marksman, so
+  with a marksman profile in her place every fight is exactly even (tested at every spike):
+  the score is what her build adds.
+- Kalista hits one target at a time and moves on when it dies: spears, Black Cleaver, Giant
+  Slayer and Press the Attack stacks reset per target, her own buffs carry over. Runaan's
+  bolts, Statikk's chain and Rend on their spears land on the other enemies.
+- Scenarios: 2v2 bot lane, 3v3 with junglers, 5v5 (supports own half the items). Score like
+  the duel score (team HP left on a win, minus enemy HP left on a loss), averaged over
+  Kalista hitting the frontline first and the backline first.
+- New goal `carry` ("Solo queue carry"): 20% duel + 30% 2v2 + 30% 3v3 + 20% 5v5
+  (`carry_weights` in config/teamfight.json). Result: Lethal Tempo / Bloodline / Last Stand,
+  Steelcaps, Shieldbow → Yun Tal → LDR → Runaan's → BotRK: best 3v3 and 5v5 of all builds,
+  +28% duel, 19/20 duel wins, 42% of the team's damage in 5v5.
+- `kalista teamfight`, team rows in `kalista build`'s page editor, and a Team fights section
+  plus a carry column on the results page. Pipeline: about 30 s on 4 cores.

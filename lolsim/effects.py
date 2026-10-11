@@ -11,6 +11,7 @@ per owned item / chosen rune and calls its hook methods at fixed points:
                   returns physical, magic), on_attack_bonus, on_rune, after_attack
   time            on_tick (DoTs and delayed effects)
   damage taken    attack_taken_mult, on_take_damage, on_low_hp, on_lethal, on_overheal
+  team fights     on_target_switch (reset per-target state when Kalista changes target)
 
 Handlers of one hook run in the order the classes are defined below; that order matches
 the original simulator wherever it changes a result (damage multipliers, attack-speed and
@@ -23,7 +24,8 @@ from .stats import level_value
 HOOKS = ("bonus_crit", "dyn_stats", "on_fight_start", "damage_amp", "armor_reduction", "armor_pen",
          "mr_reduction", "on_damage", "omnivamp", "on_damage_heal", "execute", "on_ability",
          "attack_speed", "on_attack", "on_hit", "on_attack_bonus", "on_rune", "after_attack",
-         "on_tick", "attack_taken_mult", "on_take_damage", "on_low_hp", "on_lethal", "on_overheal")
+         "on_tick", "attack_taken_mult", "on_take_damage", "on_low_hp", "on_lethal", "on_overheal",
+         "on_target_switch")
 
 EN = MECH["energized"]
 REGISTRY = []      # effect classes in definition (= hook) order
@@ -74,7 +76,9 @@ def effects_for(f):
 class LordDominiks(Effect):
     def __init__(self, f):
         super().__init__(f)
-        self.giant = 1 + self.v["giant_slayer_max"] * min(f.dummy.bonus_hp / self.v["giant_slayer_hp_diff"], 1)
+        self.on_target_switch()
+    def on_target_switch(self):
+        self.giant = 1 + self.v["giant_slayer_max"] * min(self.f.dummy.bonus_hp / self.v["giant_slayer_hp_diff"], 1)
     def damage_amp(self, kind, is_attack): return self.giant
 
 
@@ -93,6 +97,7 @@ class PressTheAttack(Effect):
             hit.pta_now = True
     def after_attack(self, hit):
         if hit.pta_now: self.amp_on = True
+    def on_target_switch(self): self.stacks = 0
 
 
 @effect("4633")
@@ -115,6 +120,7 @@ class Liandrys(Effect):
         t = self.f.t
         if self.until < t: self.last = t
         self.until = t + self.v["burn_duration"]
+    def on_target_switch(self): self.until, self.last = -1.0, 0.0      # the burn stays on the old target
     def on_tick(self, now):
         f = self.f
         if self.until > self.last:
@@ -353,6 +359,7 @@ class Stormsurge(Effect):
         self.window = [(a, b) for a, b in self.window if f.t - a <= v["window"]]
         if sum(b for _, b in self.window) >= v["threshold"] * f.dummy.hp:
             self.used = True; self.at = f.t + v["delay"]
+    def on_target_switch(self): self.window, self.at, self.used = [], None, False
     def on_tick(self, now):
         if self.at is not None and self.at <= now:
             f = self.f
@@ -383,6 +390,7 @@ class BlackCleaver(Effect):
         super().__init__(f)
         self.stacks = 0
     def armor_reduction(self): return self.v["shred_per_stack"] * self.stacks
+    def on_target_switch(self): self.stacks = 0
     def on_damage(self, src, kind, dmg):
         if kind == "physical": self.stacks = min(self.v["max_stacks"], self.stacks + 1)
 
@@ -393,6 +401,7 @@ class Bloodletters(Effect):
         super().__init__(f)
         self.stacks = 0
     def mr_reduction(self): return self.v["shred_per_stack"] * self.stacks
+    def on_target_switch(self): self.stacks = 0
     def on_damage(self, src, kind, dmg):                          # only champion-ability magic damage
         if kind == "magic" and src in self.f.kit.ability_sources:
             self.stacks = min(self.v["max_stacks"], self.stacks + 1)

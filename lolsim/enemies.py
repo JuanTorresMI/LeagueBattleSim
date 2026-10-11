@@ -183,29 +183,45 @@ class Enemy:
         self.queue += [(t0, i + 1, i) for i, t0 in enumerate(firsts)]
         heapq.heapify(self.queue)
 
+    state = None          # this unit's own defensive state when it can be stunned (team fights)
+
+    def next_time(self):
+        return self.queue[0][0]
+
     def run_until(self, f, until):
         """Resolve every enemy action up to `until` against fight `f`."""
+        while f.hp > 0 and f.kal.dead_at is None:
+            if not self.step(f, until): break
+
+    def step(self, f, until, vs_kalista=True):
+        """Resolve the next action if it happens by `until` (False if none). `f` is the
+        fight seen from this unit: f.take() hits its target, f.kal is the target's state.
+        Melee damage is reduced by kiting only against Kalista."""
         th, kal, q = self.threat, f.kal, self.queue
-        while f.hp > 0 and kal.dead_at is None:
-            tm, pr, i = q[0]
-            if tm > until: break
-            f.t = tm
-            if i == _AUTO:
-                f.take("Enemy autos", self.ad * self.crit_f * self.uptime, "physical", True)
-                self.autos += 1
-                for p in self.procs:
-                    if (p.get("every") and self.autos % p["every"] == 0) or \
-                       (p.get("per_target_cd") and tm >= p["ready"]) or (p.get("after_ability") and self.marked):
-                        f.take(p["name"], p["raw"] * self.uptime, p["kind"], True)
-                        p["ready"] = tm + p.get("per_target_cd", 0)
-                        if p.get("after_ability"): self.marked = False
-                heapq.heapreplace(q, (tm + 1 / self.as_, pr, i))
-            else:
-                cd, kind, raw, later, cc, cc_every, label = self.abil[i]
-                first = self.casts[i] == 0
-                f.take(label, raw * (1.0 if first else later), kind)
-                if cc and (first or cc_every) and f.t >= kal.revive_until:
-                    kal.cc_until = max(kal.cc_until, f.t + cc * (1 - f.st.tenacity))
-                self.casts[i] += 1
-                self.marked = True
-                heapq.heapreplace(q, (tm + cd, pr, i))
+        tm, pr, i = q[0]
+        if tm > until: return False
+        if self.state is not None and tm < self.state.cc_until and self.state.cc_at < tm:   # stunned: act when free
+            heapq.heapreplace(q, (self.state.cc_until, pr, i)); return True
+        f.t = tm
+        up = self.uptime if vs_kalista else 1.0
+        if i == _AUTO:
+            f.take("Enemy autos", self.ad * self.crit_f * up, "physical", True, self)
+            self.autos += 1
+            for p in self.procs:
+                if (p.get("every") and self.autos % p["every"] == 0) or \
+                   (p.get("per_target_cd") and tm >= p["ready"]) or (p.get("after_ability") and self.marked):
+                    f.take(p["name"], p["raw"] * up, p["kind"], True, self)
+                    p["ready"] = tm + p.get("per_target_cd", 0)
+                    if p.get("after_ability"): self.marked = False
+            heapq.heapreplace(q, (tm + 1 / self.as_, pr, i))
+        else:
+            cd, kind, raw, later, cc, cc_every, label = self.abil[i]
+            first = self.casts[i] == 0
+            f.take(label, raw * (1.0 if first else later), kind, False, self)
+            if cc and (first or cc_every) and f.t >= kal.revive_until:
+                kal.cc_until = max(kal.cc_until, f.t + cc * (1 - f.st.tenacity))
+                kal.cc_at = f.t                      # a stun landing now does not cancel an action now
+            self.casts[i] += 1
+            self.marked = True
+            heapq.heapreplace(q, (tm + cd, pr, i))
+        return True

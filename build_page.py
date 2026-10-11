@@ -8,7 +8,8 @@ import glob, json, html, os
 HERE = os.path.dirname(os.path.abspath(__file__))
 TEMPLATE = os.path.join(HERE, "templates", "page.html")
 ENGINE_MODULES = ["params.py"] + [f"lolsim/{m}.py" for m in
-                  ("__init__", "stats", "runes", "enemies", "kits", "effects", "fight", "config", "spikes", "lane", "editor")]
+                  ("__init__", "stats", "runes", "enemies", "kits", "effects", "fight", "config", "spikes", "lane",
+                   "teamfight", "editor")]
 
 
 def _read(rel):

@@ -46,7 +46,7 @@ class StubFight:
     def __init__(self):
         self.hp, self.t, self.kal, self.st, self.log = 1e9, 0.0, self.Side(), self.St(), []
 
-    def take(self, src, raw, kind, is_attack=False):
+    def take(self, src, raw, kind, is_attack=False, attacker=None):
         self.log.append((round(self.t, 3), src))
 
 

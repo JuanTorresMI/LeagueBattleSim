@@ -68,6 +68,9 @@ class Kit:
     def on_secondary_hits(self, n):
         """On-hit landed on n secondary targets (multi-target option)."""
 
+    def on_target_switch(self):
+        """Kalista moved to a new target (team fights)."""
+
     def counter(self):
         """A number for traces and results (Kalista: spears)."""
         return 0
@@ -116,6 +119,9 @@ class Kalista(Kit):
 
     def on_secondary_hits(self, n):
         if self.f.n_sec: self.sec_spears += n / self.f.n_sec       # spread over the secondary targets
+
+    def on_target_switch(self):
+        self.spears = int(self.sec_spears)       # the new target carries the spears bolts left on it
 
     def rend_secondaries(self):
         f = self.f
@@ -186,6 +192,9 @@ class Vayne(Kit):
     def scale_cooldowns(self, mult):
         t = self.f.t
         if self.q_cd > t: self.q_cd = t + (self.q_cd - t) * mult
+
+    def on_target_switch(self):
+        self.bolts = 0
 
     def counter(self):
         return self.bolts
