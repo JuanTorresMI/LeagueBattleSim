@@ -12,6 +12,9 @@ Plain Python 3, no packages (pytest only for tests).
   `--start bc,shieldbow`, `--exclude statikk`, `--boots steelcaps` steer the search.
 - `./kalista --help` for scenario flags (threats, kiting, weights, real enemy kits, Vayne, Soul-Mark).
 - `pytest` (about 2 s), `pytest --runslow` (adds a full pipeline run).
+- `python3 tools/export_site.py ../JuanTorresMI.github.io [--runslow]`: copies the results page, the
+  in-browser simulator and a fresh pytest run into the personal site (its `/kalista/` page). Run it
+  after `./run_all.sh` whenever the results or the page change.
 - Assumptions and their wiki status: `docs/ASSUMPTIONS.md`. Change log by version below.
 
 Run: `./run_all.sh` (~80 s): spikes.py → spikes.json, lane.py → lane.json, build_page.py → kalista_spikes.html. See HANDOFF.md for the full write-up.
