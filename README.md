@@ -2,6 +2,11 @@
 
 Run: `./run_all.sh` (~80 s): spikes.py → spikes.json, lane.py → lane.json, build_page.py → kalista_spikes.html. See HANDOFF.md for the full write-up.
 
+Tests: `pytest` (about 1 s; pytest is the only dev dependency). `pytest --runslow` also reruns
+the whole pipeline in a temp dir and checks it reproduces spikes.json and lane.json exactly.
+After a change that is meant to move the results, rerun the pipeline, then
+`python3 tests/snapshot.py --update` and update the golden numbers in tests/test_fight.py.
+
 ## Files
 - `engine.py`: stat engine (any champion, level, items), damage math, Kalista kit,
   item passives, Precision runes, scaling target dummies, fight simulator.
@@ -76,3 +81,18 @@ gold timing beyond the fixed spike levels. (Survivability is covered by the v3 d
 - Gunblade's active (60 s cooldown) counts in half of trades, always in all-ins.
 - Ranks all 24 rune pages (lvl 2/3/6), the first item (lvl 9) and the second item
   + boots (lvl 11), and scores each full-fight build's first two items in lane.
+
+## v4.1: tests (roadmap steps 1-2)
+- Reproduced: `./run_all.sh` matches the committed spikes.json and lane.json exactly
+  (except `runtime_s`); about 55 s on this machine.
+- `tests/test_stats.py`: Kalista level 1 / 18 base stats against the wiki
+  (Module:ChampionData), growth curve, AS cap, description-only item stats.
+- `tests/test_damage.py`: resistance multiplier; reduction → % pen → flat pen order,
+  floor at 0, no pen on negative resists; Rend scaling.
+- `tests/test_fight.py`: a fixed Kalista fight trace (attack times, spears, Rend kill),
+  one duel per threat, one lane trade per lane threat, exit Rend.
+- `tests/test_snapshots.py`: headline results vs `tests/snapshots/summary.json`; calibration,
+  every goal build at every spike, and the lane path recomputed from the engine and
+  compared with the committed JSON; `--runslow` full pipeline run.
+- Duel tests set `THREATS[*].dmg_mult` explicitly through a fixture, because both
+  `calibrate()` functions mutate these globals.
