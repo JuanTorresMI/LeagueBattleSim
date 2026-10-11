@@ -129,6 +129,14 @@ class Ranker:
         inv = inventory(path, boots)
         rp = page.at(cfg.legend[len(path)])
         opts = Opts(yuntal_prestacked=not (path and path[-1] == "3032"), kite_uptime=uptime, soul_mark=cfg.soul_mark)
+        out = self.evaluate_inventory(inv, level, ne, rp, opts)
+        self.cache[key] = out
+        return out
+
+    def evaluate_inventory(self, inv, level, ne, rp, opts):
+        """Metrics for an explicit inventory (any items, components included) at a level
+        against enemies with `ne` items (may be fractional)."""
+        cfg = self.cfg
         ch = cfg.champion
         per = {}
         for kind in cfg.threats:
@@ -147,7 +155,6 @@ class Ranker:
                "duel": sum(v["duel"] for v in per.values()) / len(per),
                "safe": math.exp(sum(math.log(v["td"]) for v in per.values()) / len(per)),
                "wins": sum(v["win"] for v in per.values())}
-        self.cache[key] = out
         return out
 
     def prefetch(self, calls):
