@@ -32,6 +32,7 @@ REGISTRY = []      # effect classes in definition (= hook) order
 def effect(*keys, rune=False):
     def wrap(cls):
         cls.keys, cls.is_rune = keys, rune
+        cls.hook_names = tuple(h for h in HOOKS if h in cls.__dict__)
         REGISTRY.append(cls)
         return cls
     return wrap
@@ -51,14 +52,20 @@ class Effect:
         return any(k in f.has for k in cls.keys)
 
 
+_owned = {}      # (items, keystone, combat) -> effect classes that apply
+
+
 def effects_for(f):
     """Instantiate the effects a fight owns and return {hook: [bound handlers]}."""
-    effs = [cls(f) for cls in REGISTRY if cls.applies(f)]
+    key = (frozenset(f.has), f.runes.keystone, f.runes.combat)
+    classes = _owned.get(key)
+    if classes is None:
+        classes = _owned[key] = [cls for cls in REGISTRY if cls.applies(f)]
+    effs = [cls(f) for cls in classes]
     hooks = {h: [] for h in HOOKS}
     for e in effs:
-        for h in HOOKS:
-            if h in type(e).__dict__:
-                hooks[h].append(getattr(e, h))
+        for h in e.hook_names:
+            hooks[h].append(getattr(e, h))
     return effs, hooks
 
 

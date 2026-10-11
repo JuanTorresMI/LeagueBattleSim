@@ -90,6 +90,9 @@ class Fight:
         self.h_taken_mult, self.h_take, self.h_low, self.h_lethal = H["attack_taken_mult"], H["on_take_damage"], H["on_low_hp"], H["on_lethal"]
         self.h_overheal, self.h_start = H["on_overheal"], H["on_fight_start"]
         self.dyn = H["dyn_stats"][0] if H["dyn_stats"] else None
+        # damage reduction is fixed for the fight unless an effect shreds or penetrates over time
+        self.phys_mult = None if self.h_armor_red or self.h_armor_pen else self._mitig("physical")
+        self.magic_mult = None if self.h_mr_red else self._mitig("magic")
         bonus_crit = 0
         for h in H["bonus_crit"]: bonus_crit += h()
         self.crit = min(1.0, st.crit + bonus_crit)
@@ -107,6 +110,13 @@ class Fight:
         return m
 
     def mitig(self, kind):
+        if kind == "physical":
+            return self.phys_mult if self.phys_mult is not None else self._mitig(kind)
+        if kind == "magic":
+            return self.magic_mult if self.magic_mult is not None else self._mitig(kind)
+        return 1.0
+
+    def _mitig(self, kind):
         st = self.st
         if kind == "physical":
             red = dark = 0

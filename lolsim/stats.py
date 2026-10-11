@@ -55,9 +55,22 @@ class Stats:
         return min(AS_CAP, self.base_as + self.as_ratio * (self.bonus_as + extra))
 
 
+_stats_cache = {}
+
+
 def build_stats(champ, level, item_ids, runes=None):
+    """Stats for a champion at a level with items (in order) and a rune page. Cached;
+    treat the result as read-only."""
     from .runes import RunePage
     runes = runes or RunePage()
+    key = (champ, level, tuple(item_ids), runes.legend, runes.legend_stacks)
+    st = _stats_cache.get(key)
+    if st is None:
+        st = _stats_cache[key] = _build_stats(champ, level, item_ids, runes)
+    return st
+
+
+def _build_stats(champ, level, item_ids, runes):
     s = CHAMPS[champ]["stats"]
     g = growth(level)
     base_hp = s["hp"] + s["hpperlevel"] * g
