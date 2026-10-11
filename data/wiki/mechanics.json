@@ -1,7 +1,7 @@
 {
  "_meta": {"about": "General game rules and Energized charging. Each entry: source page, patch, values."},
  "crit": {"source": "https://wiki.leagueoflegends.com/en-us/Critical_strike", "patch": "16.20.1",
-          "values": {"base_damage": 2.00}, "verify": "200% default crit damage."},
+          "values": {"base_damage": 2.00}, "note": "Wiki: 200% by default; it was 175% from V10.23 and reverted to 200% in V26.01."},
  "attack_speed": {"source": "https://wiki.leagueoflegends.com/en-us/Attack_speed", "patch": "16.20.1",
                   "values": {"cap": 2.5}},
  "stat_growth": {"source": "https://wiki.leagueoflegends.com/en-us/Champion_statistic", "patch": "16.20.1",

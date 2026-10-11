@@ -136,7 +136,7 @@ class Fight:
         if self.duel: dmg = min(dmg, self.hp)
         self.hp -= dmg
         self.by_src[src] = self.by_src.get(src, 0) + dmg
-        for h in self.h_dealt: h(kind, dmg)
+        for h in self.h_dealt: h(src, kind, dmg)
         if self.duel:
             vamp = self.st.omnivamp
             for h in self.h_vamp: vamp += h()

@@ -5,7 +5,7 @@ per owned item / chosen rune and calls its hook methods at fixed points:
 
   fight setup     bonus_crit, dyn_stats, on_fight_start
   own damage      damage_amp (multiplier), armor_reduction, armor_pen, mr_reduction,
-                  on_damage, omnivamp, on_damage_heal, execute
+                  on_damage(src, kind, dmg), omnivamp, on_damage_heal, execute
   abilities       on_ability (after each cast)
   attacks         attack_speed, on_attack (before on-hit), on_hit (each application,
                   returns physical, magic), on_attack_bonus, on_rune, after_attack
@@ -18,7 +18,7 @@ on-hit sums, which shield absorbs first). Numbers come from data/wiki (ITEM / RU
 import math
 
 from params import ITEM, RUNE, MECH
-from .stats import lvl_scale, lvl_linear
+from .stats import level_value
 
 HOOKS = ("bonus_crit", "dyn_stats", "on_fight_start", "damage_amp", "armor_reduction", "armor_pen",
          "mr_reduction", "on_damage", "omnivamp", "on_damage_heal", "execute", "on_ability",
@@ -89,7 +89,7 @@ class PressTheAttack(Effect):
         f, v = self.f, self.v
         self.stacks += 1
         if self.stacks >= v["hits"] and self.cd <= f.t:
-            hit.rune += lvl_scale(v["damage_lo"], v["damage_hi"], f.level); self.stacks = 0; self.cd = f.t + v["cd"]
+            hit.rune += level_value(v["damage"], f.level); self.stacks = 0; self.cd = f.t + v["cd"]
             hit.pta_now = True
     def after_attack(self, hit):
         if hit.pta_now: self.amp_on = True
@@ -188,7 +188,7 @@ class LethalTempo(Effect):
         v = self.v
         self.stacks = min(v["max_stacks"], self.stacks + 1)
         if self.stacks == v["max_stacks"]:
-            hit.rune += lvl_scale(v["damage_lo"], v["damage_hi"], self.f.level) * (1 + self.f.st.bonus_as + hit.extra_as)
+            hit.rune += level_value(v["damage"], self.f.level) * (1 + self.f.st.bonus_as + hit.extra_as)
 
 
 @effect("3091")
@@ -243,6 +243,10 @@ class DuskAndDawn(Effect):
         if hit.spellblade:
             hit.mg += self.v["base_ad_ratio"] * self.f.st.base_ad + self.v["ap_ratio"] * hit.ap
             hit.times += self.v["extra_on_hit"]
+    def after_attack(self, hit):                                  # the empowered hit heals
+        if hit.spellblade:
+            v, st = self.v, self.f.st
+            self.f.heal("Dusk and Dawn", v["heal_ap_ratio"] * hit.ap + v["heal_bonus_hp_ratio"] * st.bonus_hp)
 
 
 @effect("6672")
@@ -250,7 +254,7 @@ class Kraken(Effect):
     def on_attack_bonus(self, hit):                               # VERIFY: ranged scaling
         f, v = self.f, self.v
         if f.attacks % v["every"] == 0:
-            hit.ph += lvl_linear(v["ranged_lo"], v["ranged_hi"], f.level) * (1 + v["missing_hp_amp"] * (1 - max(f.hp, 0) / f.dummy.hp))
+            hit.ph += level_value(v["ranged"], f.level) * (1 + v["missing_hp_amp"] * (1 - max(f.hp, 0) / f.dummy.hp))
 
 
 @effect("3087", "3095", "3094")
@@ -309,7 +313,7 @@ class Shieldbow(Effect):
         f, v = self.f, self.v
         if not self.used and after < v["trigger_below"] * f.kal.max:
             self.used = True
-            f.kal.shields.append(["Shieldbow", lvl_scale(v["shield_lo"], v["shield_hi"], f.level), f.t + v["duration"], "any"])
+            f.kal.shields.append(["Shieldbow", level_value(v["shield"], f.level), f.t + v["duration"], "any"])
 
 
 @effect("4646")
@@ -317,7 +321,7 @@ class Stormsurge(Effect):
     def __init__(self, f):
         super().__init__(f)
         self.window, self.at, self.used = [], None, False
-    def on_damage(self, kind, dmg):
+    def on_damage(self, src, kind, dmg):
         if self.used: return
         f, v = self.f, self.v
         self.window.append((f.t, dmg))
@@ -336,7 +340,7 @@ class Gunblade(Effect):
     def on_fight_start(self):
         f, v = self.f, self.v
         if f.opts.gunblade_active:
-            f.deal("Gunblade active", lvl_linear(v["active_lo"], v["active_hi"], f.level) + v["active_ap_ratio"] * f.cur_ap(), "magic")
+            f.deal("Gunblade active", level_value(v["active"], f.level) + v["active_ap_ratio"] * f.cur_ap(), "magic")
 
 
 @effect("6676")
@@ -354,7 +358,7 @@ class BlackCleaver(Effect):
         super().__init__(f)
         self.stacks = 0
     def armor_reduction(self): return self.v["shred_per_stack"] * self.stacks
-    def on_damage(self, kind, dmg):
+    def on_damage(self, src, kind, dmg):
         if kind == "physical": self.stacks = min(self.v["max_stacks"], self.stacks + 1)
 
 
@@ -364,8 +368,9 @@ class Bloodletters(Effect):
         super().__init__(f)
         self.stacks = 0
     def mr_reduction(self): return self.v["shred_per_stack"] * self.stacks
-    def on_damage(self, kind, dmg):                               # VERIFY: item on-hit magic stacks it
-        if kind == "magic": self.stacks = min(self.v["max_stacks"], self.stacks + 1)
+    def on_damage(self, src, kind, dmg):                          # only champion-ability magic damage
+        if kind == "magic" and src in self.f.kit.ability_sources:
+            self.stacks = min(self.v["max_stacks"], self.stacks + 1)
 
 
 @effect("3072")
@@ -373,7 +378,7 @@ class Bloodthirster(Effect):
     def on_overheal(self, src, over):                             # Ichorshield from lifesteal overheal
         if src != "Lifesteal": return
         f = self.f
-        cap = lvl_scale(self.v["shield_lo"], self.v["shield_hi"], f.level)
+        cap = level_value(self.v["shield"], f.level)
         add = min(over, cap - f.kal.ichor)
         if add > 0:
             f.kal.ichor += add
@@ -401,12 +406,12 @@ class Conqueror(Effect):
         super().__init__(f)
         self.stacks = 0
         v = self.v
-        self.ap_per = lvl_scale(v["ap_lo"], v["ap_hi"], f.level)
-        self.ad_per = lvl_scale(v["ad_lo"], v["ad_hi"], f.level)
+        self.ap_per = level_value(v["ap"], f.level)
+        self.ad_per = level_value(v["ad"], f.level)
     def dyn_stats(self):
         if self.f.adaptive_magic: return 0.0, self.stacks * self.ap_per
         return self.stacks * self.ad_per, 0.0
-    def on_ability(self): self.stacks = min(self.v["max_stacks"], self.stacks + self.v["stacks_per_ability"])   # VERIFY
+    def on_ability(self): self.stacks = min(self.v["max_stacks"], self.stacks + self.v["stacks_per_ability"])
     def after_attack(self, hit): self.stacks = min(self.v["max_stacks"], self.stacks + self.v["stacks_per_attack"])
     def on_damage_heal(self, dmg):
         if self.stacks >= self.v["max_stacks"]: self.f.heal("Conqueror", self.v["heal_full"] * dmg)
@@ -422,7 +427,7 @@ class FleetFootwork(Effect):
         if not f.duel: return
         if self.charge >= EN["max"]:
             self.charge = 0
-            f.heal("Fleet Footwork", lvl_scale(v["heal_lo"], v["heal_hi"], f.level) + v["bonus_ad_ratio"] * hit.bad + v["ap_ratio"] * hit.ap)  # VERIFY
+            f.heal("Fleet Footwork", level_value(v["heal"], f.level) + v["bonus_ad_ratio"] * hit.bad + v["ap_ratio"] * hit.ap)
         else:
             self.charge = min(EN["max"], self.charge + EN["charge_per_attack"] + f.opts.hop_units_per_attack / EN["units_per_charge"])
 

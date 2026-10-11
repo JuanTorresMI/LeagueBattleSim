@@ -314,7 +314,6 @@
    ],
    "e_add_ap": 0.5
   },
-  "verify": "Autos at 100% AD (older patches: 90%).",
-  "note": "ranks_by_level is the skill order (Q, W, E): E max, then Q, then W; it is a model choice, not a wiki value."
+  "note": "Autos deal 100% AD since V13.11 (Kalista patch history). Kit checked against the wiki for V26.16: Pierce 10-270 + 105% AD, 9 s; Rend 5-45 + 70% AD + 65% AP, extra spears 7-35 + 20-50% AD + 50% AP. ranks_by_level is the skill order (Q, W, E): E max, then Q, then W; a model choice, not a wiki value."
  }
 }

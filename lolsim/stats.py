@@ -35,6 +35,22 @@ def lvl_linear(lo, hi, level):
     return lo + (hi - lo) * (level - 1) / 17
 
 
+def level_value(spec, level):
+    """A level-scaled value from data/wiki, scaled the way its wiki page says:
+      {"curve": "growth", "lo", "hi"}          stat growth curve, lo at level 1, hi at 18
+      {"curve": "linear", "lo", "hi", "levels": [a, b]}   linear, lo at a, hi at b (default 1-18)
+      {"curve": "steps", "base", "from_level", "per_level"}  flat, then +per_level from from_level"""
+    c = spec["curve"]
+    if c == "growth":
+        return lvl_scale(spec["lo"], spec["hi"], level)
+    if c == "linear":
+        a, b = spec.get("levels", (1, 18))
+        return spec["lo"] + (spec["hi"] - spec["lo"]) * (level - a) / (b - a)
+    if c == "steps":
+        return spec["base"] + spec["per_level"] * max(0, level - spec["from_level"] + 1)
+    raise ValueError(f"unknown curve {c!r}")
+
+
 @dataclass
 class Stats:
     level: int

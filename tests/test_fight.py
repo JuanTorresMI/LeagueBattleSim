@@ -22,12 +22,13 @@ def test_kalista_fight_trace():
     hps = [row[1] for row in r["trace"]]
     spears = [row[2] for row in r["trace"]]
     assert times == [0.25, 1.13, 2.02, 2.9, 3.79, 4.67, 5.56, 6.44]   # Q cast, then 1 / AS
-    assert hps == [1453, 1320, 1138, 1006, 889, 776, 667, 562]
+    assert hps == [1453, 1320, 1136, 1004, 887, 775, 666, 561]
     assert spears == [2, 3, 4, 5, 6, 7, 8, 9]
     src = r["by_source"]
     assert set(src) == {"Pierce (Q)", "Auto attacks", "On-hit (physical)", "Press the Attack", "Rend (E)"}
     assert src["Rend (E)"] == pytest.approx(574.111, abs=1e-3)       # Rend finished it
     assert src["Pierce (Q)"] == pytest.approx(129.663, abs=1e-3)
+    assert src["Press the Attack"] == pytest.approx(56.609, abs=1e-3)          # 40-160 linear (wiki)
     assert src["Auto attacks"] == pytest.approx(659.122, abs=1e-3)
     assert sum(src.values()) >= d.hp                               # one-way fights keep overkill
 

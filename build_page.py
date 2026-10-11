@@ -212,7 +212,7 @@ ul.plain{margin:0;padding-left:1.1rem;display:flex;flex-direction:column;gap:5px
     <li id="calib"></li>
     <li>Guardian Angel is a second life in a 1v1, so the plain duel goal overvalues it. Its 300-second cooldown and teamfights make it much weaker in real games, which is why the no-GA duel build is shown separately.</li>
     <li>Not modeled: positioning, skillshots missing, teammates, summoner spells, mana, and enemy items beyond the profile. Treat scores as relative between builds, not as real win rates.</li>
-    <li>To confirm in the Practice Tool: 200% default crit damage, Kalista attacking at 100% AD, Kraken Slayer's ranged scaling, Dusk and Dawn adding a Rend spear, Fleet Footwork's heal.</li>
+    <li>Checked against the League Wiki (docs/ASSUMPTIONS.md). Still to confirm in the Practice Tool: whether Dusk and Dawn's repeat adds a Rend spear, Hextech Gunblade's active at level 18, and the shape of Kraken Slayer's missing-health bonus.</li>
   </ul>
 </section>
 </div>

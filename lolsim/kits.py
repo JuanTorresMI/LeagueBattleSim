@@ -7,7 +7,7 @@ from params import CHAMP
 
 _K = CHAMP["Kalista"]
 RANKS_BY_LEVEL = {int(k): tuple(v) for k, v in _K["ranks_by_level"].items()}   # (Q, W, E); E max, Q second
-AA_AD_RATIO = _K["aa_ad_ratio"]   # VERIFY
+AA_AD_RATIO = _K["aa_ad_ratio"]   # 100% since V13.11
 Q_BASE = _K["q_base"]; Q_RATIO = _K["q_ad_ratio"]; Q_CD = _K["q_cd"]; Q_CAST = _K["q_cast"]
 E_FIRST = _K["e_first"]; E_FIRST_AD = _K["e_first_ad"]; E_FIRST_AP = _K["e_first_ap"]
 E_ADD = _K["e_add"]; E_ADD_AD = _K["e_add_ad"]; E_ADD_AP = _K["e_add_ap"]
@@ -24,6 +24,7 @@ def rend_raw(ad, ap, rank, spears):
 class Kit:
     """Defaults: a champion that only auto attacks."""
     aa_ratio = 1.0
+    ability_sources = frozenset()     # damage source names that count as champion abilities
 
     def __init__(self, f):
         self.f = f
@@ -55,6 +56,7 @@ class Kalista(Kit):
     """Pierce (Q) on cooldown; every on-hit adds a Rend spear; Rend (E) is held until it
     kills, or ripped when a trade ends."""
     aa_ratio = AA_AD_RATIO
+    ability_sources = frozenset({"Pierce (Q)", "Rend (E)"})
 
     def __init__(self, f):
         super().__init__(f)

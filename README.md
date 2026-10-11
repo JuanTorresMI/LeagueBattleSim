@@ -130,3 +130,17 @@ gold timing beyond the fixed spike levels. (Survivability is covered by the v3 d
   and data/wiki entries last checked on an older patch. Writes `data/update_report.md`.
 - Applied for 16.20.1: Data Dragon files unchanged; AD growth now covers all 173 champions
   (Kalista, Jinx and Caitlyn unchanged). Known disagreements: Jhin AS growth, Kled HP (mount).
+
+## v5.0: assumptions settled against the wiki (roadmap step 6)
+See `docs/ASSUMPTIONS.md`. Confirmed: 200% crit, Kalista autos at 100% AD, Fleet Footwork
+9–96, Conqueror 2 stacks per Pierce. Corrected: Kraken Slayer (120 to level 8, +4 per level),
+Bloodletter's Curse (never stacks for Kalista), and level scaling for Press the Attack,
+Lethal Tempo, Conqueror, Bloodthirster, Shieldbow and Gunblade (several v4 level-18 values
+were the wiki's level-20 values). Dusk and Dawn now heals on the empowered hit. Still to
+measure: Dusk and Dawn's spear, Gunblade at 18, Kraken's missing-health curve.
+- Results: calibration multipliers unchanged; fastest-kill, hardest-to-kill and lane
+  builds unchanged. Best duelist, no GA is now Black Cleaver → Shieldbow → BotRK → Dusk and
+  Dawn → Mortal Reminder (the v4 path scores within 0.2%); best duelist now takes
+  Mercury's Treads with GA → Shieldbow → Gunblade → Youmuu's → Navori.
+- `tests/fight_corpus.py` + `tests/test_corpus.py`: 1,000 stored random fights must
+  reproduce exactly (replaces the v3 code oracle, which no longer matches by design).

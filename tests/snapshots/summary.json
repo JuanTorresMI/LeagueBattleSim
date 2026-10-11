@@ -23,30 +23,30 @@
   },
   "duel": {
    "page": "Press the Attack / Bloodline / Coup de Grace",
-   "boots": "Plated Steelcaps",
+   "boots": "Mercury's Treads",
    "items": [
     "Guardian Angel",
-    "Hextech Gunblade",
-    "Wit's End",
     "Immortal Shieldbow",
-    "Blade of The Ruined King"
+    "Hextech Gunblade",
+    "Youmuu's Ghostblade",
+    "Navori Flickerblade"
    ],
-   "avg_kill_s": 5.63,
-   "avg_duel": 0.39,
+   "avg_kill_s": 5.87,
+   "avg_duel": 0.394,
    "duel_wins": 20
   },
   "practical": {
    "page": "Press the Attack / Alacrity / Last Stand",
    "boots": "Plated Steelcaps",
    "items": [
+    "Black Cleaver",
     "Immortal Shieldbow",
     "Blade of The Ruined King",
-    "Lord Dominik's Regards",
-    "Hextech Gunblade",
-    "Kraken Slayer"
+    "Dusk and Dawn",
+    "Mortal Reminder"
    ],
-   "avg_kill_s": 4.05,
-   "avg_duel": 0.37,
+   "avg_kill_s": 4.73,
+   "avg_duel": 0.333,
    "duel_wins": 20
   },
   "safe": {
@@ -91,36 +91,36 @@
    {
     "stage": "Level 2",
     "trade": 0.0,
-    "long": 0.0719,
+    "long": 0.0736,
     "pressure": 0.355,
     "execs": 3
    },
    {
     "stage": "Level 3",
     "trade": -0.01,
-    "long": 0.0644,
+    "long": 0.067,
     "pressure": 0.325,
     "execs": 3
    },
    {
     "stage": "Level 6",
     "trade": 0.0133,
-    "long": 0.1111,
+    "long": 0.1141,
     "pressure": 0.305,
     "execs": 3
    },
    {
     "stage": "Item 1 · lvl 9",
-    "trade": 0.1483,
-    "long": 0.284,
-    "pressure": 0.513,
+    "trade": 0.1473,
+    "long": 0.2848,
+    "pressure": 0.51,
     "execs": 3
    },
    {
     "stage": "Item 2 · lvl 11",
-    "trade": 0.2096,
-    "long": 0.37,
-    "pressure": 0.681,
+    "trade": 0.2088,
+    "long": 0.3732,
+    "pressure": 0.679,
     "execs": 3
    }
   ]
