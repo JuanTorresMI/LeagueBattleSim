@@ -13,7 +13,7 @@ import time
 from dataclasses import replace
 
 from .config import Config
-from .enemies import THREATS, make_dummy
+from .enemies import ALL_THREATS, make_dummy
 from .fight import Opts, simulate
 from .runes import RunePage
 from .stats import item_name, item_cost, statline
@@ -33,7 +33,7 @@ class LaneAnalysis:
 
     def set_mults(self, mults):
         self.mults = {k: (m["mult"] if isinstance(m, dict) else m) for k, m in mults.items()}
-        self.threats = {k: replace(THREATS[k], dmg_mult=self.mults.get(k, 1.0)) for k in self.kinds}
+        self.threats = {k: replace(ALL_THREATS[k], dmg_mult=self.mults.get(k, 1.0)) for k in self.kinds}
 
     def stacks_for(self, n_items):
         return self.cfg.legend[n_items]
@@ -111,24 +111,31 @@ class LaneAnalysis:
                 "exec_cost": sum(v["exec"]["cost"] for v in per.values()) / len(per)}
 
     def calibrate(self):
-        """Scale each lane threat so the reference Kalista trades evenly at the calibration levels."""
-        cal, out = self.cfg.lane_cal, {}
+        """Scale each lane threat so the reference Kalista trades evenly at the calibration levels.
+        Real champion kits keep their own numbers unless cfg.calibrate_kits."""
+        from .enemies import KIT_THREATS
+        out = {}
         for k in self.kinds:
-            base = THREATS[k]
-
-            def avg_net(m):
-                self.threats[k] = replace(base, dmg_mult=m)
-                return sum(self.trade(self.base_items, lvl, k, 0, self.base_page, ref=True)["net"]
-                           for _, lvl, _, _ in self.cal_stages) / len(self.cal_stages)
-            lo, hi, steps = cal["bisect"]
-            for _ in range(steps):
-                mid = (lo + hi) / 2
-                if avg_net(mid) > cal["target"]: lo = mid
-                else: hi = mid
-            m = round((lo + hi) / 2, 3)
-            out[k] = {"mult": m, "check": round(avg_net(m), 4)}
+            if k in KIT_THREATS and not self.cfg.calibrate_kits:
+                out[k] = {"mult": 1.0, "check": None}; continue
+            out[k] = self.calibrate_kind(k)
         self.set_mults(out)
         return out
+
+    def calibrate_kind(self, k):
+        cal, base = self.cfg.lane_cal, ALL_THREATS[k]
+
+        def avg_net(m):
+            self.threats[k] = replace(base, dmg_mult=m)
+            return sum(self.trade(self.base_items, lvl, k, 0, self.base_page, ref=True)["net"]
+                       for _, lvl, _, _ in self.cal_stages) / len(self.cal_stages)
+        lo, hi, steps = cal["bisect"]
+        for _ in range(steps):
+            mid = (lo + hi) / 2
+            if avg_net(mid) > cal["target"]: lo = mid
+            else: hi = mid
+        m = round((lo + hi) / 2, 3)
+        return {"mult": m, "check": round(avg_net(m), 4)}
 
     @staticmethod
     def view(ev):

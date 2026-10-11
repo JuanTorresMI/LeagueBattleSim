@@ -199,3 +199,16 @@ measure: Dusk and Dawn's spear, Gunblade at 18, Kraken's missing-health curve.
 - Simplifications: secondaries stay at full HP (BotRK uses their max health), take base
   resistances and no damage amplifiers.
 - spikes.json now records `champion`.
+
+## v5.5: real champion kits (roadmap step 9, part 3)
+- `data/wiki/enemy_kits.json`: Caitlyn, Ezreal, Lux and Nautilus from the wiki's ability data
+  (rank tables, ratios, cooldowns), real base stats from Data Dragon, ranks from a skill order,
+  and per-item stats copied from the matching class profile. Modeled: Piltover Peacemaker +
+  Headshot every 6th auto; Mystic Shot (with its 1.5 s refund) + Essence Flux; Light Binding +
+  Lucent Singularity + Illumination; Dredge Line (1 s stun) + Riptide + Staggering Blow.
+  Not modeled: ultimates, shields, slows, roots (Kalista can still attack), missed skillshots.
+- Use them anywhere a threat goes: `--threat Caitlyn,Nautilus`, `--lane-threat Caitlyn,Lux`
+  (`kalista build`, `optimize`, `run`, the page editor). Kits deal their real numbers
+  (uncalibrated) unless `--calibrate-kits` scales them to the same targets as the class
+  profiles (e.g. Caitlyn ×1.24, Nautilus ×2.51 for the duel target).
+- The class profiles and default results are unchanged.

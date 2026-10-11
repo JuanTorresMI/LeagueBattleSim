@@ -270,7 +270,7 @@ const f2 = x => Number(x).toFixed(2);
 const GOALS = Object.keys(R.goals);
 const COLORS = {kill:"var(--s1)", duel:"var(--s2)", practical:"var(--s3)", safe:"var(--s4)"};
 const TH = Object.keys(R.threats);
-const TH_SHORT = {marksman:"M", bruiser:"B", tank:"T", mage:"Mg"};
+const TH_SHORT = {marksman:"M", bruiser:"B", tank:"T", mage:"Mg", Caitlyn:"Cait", Ezreal:"Ez", Lux:"Lux", Nautilus:"Naut"};
 const NOTES = {
   kill: "Fastest kill against four dummies that don't fight back. This is the pure damage build.",
   duel: "Most HP left after one-on-one fights with each enemy. Guardian Angel's second life is included.",
@@ -288,7 +288,7 @@ function normalize(){
   R.ap.path.forEach(fix);
 }
 normalize();
-function pills(per){ return TH.map(t => `<span class="pill ${per[t].win?"w":"l"}" title="${esc(R.threats[t])}: ${pct(per[t].duel)}">${TH_SHORT[t]} ${per[t].win?"W":"L"}</span>`).join(""); }
+function pills(per){ return TH.map(t => `<span class="pill ${per[t].win?"w":"l"}" title="${esc(R.threats[t])}: ${pct(per[t].duel)}">${(TH_SHORT[t] || t.slice(0, 4))} ${per[t].win?"W":"L"}</span>`).join(""); }
 
 function renderGoals(){
   $("goals").innerHTML = GOALS.map(g => {
@@ -367,7 +367,7 @@ function renderSlots(){
   const sp = B.spikes[slot], pick = B.path[slot].item;
   $("owned").textContent = `Level ${sp.level} · you own ${sp.owned.join(", ")} · enemies have ${sp.enemy_items} item${sp.enemy_items>1?"s":""} · without a new item your duel score is ${pct(sp.base.duel)}.`;
   const rows = sp.ranking;
-  $("rank").innerHTML = `<thead><tr><th class="n">#</th><th>Item</th><th class="n">Duel</th><th class="n">Δ duel</th><th class="n">Kill</th><th class="n">Faster</th><th class="n">Alive</th><th class="n">Wins</th>${TH.map(t=>`<th class="n">${TH_SHORT[t]}</th>`).join("")}<th class="n">Cost</th></tr></thead><tbody>` +
+  $("rank").innerHTML = `<thead><tr><th class="n">#</th><th>Item</th><th class="n">Duel</th><th class="n">Δ duel</th><th class="n">Kill</th><th class="n">Faster</th><th class="n">Alive</th><th class="n">Wins</th>${TH.map(t=>`<th class="n">${(TH_SHORT[t] || t.slice(0, 4))}</th>`).join("")}<th class="n">Cost</th></tr></thead><tbody>` +
     rows.map(r => `<tr class="${r.item===pick?"pick":""}"><td class="n">${r.rank}</td><td class="${r.item==="Riftmaker"?"rift":""}">${esc(r.item)}</td><td class="n">${pct(r.duel)}</td><td class="n">${r.duel_gain>=0?"+":""}${r.duel_gain.toFixed(1)}</td><td class="n">${f2(r.kill)}s</td><td class="n">${r.faster_pct.toFixed(0)}%</td><td class="n">${f2(r.safe)}s</td><td class="n">${r.wins}/4</td>${TH.map(t=>`<td class="n ${r.per[t].win?"cw":"cl"}">${pct(r.per[t].duel)}</td>`).join("")}<td class="n">${r.cost}</td></tr>`).join("") + "</tbody>";
   renderScatter(sp, pick);
   renderFight();
@@ -452,13 +452,13 @@ function renderStatic(){
   $("apnote").textContent = `AP Kalista (${R.ap.page}, ${R.ap.boots}) wins duels but trails the no-GA build at every spike after the first. Riftmaker only ranks near the top when the goal is survival, because its value is health and omnivamp rather than damage.`;
   const c = R.calibration;
   $("calib").textContent = "Enemy damage is calibrated: each enemy's damage is multiplied by one fixed number (" +
-    TH.map(t => `${R.threats[t].toLowerCase()} ×${c[t].mult}`).join(", ") +
+    TH.map(t => c[t] ? `${R.threats[t].toLowerCase()} ×${c[t].mult}` : `${R.threats[t]} (real kit, uncalibrated)`).join(", ") +
     ") so a standard crit Kalista (Yun Tal → IE → LDR → Stormrazor → BotRK) narrowly wins on average. The multiplier never changes between spikes, so early and late power shifts still show.";
 }
 
 function renderLane(){
   const Ln = R.lane, LT = Object.keys(Ln.threats), P = Ln.lane_path;
-  const LS = {marksman:"ADC", mage:"Mage sup", tank:"Tank sup"};
+  const LS = {marksman:"ADC", mage:"Mage sup", tank:"Tank sup", Caitlyn:"Cait", Ezreal:"Ez", Lux:"Lux", Nautilus:"Naut"};
   const sgn = x => (x >= 0 ? "+" : "−") + Math.abs(x*100).toFixed(1) + "%";
   const cls = x => x > 0.005 ? "cw" : x < -0.005 ? "cl" : "";
   $("lanemeta").innerHTML = `<span class="chip">Runes <b>${esc(P.page)}</b></span><span class="chip">Items <b>${esc(P.items.join(" → "))}</b></span><span class="chip">Boots <b>${esc(P.boots)}</b> at item 2</span>`;
@@ -499,7 +499,7 @@ function renderLane(){
     `<tr class="pick"><td>Lane build</td><td>${esc(P.items.join(", "))}</td>${[3,4].map(i=>`<td class="n ${cls(P.stages[i].trade)}">${sgn(P.stages[i].trade)}</td><td class="n ${cls(P.stages[i].long)}">${sgn(P.stages[i].long)}</td>`).join("")}<td class="n">${Math.round(P.stages[4].pressure*100)}%</td></tr>` +
     Ln.goal_builds.map(g => `<tr><td>${esc(g.name)}</td><td>${esc(g.items.join(", "))}</td>${[3,4].map(i=>`<td class="n ${cls(g.stages[i].trade)}">${sgn(g.stages[i].trade)}</td><td class="n ${cls(g.stages[i].long)}">${sgn(g.stages[i].long)}</td>`).join("")}<td class="n">${Math.round(g.stages[4].pressure*100)}%</td></tr>`).join("") + "</tbody>";
   const c = Ln.calibration;
-  $("lanecal").textContent = "Lane enemies are calibrated separately from full fights: each one's damage is scaled (" + LT.map(t=>`${Ln.threats[t].toLowerCase()} ×${c[t].mult}`).join(", ") + ") so a standard Kalista (Doran's Blade, Press the Attack / Alacrity / Cut Down) trades exactly even across levels 2, 3 and 6. Each build uses its own runes and boots.";
+  $("lanecal").textContent = "Lane enemies are calibrated separately from full fights: each one's damage is scaled (" + LT.map(t=>c[t].check === null ? `${Ln.threats[t]} real kit, uncalibrated` : `${Ln.threats[t].toLowerCase()} ×${c[t].mult}`).join(", ") + ") so a standard Kalista (Doran's Blade, Press the Attack / Alacrity / Cut Down) trades exactly even across levels 2, 3 and 6. Each build uses its own runes and boots.";
 }
 
 // ---------------------------------------------------------------- build editor (Pyodide)
@@ -575,7 +575,8 @@ function runEditor(){
   $("edkiteout").textContent = Math.round($("edkite").value * 100) + "%";
   const args = {items, level: +$("edlevel").value, page: [$("edks").value, $("edlg").value, $("edcb").value].join(" / "),
     stacks: +$("edstacks").value, enemy_items: ne === "auto" ? null : +ne,
-    duel_mults: Object.fromEntries(TH.map(t => [t, R.calibration[t].mult])),
+    duel_mults: Object.fromEntries(Object.keys(R.calibration).map(t => [t, R.calibration[t].mult])),
+    threats: TH, lane_threats: R.lane.threats,
     lane_mults: Object.fromEntries(Object.keys(R.lane.calibration).map(t => [t, R.lane.calibration[t].mult])),
     kite: +$("edkite").value, champion: $("edch").value, soul_mark: $("edsoul").value === "1", secondary: +$("edsec").value};
   let r;

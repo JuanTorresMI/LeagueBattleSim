@@ -36,6 +36,7 @@ class Config:
     champion: str = "Kalista"                                         # whose builds are scored
     soul_mark: bool = FT.get("soul_mark", False)                      # Kalista's Oathsworn Soul-Mark (W)
     secondary_targets: int = 0                                        # multi-target damage (reported, not scored)
+    calibrate_kits: bool = False                                      # also calibrate real champion kits in use
     jobs: int = 1                                                     # worker processes
 
     def with_(self, **kw):

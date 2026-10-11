@@ -14,7 +14,7 @@ import argparse, json, os, sys, time
 
 from params import HERE
 from .config import Config
-from .enemies import THREATS, make_dummy
+from .enemies import THREATS, ALL_THREATS, KIT_THREATS, make_dummy
 from .fight import Opts, simulate
 from .runes import RunePage
 from .stats import ITEMS, PATCH, item_name, statline
@@ -34,7 +34,7 @@ ALIASES = {"ie": "3031", "yuntal": "3032", "yun": "3032", "ldr": "3036", "lord":
            "bloodletter": "8010", "berserker": "3006", "zerks": "3006", "steelcaps": "3047", "tabis": "3047",
            "mercs": "3111", "dblade": "1055", "dorans": "1055"}
 KNOWN = {**SPK.POOL, **SPK.BOOTS, SPK.DORANS: "Doran's Blade"}
-SHORT = {"marksman": "M", "bruiser": "B", "tank": "T", "mage": "Mg"}
+SHORT = {"marksman": "M", "bruiser": "B", "tank": "T", "mage": "Mg", "Caitlyn": "Cait", "Ezreal": "Ez", "Lux": "Lux", "Nautilus": "Naut"}
 
 
 def find_item(text):
@@ -50,14 +50,23 @@ def find_item(text):
 def floats(s): return tuple(float(x) for x in s.split(","))
 
 
+def threat_key(text):
+    """A class profile (marksman, bruiser, tank, mage) or a real kit (Caitlyn, Ezreal, Lux, Nautilus)."""
+    t = text.strip().lower()
+    for k in ALL_THREATS:
+        if k.lower() == t: return k
+    raise SystemExit(f"unknown enemy {text!r}; classes: {', '.join(THREATS)}; champions: {', '.join(KIT_THREATS)}")
+
+
 def add_scenario(p, lane=True):
     g = p.add_argument_group("scenario")
-    g.add_argument("--threat", help="full-fight enemies, comma list (marksman,bruiser,tank,mage)")
+    g.add_argument("--threat", help="full-fight enemies, comma list: classes marksman,bruiser,tank,mage "
+                                    "(calibrated) or real kits Caitlyn,Ezreal,Lux,Nautilus (uncalibrated)")
     g.add_argument("--kite", type=float, help="share of melee damage that lands while Kalista kites (default 0.65)")
     g.add_argument("--weights", help="spike weights, 5 numbers (default 0.30,0.25,0.20,0.15,0.10)")
     g.add_argument("--beam-width", type=int, help="beam search width (default 8)")
     if lane:
-        g.add_argument("--lane-threat", help="lane enemies, comma list (marksman,mage,tank)")
+        g.add_argument("--lane-threat", help="lane enemies, comma list (marksman,mage,tank or real kits, e.g. Caitlyn,Lux)")
         g.add_argument("--quick-windows", help="quick trade lengths in s (default 1.75,2,2.25)")
         g.add_argument("--long-windows", help="extended trade lengths in s (default 3.25,3.5,3.75)")
         g.add_argument("--lane-weights", help="quick,extended,pressure (default 0.6,0.4,0.25)")
@@ -65,6 +74,7 @@ def add_scenario(p, lane=True):
     g.add_argument("--champion", help="whose builds to score (default Kalista; kits: %s; others auto-attack only)" % ", ".join(KITS))
     g.add_argument("--soul-mark", action="store_true", help="Kalista's Oathsworn support keeps targets Soul-Marked (W)")
     g.add_argument("--secondary", type=int, help="other enemies in reach: report multi-target damage (build, multitarget)")
+    g.add_argument("--calibrate-kits", action="store_true", help="calibrate real champion kits like the class profiles")
     g.add_argument("--jobs", type=int, default=os.cpu_count() or 1, help="worker processes (default: all cores)")
 
 
@@ -72,23 +82,22 @@ def config_from(a):
     d = Config()
     kw = {"jobs": a.jobs, "kite_uptime": getattr(a, "kite", None), "beam_width": getattr(a, "beam_width", None),
           "gunblade_share": getattr(a, "gunblade_share", None), "soul_mark": True if getattr(a, "soul_mark", False) else None,
-          "secondary_targets": getattr(a, "secondary", None)}
+          "secondary_targets": getattr(a, "secondary", None),
+          "calibrate_kits": True if getattr(a, "calibrate_kits", False) else None}
     if getattr(a, "champion", None):
         from .stats import CHAMPS
         name = next((c for c in CHAMPS if c.lower() == a.champion.lower()), None)
         if not name: raise SystemExit(f"unknown champion {a.champion!r}")
         kw["champion"] = name
     if getattr(a, "threat", None):
-        kw["threats"] = tuple(t.strip() for t in a.threat.split(","))
-        bad = set(kw["threats"]) - set(THREATS)
-        if bad: raise SystemExit(f"unknown threat {bad}; choose from {list(THREATS)}")
+        kw["threats"] = tuple(threat_key(t) for t in a.threat.split(","))
     if getattr(a, "weights", None):
         w = floats(a.weights)
         if len(w) != len(d.slots): raise SystemExit(f"--weights needs {len(d.slots)} numbers")
         kw["weights"] = {s[0]: x for s, x in zip(d.slots, w)}
     if getattr(a, "lane_threat", None):
-        names = {k.strip(): d.lane_threats.get(k.strip(), THREATS[k.strip()].name) for k in a.lane_threat.split(",")}
-        kw["lane_threats"] = names
+        keys = [threat_key(k) for k in a.lane_threat.split(",")]
+        kw["lane_threats"] = {k: d.lane_threats.get(k, ALL_THREATS[k].name) for k in keys}
     for flag, field in (("quick_windows", "quick_windows"), ("long_windows", "long_windows")):
         if getattr(a, flag, None): kw[field] = floats(getattr(a, flag))
     if getattr(a, "lane_weights", None):
@@ -133,7 +142,7 @@ def cmd_optimize(a):
     pool = SPK.make_pool(cfg)
     try:
         r = SPK.Ranker(cfg, pool=pool)
-        mults = None if a.recalibrate else saved_mults("spikes.json")
+        mults = None if a.recalibrate or cfg.calibrate_kits else saved_mults("spikes.json")
         if mults: r.set_mults(mults)
         else: print("calibration", r.calibrate(), file=sys.stderr)
         page = None if a.runes == "auto" else RunePage.parse(a.runes)

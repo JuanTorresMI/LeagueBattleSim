@@ -25,7 +25,10 @@ def engine_files():
         files[os.path.relpath(p, HERE).replace(os.sep, "/")] = _read(os.path.relpath(p, HERE))
     keep = set(spikes.POOL) | set(spikes.BOOTS) | {spikes.DORANS} | set(ITEM)
     items = {i: {k: ITEMS[i][k] for k in ("name", "stats", "gold")} for i in sorted(keep) if i in ITEMS}
-    champs = {"Kalista"} | {d["champion"] for k, d in THREAT_CFG["dummies"].items() if not k.startswith("_")}
+    from params import KIT
+    from lolsim.kits import KITS
+    champs = ({"Kalista"} | set(KITS) | {v["name"] for v in KIT.values()}
+              | {d["champion"] for k, d in THREAT_CFG["dummies"].items() if not k.startswith("_")})
     files["data/item.json"] = json.dumps({"version": PATCH, "data": items}, separators=(",", ":"))
     files["data/champion.json"] = json.dumps({"version": PATCH, "data": {c: {"name": CHAMPS[c]["name"], "stats": CHAMPS[c]["stats"]}
                                                                          for c in sorted(champs)}}, separators=(",", ":"))

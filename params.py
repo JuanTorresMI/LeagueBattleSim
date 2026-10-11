@@ -26,6 +26,7 @@ ITEM, ITEM_INFO = wiki_table("items")
 RUNE, RUNE_INFO = wiki_table("runes")
 MECH, MECH_INFO = wiki_table("mechanics")
 CHAMP, CHAMP_INFO = wiki_table("champions")
+KIT, KIT_INFO = wiki_table("enemy_kits")
 
 THREAT_CFG = _read("config", "threats.json")
 SCORING = _read("config", "scoring.json")
@@ -35,6 +36,6 @@ CALIBRATION = _read("config", "calibration.json")
 def all_wiki_entries():
     """(file, key, entry) for every wiki value, for checks and reports."""
     for name, info in (("items", ITEM_INFO), ("runes", RUNE_INFO), ("mechanics", MECH_INFO),
-                       ("champions", CHAMP_INFO)):
+                       ("champions", CHAMP_INFO), ("enemy_kits", KIT_INFO)):
         for k, e in info.items():
             yield name, k, e

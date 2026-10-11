@@ -52,6 +52,11 @@ def test_embedded_engine_runs_standalone(html, tmp_path, spikes_json_mod, lane_j
             f"print(json.dumps(evaluate_build(**json.loads({json.dumps(json.dumps(args))}))))")
     out = subprocess.run([sys.executable, "-I", "-c", code], cwd=tmp_path, capture_output=True, text=True, check=True).stdout
     assert json.loads(out) == json.loads(json.dumps(evaluate_build(**args)))
+    args.update(champion="Vayne", threats=["marksman", "Caitlyn", "Nautilus"], lane_threats={"Lux": "Lux"}, secondary=2)
+    code = ("import sys, json; sys.path.insert(0, '.'); from lolsim.editor import evaluate_build; "
+            f"print(json.dumps(evaluate_build(**json.loads({json.dumps(json.dumps(args))}))))")
+    out = subprocess.run([sys.executable, "-I", "-c", code], cwd=tmp_path, capture_output=True, text=True, check=True).stdout
+    assert json.loads(out) == json.loads(json.dumps(evaluate_build(**args)))
 
 
 def test_editor_warnings():

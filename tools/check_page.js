@@ -1,6 +1,6 @@
 // Browser check of kalista_spikes.html: no script errors, no horizontal scroll at desktop
 // and phone width, and the build editor loads Pyodide and fills its tables.
-//   PLAYWRIGHT=/path/to/node_modules/playwright node tools/check_page.js
+//   PLAYWRIGHT=/path/to/node_modules/playwright node tools/check_page.js [page.html]
 // Needs network access to cdn.jsdelivr.net; writes editor.png and phone.png to the current folder.
 const { chromium } = require(process.env.PLAYWRIGHT || "playwright");
 (async () => {
@@ -12,7 +12,7 @@ const { chromium } = require(process.env.PLAYWRIGHT || "playwright");
     const errors = [];
     page.on("pageerror", e => errors.push(String(e)));
     page.on("console", m => { if (m.type() === "error") errors.push(m.text()); });
-    await page.goto("file://" + require("path").resolve(__dirname, "..", "kalista_spikes.html"));
+    await page.goto("file://" + require("path").resolve(process.argv[2] || require("path").join(__dirname, "..", "kalista_spikes.html")));
     await page.waitForTimeout(500);
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
     if (name === "desktop") {

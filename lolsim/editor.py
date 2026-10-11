@@ -14,13 +14,17 @@ from .stats import item_name, statline
 
 def evaluate_build(items, level, page="Press the Attack / Alacrity / Cut Down", stacks=10, enemy_items=None,
                    duel_mults=None, lane_mults=None, kite=None, cfg=None, champion=None, soul_mark=None,
-                   secondary=None):
+                   secondary=None, threats=None, lane_threats=None):
     """Stat line, kill time and duel per full-fight threat, trades and pressure per lane threat."""
-    cfg = (cfg or Config()).with_(kite_uptime=kite, champion=champion, soul_mark=soul_mark, secondary_targets=secondary)
+    cfg = (cfg or Config()).with_(kite_uptime=kite, champion=champion, soul_mark=soul_mark, secondary_targets=secondary,
+                                  threats=tuple(threats) if threats else None, lane_threats=dict(lane_threats) if lane_threats else None)
     ch = cfg.champion
     rp = RunePage.parse(page, stacks)
     ne = enemy_items if enemy_items is not None else sum(i not in BOOTS and i != DORANS for i in items)
+    from .enemies import KIT_THREATS
     r = Ranker(cfg, duel_mults)
+    if cfg.calibrate_kits:                                   # real kits scaled like the class profiles
+        r.set_mults({**r.mults, **{k: r.calibrate_one(k) for k in cfg.threats if k in KIT_THREATS}})
     opts = Opts(kite_uptime=cfg.kite_uptime, soul_mark=cfg.soul_mark)
     fights = {}
     for kind in cfg.threats:
@@ -34,6 +38,8 @@ def evaluate_build(items, level, page="Press the Attack / Alacrity / Cut Down", 
                         "taken_by": du["taken_by"], "healed_by": du["healed_by"], "dealt_by": du["dealt_by"],
                         "splash": one.get("splash"), "splash_by": one.get("splash_by")}
     la = LaneAnalysis(cfg, lane_mults)
+    if cfg.calibrate_kits:
+        la.set_mults({**la.mults, **{k: la.calibrate_kind(k) for k in la.kinds if k in KIT_THREATS}})
     lane = {}
     for kind in la.kinds:
         q = la.trade(items, level, kind, ne, rp)

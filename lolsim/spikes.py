@@ -15,7 +15,7 @@ from dataclasses import replace
 
 from params import SCORING
 from .config import Config
-from .enemies import THREATS, Dummy, make_dummy
+from .enemies import THREATS, ALL_THREATS, Dummy, make_dummy
 from .fight import Opts, simulate
 from .runes import RunePage, KEYSTONES, LEGENDS, COMBAT
 from .stats import PATCH, item_name, item_cost, statline
@@ -113,7 +113,7 @@ class Ranker:
 
     def set_mults(self, mults):
         self.mults = {k: (m["mult"] if isinstance(m, dict) else m) for k, m in mults.items()}
-        self.threats = {k: replace(THREATS[k], dmg_mult=self.mults.get(k, 1.0)) for k in THREATS}
+        self.threats = {k: replace(ALL_THREATS[k], dmg_mult=self.mults.get(k, 1.0)) for k in ALL_THREATS}
         self.cache.clear()
 
     # -------------------------------------------------------------- one inventory
@@ -293,7 +293,7 @@ class Ranker:
         rp = cal["reference_page"]
         page = RunePage(rp[0], rp[1], 10, rp[2])
         path, boots = tuple(cal["reference_items"]), cal["reference_boots"]
-        base = THREATS[kind]
+        base = ALL_THREATS[kind]
 
         def score(m):
             th = replace(base, dmg_mult=m)
@@ -315,7 +315,7 @@ class Ranker:
         return {"mult": m, "ref_score": round(score(m), 3)}
 
     def calibrate(self):
-        kinds = list(THREATS)
+        kinds = list(THREATS) + ([k for k in self.cfg.threats if k not in THREATS] if self.cfg.calibrate_kits else [])
         res = self.pool.map(_worker_calibrate, kinds) if self.pool else [self.calibrate_one(k) for k in kinds]
         out = dict(zip(kinds, res))
         self.set_mults(out)
@@ -336,7 +336,7 @@ class Ranker:
         ap = self.optimize("practical", AP_ONHIT_POOL)
         log("AP duel", ap["page"].label(), [item_name(i) for i in ap["path"]])
         report = {"patch": PATCH, "champion": cfg.champion, "goals": GOALS,
-                  "threats": {k: THREATS[k].name for k in cfg.threats},
+                  "threats": {k: ALL_THREATS[k].name for k in cfg.threats},
                   "calibration": calib, "builds": {}, "cross": self.cross_table(results),
                   "early_runes": self.early_runes()}
         if cfg.changed(): report["config"] = {k: (list(v) if isinstance(v, tuple) else v) for k, v in cfg.changed().items()}
