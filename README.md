@@ -121,3 +121,12 @@ gold timing beyond the fixed spike levels. (Survivability is covered by the v3 d
 - `tests/reference/engine_v3.py` is a frozen copy of the old simulator;
   `tests/test_equivalence.py` checks 1,000 random fights match it exactly. The full
   pipeline also reproduces the JSON outputs exactly.
+
+## v4.4: data updates (roadmap step 5)
+- `python3 -m lolsim.datasync` reports, `--apply` writes: latest Data Dragon version
+  (GitHub mirror fallback when Riot's CDN is blocked), champion/item/Kalista files, AD growth
+  for every champion from the wiki's Module:ChampionData, warnings when a model item's
+  description, stats or cost changes, base stats where Data Dragon and the wiki disagree,
+  and data/wiki entries last checked on an older patch. Writes `data/update_report.md`.
+- Applied for 16.20.1: Data Dragon files unchanged; AD growth now covers all 173 champions
+  (Kalista, Jinx and Caitlyn unchanged). Known disagreements: Jhin AS growth, Kled HP (mount).
