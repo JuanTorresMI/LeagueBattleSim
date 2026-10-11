@@ -92,6 +92,7 @@ class Fight:
         self.h_on_hit, self.h_bonus, self.h_rune, self.h_after = H["on_hit"], H["on_attack_bonus"], H["on_rune"], H["after_attack"]
         self.h_taken_mult, self.h_take, self.h_low, self.h_lethal = H["attack_taken_mult"], H["on_take_damage"], H["on_low_hp"], H["on_lethal"]
         self.h_overheal, self.h_start = H["on_overheal"], H["on_fight_start"]
+        self.h_switch = H["on_target_switch"]
         self.dyn = H["dyn_stats"][0] if H["dyn_stats"] else None
         # damage reduction is fixed for the fight unless an effect shreds or penetrates over time
         self.phys_mult = None if self.h_armor_red or self.h_armor_pen else self._mitig("physical")
@@ -180,11 +181,11 @@ class Fight:
             for hk in self.h_overheal: hk(src, over)
 
     # ---------------------------------------------------------------- taking damage
-    def take(self, src, raw, kind, is_attack=False):
-        """Enemy damage to Kalista."""
-        kal, e = self.kal, self.enemy
+    def take(self, src, raw, kind, is_attack=False, attacker=None):
+        """Enemy damage to Kalista (`attacker`: the Enemy dealing it; default the duel's)."""
+        kal, e = self.kal, attacker or self.enemy
         if kal.dead_at is not None or self.t < kal.revive_until: return
-        raw *= self.threat.dmg_mult
+        raw *= e.threat.dmg_mult
         if kind == "physical":
             dmg = raw * resist_mult(eff_resist(self.st.armor, 0, e.apen, 0))
             if is_attack:
@@ -221,7 +222,7 @@ class Fight:
         """Run enemy actions (and Death's Dance bleed) up to `until`."""
         if not self.duel: return
         saved = self.t
-        self.enemy.run_until(self, until)
+        self.run_enemies(until)
         kal = self.kal
         if kal.dead_at is None and kal.dd:                 # stored damage bleeds as true damage
             bleed = self.effects_dd_duration
@@ -237,6 +238,17 @@ class Fight:
         self.t = saved
 
     effects_dd_duration = None   # set below from data
+
+    def run_enemies(self, until):
+        self.enemy.run_until(self, until)
+
+    def switch_target(self, dummy, hp):
+        """Kalista moves to a new target (team fights): per-target effects reset."""
+        self.dummy, self.hp = dummy, hp
+        for h in self.h_switch: h()
+        self.kit.on_target_switch()
+        if self.phys_mult is not None: self.phys_mult = self._mitig("physical")
+        if self.magic_mult is not None: self.magic_mult = self._mitig("magic")
 
     def tick(self, now):
         """Advance enemy actions and timed effects to `now`."""

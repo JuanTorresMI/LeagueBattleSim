@@ -46,7 +46,17 @@ def evaluate_build(items, level, page="Press the Attack / Alacrity / Cut Down", 
         l = la.trade(items, level, kind, ne, rp, windows=cfg.long_windows)
         lane[kind] = {"quick": round(q["net"], 4), "long": round(l["net"], 4),
                       "pressure": round(la.pressure(items, level, kind, ne, rp), 3)}
-    return {"champion": ch, "soul_mark": cfg.soul_mark, "secondary": cfg.secondary_targets, "items": [item_name(i) for i in items], "warnings": warnings(items), "level": level, "page": rp.label(), "stacks": stacks,
+    from .teamfight import teamfight, SCENARIOS, TF
+    team = {}
+    tm_mults = {**{k: 1.0 for k in r.mults}, **r.mults}
+    for sc in SCENARIOS:
+        rs = [teamfight(items, level, rp, sc, ne, tm_mults, kite=cfg.kite_uptime, targeting=tg,
+                        opts=opts, champ=ch) for tg in TF["kalista_targeting"]]
+        team[sc] = {"label": SCENARIOS[sc]["label"], "score": round(sum(x["score"] for x in rs) / len(rs), 3),
+                    "share": round(sum(x["kalista"]["share"] for x in rs) / len(rs), 3),
+                    "alive": sum(x["kalista"]["alive"] for x in rs) / len(rs),
+                    "kills": sum(x["kalista"]["kills"] for x in rs) / len(rs)}
+    return {"champion": ch, "soul_mark": cfg.soul_mark, "secondary": cfg.secondary_targets, "team": team, "items": [item_name(i) for i in items], "warnings": warnings(items), "level": level, "page": rp.label(), "stacks": stacks,
             "enemy_items": ne, "calibrated": bool(duel_mults), "stats": statline(ch, level, items, rp),
             "fights": fights, "lane": lane}
 

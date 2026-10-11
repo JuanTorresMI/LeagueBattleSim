@@ -3,6 +3,8 @@
   kalista run                         whole pipeline -> spikes.json, lane.json, kalista_spikes.html
   kalista optimize --goal practical   one goal's best build (beam search + rune search)
   kalista build IE BotRK LDR --level 13          one build: stats, kill times, duels, trades
+  kalista teamfight IE BotRK runaans --level 13  one build in 2v2, 3v3 and 5v5 fights
+  kalista optimize --goal carry       best build for skirmishes and team fights together
   kalista items                       item ids, names and nicknames the tool understands
   kalista update-data [--apply]       refresh Data Dragon files and AD growth
 
@@ -217,6 +219,33 @@ def cmd_multitarget(a):
     if not rows: print("  no item in the pool adds multi-target damage here")
 
 
+def cmd_teamfight(a):
+    """Play a build through the team fight scenarios."""
+    from .teamfight import teamfight, SCENARIOS, TF
+    cfg = config_from(a)
+    items = [find_item(x) for x in a.items]
+    page = RunePage.parse(a.runes, a.stacks)
+    ne = a.enemy_items if a.enemy_items is not None else sum(i not in SPK.BOOTS and i != SPK.DORANS for i in items)
+    mults = {k: v["mult"] for k, v in (saved_mults("spikes.json") or {}).items()}
+    scens = [a.scenario] if a.scenario else list(SCENARIOS)
+    tgs = [a.targeting] if a.targeting else list(TF["kalista_targeting"])
+    print(f"{cfg.champion} level {a.level}: {', '.join(item_name(i) for i in items) or 'no items'} · {page.label()} · "
+          f"everyone else owns {ne} items (supports {TF['support_item_factor']:g}x)")
+    print(f"{'fight':6s} {'Kalista hits':12s} {'result':22s} {'Kalista dealt':>13s} {'share':>6s} {'kills':>5s}  survived")
+    for sc in scens:
+        for tg in tgs:
+            r = teamfight(items, a.level, page, sc, ne, mults, kite=cfg.kite_uptime, targeting=tg,
+                          opts=Opts(kite_uptime=cfg.kite_uptime, soul_mark=cfg.soul_mark), champ=cfg.champion)
+            k = r["kalista"]
+            res = (f"won, team on {r['ally_hp'] * 100:.0f}%" if r["win"] else
+                   f"lost, enemies on {r['enemy_hp'] * 100:.0f}%" if r["score"] < 0 and not r["win"] else f"even ({r['score']:+.2f})")
+            surv = "yes" if k["alive"] else f"died at {k['died_at']:.1f}s"
+            print(f"{sc:6s} {tg + ' first':12s} {res:22s} {k['dealt']:13d} {k['share'] * 100:5.0f}% {k['kills']:5d}  {surv}")
+            if a.scenario and (a.targeting or len(tgs) == 1 or a.log):
+                for t, e in r["events"]: print(f"         {t:5.1f}s  {e}")
+    if not mults: print("(no spikes.json yet: units are uncalibrated; run `kalista run` first)")
+
+
 def cmd_items(a):
     rev = {}
     for k, v in ALIASES.items(): rev.setdefault(v, []).append(k)
@@ -261,6 +290,16 @@ def main(argv=None):
     p.add_argument("--enemy-items", type=int)
     p.add_argument("--top", type=int, default=10)
     add_scenario(p, lane=False); p.set_defaults(fn=cmd_multitarget)
+    p = sub.add_parser("teamfight", help="play a build through 2v2, 3v3 and 5v5 fights")
+    p.add_argument("items", nargs="*")
+    p.add_argument("--level", type=int, default=13)
+    p.add_argument("--runes", default="Press the Attack / Alacrity / Cut Down")
+    p.add_argument("--stacks", type=int, default=10)
+    p.add_argument("--enemy-items", type=int)
+    p.add_argument("--scenario", choices=["2v2", "3v3", "5v5"], help="one fight (prints its timeline)")
+    p.add_argument("--targeting", choices=["front", "back"], help="who Kalista hits first")
+    p.add_argument("--log", action="store_true", help="print each fight's timeline")
+    add_scenario(p, lane=False); p.set_defaults(fn=cmd_teamfight)
     p = sub.add_parser("items", help="items the tool understands"); p.set_defaults(fn=cmd_items)
     p = sub.add_parser("update-data", help="refresh Data Dragon files and AD growth")
     p.add_argument("--apply", action="store_true"); p.add_argument("--version")

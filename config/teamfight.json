@@ -1,0 +1,153 @@
+{
+ "_meta": {
+  "about": "Team fight scenarios (model choices). Teams mirror each other except that Kalista replaces the enemy marksman, so with Kalista swapped for a marksman profile every fight is even: the score measures what Kalista's build adds. Units use the class profiles (calibrated multipliers) or real kits. Supports own fewer items.",
+  "score": "Like the duel score: your team's average HP left if it wins (+0.40 = won on 40%), minus the enemy team's average HP left if it loses. Each scenario is averaged over Kalista hitting the frontline first and the backline first."
+ },
+ "roles": {
+  "marksman": "carry",
+  "bruiser": "bruiser",
+  "tank": "tank",
+  "mage": "mage",
+  "Caitlyn": "carry",
+  "Ezreal": "carry",
+  "Lux": "mage",
+  "Nautilus": "tank"
+ },
+ "targets": {
+  "_note": "Who each role hits first; 'carry' includes Kalista. Tanks, carries and mages hit what is in front; bruisers are the divers that go for the carries.",
+  "tank": [
+   "tank",
+   "bruiser",
+   "carry",
+   "mage"
+  ],
+  "bruiser": [
+   "carry",
+   "mage",
+   "bruiser",
+   "tank"
+  ],
+  "carry": [
+   "tank",
+   "bruiser",
+   "carry",
+   "mage"
+  ],
+  "mage": [
+   "tank",
+   "bruiser",
+   "carry",
+   "mage"
+  ]
+ },
+ "kalista_targeting": {
+  "front": [
+   "tank",
+   "bruiser",
+   "carry",
+   "mage"
+  ],
+  "back": [
+   "carry",
+   "mage",
+   "bruiser",
+   "tank"
+  ]
+ },
+ "support_item_factor": 0.5,
+ "max_time": 40.0,
+ "scenarios": {
+  "2v2": {
+   "label": "2v2 bot lane",
+   "allies": [
+    {
+     "key": "tank",
+     "support": true
+    }
+   ],
+   "enemies": [
+    {
+     "key": "marksman"
+    },
+    {
+     "key": "tank",
+     "support": true
+    }
+   ]
+  },
+  "3v3": {
+   "label": "3v3 with junglers",
+   "allies": [
+    {
+     "key": "tank",
+     "support": true
+    },
+    {
+     "key": "bruiser"
+    }
+   ],
+   "enemies": [
+    {
+     "key": "marksman"
+    },
+    {
+     "key": "tank",
+     "support": true
+    },
+    {
+     "key": "bruiser"
+    }
+   ]
+  },
+  "5v5": {
+   "label": "5v5 teamfight",
+   "allies": [
+    {
+     "key": "tank",
+     "support": true
+    },
+    {
+     "key": "bruiser"
+    },
+    {
+     "key": "tank"
+    },
+    {
+     "key": "mage"
+    }
+   ],
+   "enemies": [
+    {
+     "key": "marksman"
+    },
+    {
+     "key": "tank",
+     "support": true
+    },
+    {
+     "key": "bruiser"
+    },
+    {
+     "key": "tank"
+    },
+    {
+     "key": "mage"
+    }
+   ]
+  }
+ },
+ "carry_weights": {
+  "duel": 0.2,
+  "2v2": 0.3,
+  "3v3": 0.3,
+  "5v5": 0.2
+ },
+ "carry_note": "The 'carry' goal: single-target strength in skirmishes (1v1 duel, 2v2, 3v3) without giving up teamfights (5v5). Ask before changing these weights; they are the user's stated priorities.",
+ "engage_delay": {
+  "_note": "Seconds before each role first acts: frontline engages, mages poke from range, divers need time to reach the backline.",
+  "tank": 0.0,
+  "bruiser": 1.5,
+  "carry": 0.0,
+  "mage": 0.75
+ }
+}

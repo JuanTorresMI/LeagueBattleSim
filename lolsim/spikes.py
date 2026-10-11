@@ -49,9 +49,10 @@ EXCLUSIVE = [{"3036", "3033", "6694"},             # Last Whisper
              {"3135", "3137"},                     # Blight
              {"6673", "3156"}]                     # Lifeline
 GOALS = {"kill": "Fastest kill", "duel": "Best duelist", "practical": "Best duelist, no GA",
-         "safe": "Hardest to kill"}
+         "safe": "Hardest to kill", "carry": "Solo queue carry"}
+TEAM_GOALS = {"carry"}            # goals scored with team fights (config/teamfight.json)
 NO_GA_POOL = {k: v for k, v in POOL.items() if k != "3026"}
-GOAL_POOL = {"kill": POOL, "duel": POOL, "practical": NO_GA_POOL, "safe": POOL}
+GOAL_POOL = {"kill": POOL, "duel": POOL, "practical": NO_GA_POOL, "safe": POOL, "carry": NO_GA_POOL}
 ALL_PAGES = [RunePage(ks, lg, 10, cb) for ks in KEYSTONES for lg in LEGENDS for cb in COMBAT]
 START_PAGE = RunePage("Press the Attack", "Alacrity", 10, "Cut Down")
 
@@ -76,6 +77,7 @@ def cost(goal, ev):
     """Lower is better for every goal."""
     if goal == "kill": return ev["kill"]
     if goal in ("duel", "practical"): return -ev["duel"]
+    if goal == "carry": return -ev["carry"]
     return -ev["safe"]
 
 
@@ -92,12 +94,12 @@ def _worker_init(cfg):
 
 
 def _worker_eval(task):
-    mults, args = task
+    mults, args, team = task
     key = tuple(sorted(mults.items()))
     r = _WORKER.get(key)
     if r is None:
         r = _WORKER[key] = Ranker(_WORKER["cfg"], mults)
-    return r.evaluate(*args)
+    return r.evaluate(*args, team=team)
 
 
 def _worker_calibrate(kind):
@@ -108,20 +110,30 @@ class Ranker:
     def __init__(self, cfg=None, mults=None, pool=None):
         self.cfg = cfg or Config()
         self.pool = pool
-        self.cache = {}
+        self.cache, self.team_cache = {}, {}
         self.set_mults(mults or {k: 1.0 for k in THREATS})
 
     def set_mults(self, mults):
         self.mults = {k: (m["mult"] if isinstance(m, dict) else m) for k, m in mults.items()}
         self.threats = {k: replace(ALL_THREATS[k], dmg_mult=self.mults.get(k, 1.0)) for k in ALL_THREATS}
-        self.cache.clear()
+        self.cache.clear(); self.team_cache = {}
 
     # -------------------------------------------------------------- one inventory
     def _key(self, path, boots, level, ne, page, uptime):
         return (tuple(sorted(path)), path[-1] if path else None, boots, level, ne, page.label(), uptime)
 
-    def evaluate(self, path, boots, level, ne, page, uptime=None):
-        """All metrics for one inventory at one spike."""
+    def evaluate(self, path, boots, level, ne, page, uptime=None, team=False):
+        """All metrics for one inventory at one spike (with team=True also 2v2/3v3/5v5 and
+        the blended carry score)."""
+        if team:
+            base = self.evaluate(path, boots, level, ne, page, uptime)
+            key = self._key(path, boots, level, ne, page, self.cfg.kite_uptime if uptime is None else uptime)
+            tm = self.team_cache.get(key)
+            if tm is None:
+                tm = self.team_cache[key] = self.team_metrics(path, boots, level, ne, page)
+            w = self.cfg.carry_weights
+            carry = w["duel"] * base["duel"] + sum(w[s] * tm[s] for s in tm["scenarios"])
+            return {**base, **tm, "carry": carry}
         cfg = self.cfg
         uptime = cfg.kite_uptime if uptime is None else uptime
         key = self._key(path, boots, level, ne, page, uptime)
@@ -132,6 +144,27 @@ class Ranker:
         out = self.evaluate_inventory(inv, level, ne, rp, opts)
         self.cache[key] = out
         return out
+
+    def team_metrics(self, path, boots, level, ne, page):
+        """Team fight scores for one inventory: each scenario averaged over Kalista hitting
+        the frontline first and the backline first."""
+        from .teamfight import teamfight, TF
+        cfg = self.cfg
+        inv = inventory(path, boots)
+        rp = page.at(cfg.legend[len(path)])
+        opts = Opts(yuntal_prestacked=not (path and path[-1] == "3032"), kite_uptime=cfg.kite_uptime, soul_mark=cfg.soul_mark)
+        out, share, alive = {"scenarios": list(cfg.team_scenarios)}, {}, {}
+        for sc in cfg.team_scenarios:
+            rs = [teamfight(inv, level, rp, sc, ne, self.mults, opts=opts, targeting=tg, champ=cfg.champion)
+                  for tg in TF["kalista_targeting"]]
+            out[sc] = sum(r["score"] for r in rs) / len(rs)
+            share[sc] = round(sum(r["kalista"]["share"] for r in rs) / len(rs), 3)
+            alive[sc] = sum(r["kalista"]["alive"] for r in rs) / len(rs)
+        out["share"], out["alive"] = share, alive
+        return out
+
+    def _ev(self, goal, *args, **kw):
+        return self.evaluate(*args, team=goal in TEAM_GOALS, **kw)
 
     def evaluate_inventory(self, inv, level, ne, rp, opts):
         """Metrics for an explicit inventory (any items, components included) at a level
@@ -157,19 +190,26 @@ class Ranker:
                "wins": sum(v["win"] for v in per.values())}
         return out
 
-    def prefetch(self, calls):
+    def prefetch(self, calls, team=False):
         """Evaluate many (path, boots, level, ne, page[, uptime]) in worker processes."""
         if not self.pool: return
         todo, seen = [], set()
+        cache = self.team_cache if team else self.cache
         for c in calls:
             args = tuple(c) + ((None,) if len(c) == 5 else ())
             key = self._key(*args[:5], self.cfg.kite_uptime if args[5] is None else args[5])
-            if key in self.cache or key in seen: continue
+            if (key in cache and key in self.cache) or key in seen: continue
             seen.add(key); todo.append((key, args))
         if len(todo) < 8:
             return
-        res = self.pool.map(_worker_eval, [(self.mults, a) for _, a in todo], chunksize=max(1, len(todo) // (8 * self.cfg.jobs)))
-        for (key, _), r in zip(todo, res): self.cache[key] = r
+        res = self.pool.map(_worker_eval, [(self.mults, a, team) for _, a in todo], chunksize=max(1, len(todo) // (8 * self.cfg.jobs)))
+        tm_keys = ("scenarios", "share", "alive") + tuple(self.cfg.team_scenarios)
+        for (key, _), r in zip(todo, res):
+            if team:
+                self.team_cache[key] = {k: r[k] for k in tm_keys}
+                self.cache[key] = {k: r[k] for k in ("per", "kill", "duel", "safe", "wins")}
+            else:
+                self.cache[key] = r
 
     # -------------------------------------------------------------- search
     def beam(self, goal, page, pool, width=None, start=(), boots_fixed=None):
@@ -187,11 +227,11 @@ class Ranker:
                     for b in boot_opts:
                         calls.append((path + (c,), b, lvl, ne, page))
                         cands.append((path, boots, score, hist, c, b))
-            self.prefetch(calls)
+            self.prefetch(calls, team=goal in TEAM_GOALS)
             nxt = {}
             for path, boots, score, hist, c, b in cands:
                 p = path + (c,)
-                ev = self.evaluate(p, b, lvl, ne, page)
+                ev = self._ev(goal, p, b, lvl, ne, page)
                 cand = (p, b, score + cfg.weights[slot] * cost(goal, ev), hist + [ev])
                 key = (tuple(sorted(p)), b)
                 if key not in nxt or cand[2] < nxt[key][2]: nxt[key] = cand
@@ -200,10 +240,10 @@ class Ranker:
 
     def page_scores(self, goal, path, boots, pages=ALL_PAGES):
         cfg = self.cfg
-        self.prefetch([(path[:s], boots, l, ne, pg) for pg in pages for s, l, ne in cfg.slots])
+        self.prefetch([(path[:s], boots, l, ne, pg) for pg in pages for s, l, ne in cfg.slots], team=goal in TEAM_GOALS)
         rows = []
         for pg in pages:
-            tot = sum(cfg.weights[s] * cost(goal, self.evaluate(path[:s], boots, l, ne, pg)) for s, l, ne in cfg.slots)
+            tot = sum(cfg.weights[s] * cost(goal, self._ev(goal, path[:s], boots, l, ne, pg)) for s, l, ne in cfg.slots)
             rows.append((tot, pg))
         rows.sort(key=lambda x: x[0])
         return rows
@@ -233,26 +273,32 @@ class Ranker:
     # -------------------------------------------------------------- reports
     @staticmethod
     def metric_view(ev):
-        return {"kill": round(ev["kill"], 3), "duel": round(ev["duel"], 3),
-                "safe": round(ev["safe"], 2), "wins": ev["wins"],
-                "per": {k: {x: v[x] for x in ("ttk", "duel", "td", "win", "tk", "margin")}
-                        for k, v in ev["per"].items()}}
+        out = {"kill": round(ev["kill"], 3), "duel": round(ev["duel"], 3),
+               "safe": round(ev["safe"], 2), "wins": ev["wins"],
+               "per": {k: {x: v[x] for x in ("ttk", "duel", "td", "win", "tk", "margin")}
+                       for k, v in ev["per"].items()}}
+        if "carry" in ev:
+            out["carry"] = round(ev["carry"], 3)
+            out["team"] = {s: round(ev[s], 3) for s in ev["scenarios"]}
+            out["share"], out["alive"] = ev["share"], ev["alive"]
+        return out
 
     def rank_slot(self, goal, res, slot, lvl, ne, pool):
         prefix, boots, page = res["path"][:slot - 1], res["boots"], res["page"]
         cands = [c for c in pool if c not in prefix and legal(prefix + (c,))]
+        team = goal in TEAM_GOALS
         self.prefetch([(prefix, boots if slot > 2 else None, lvl, ne, page)] +
-                      [(prefix + (c,), boots, lvl, ne, page) for c in cands])
-        base = self.evaluate(prefix, boots if slot > 2 else None, lvl, ne, page)
+                      [(prefix + (c,), boots, lvl, ne, page) for c in cands], team=team)
+        base = self._ev(goal, prefix, boots if slot > 2 else None, lvl, ne, page)
         rows = []
         for c in cands:
-            ev = self.evaluate(prefix + (c,), boots, lvl, ne, page)
+            ev = self._ev(goal, prefix + (c,), boots, lvl, ne, page)
             rows.append({"item": item_name(c), "id": c, "cost": item_cost(c),
                          "faster_pct": round((base["kill"] / ev["kill"] - 1) * 100, 1),
                          "duel_gain": round((ev["duel"] - base["duel"]) * 100, 1),
                          "safer_pct": round((ev["safe"] / base["safe"] - 1) * 100, 1),
                          **self.metric_view(ev)})
-        rows.sort(key=lambda r: cost(goal, {"kill": r["kill"], "duel": r["duel"], "safe": r["safe"]}))
+        rows.sort(key=lambda r: cost(goal, {"kill": r["kill"], "duel": r["duel"], "safe": r["safe"], "carry": r.get("carry")}))
         for i, r in enumerate(rows, 1): r["rank"] = i
         return {"slot": slot, "level": lvl, "enemy_items": ne,
                 "owned": [item_name(i) for i in inventory(prefix, boots if slot > 2 else None)],
@@ -282,9 +328,20 @@ class Ranker:
     def cross_table(self, results):
         """Each goal's final path scored on every goal (at every spike)."""
         return {g: [{"slot": s, **{m: round(self.evaluate(res["path"][:s], res["boots"], l, ne, res["page"])[m], 3)
-                                  for m in ("kill", "duel", "safe")}}
+                                  for m in ("kill", "duel", "safe")},
+                     "carry": round(self.evaluate(res["path"][:s], res["boots"], l, ne, res["page"], team=True)["carry"], 3)}
                     for s, l, ne in self.cfg.slots]
                 for g, res in results.items()}
+
+    def team_view(self, res):
+        """Team fight results of a goal's path at every spike."""
+        self.prefetch([(res["path"][:s], res["boots"], l, ne, res["page"]) for s, l, ne in self.cfg.slots], team=True)
+        out = []
+        for (s, l, ne) in self.cfg.slots:
+            ev = self.evaluate(res["path"][:s], res["boots"], l, ne, res["page"], team=True)
+            out.append({"slot": s, "level": l, "carry": round(ev["carry"], 3), "duel": round(ev["duel"], 3),
+                        **{sc: round(ev[sc], 3) for sc in ev["scenarios"]}, "share": ev["share"], "alive": ev["alive"]})
+        return out
 
     def early_runes(self):
         self.prefetch([((), None, lvl, 0, pg) for lvl in self.cfg.early_rune_levels for pg in ALL_PAGES])
@@ -345,9 +402,12 @@ class Ranker:
                 f"{[item_name(i) for i in r['path']]}  ({time.time()-t0:.0f}s)")
         ap = self.optimize("practical", AP_ONHIT_POOL)
         log("AP duel", ap["page"].label(), [item_name(i) for i in ap["path"]])
+        from .teamfight import SCENARIOS as SCEN
         report = {"patch": PATCH, "champion": cfg.champion, "goals": GOALS,
                   "threats": {k: ALL_THREATS[k].name for k in cfg.threats},
                   "calibration": calib, "builds": {}, "cross": self.cross_table(results),
+                  "team_scenarios": {s: SCEN[s]["label"] for s in cfg.team_scenarios},
+                  "carry_weights": dict(cfg.carry_weights),
                   "early_runes": self.early_runes()}
         if cfg.changed(): report["config"] = {k: (list(v) if isinstance(v, tuple) else v) for k, v in cfg.changed().items()}
         for g, res in results.items():
@@ -357,6 +417,7 @@ class Ranker:
                 "pages": [{"page": pg.label(), "score": round(s, 4)} for s, pg in res["pages"]],
                 "spikes": [self.rank_slot(g, res, s, l, ne, GOAL_POOL[g]) for s, l, ne in cfg.slots],
                 "kite": self.kite_sensitivity(res),
+                "team": self.team_view(res),
                 "statlines": [statline(cfg.champion, l, inventory(res["path"][:s], res["boots"]),
                                        res["page"].at(cfg.legend[s])) for s, l, _ in cfg.slots],
             }

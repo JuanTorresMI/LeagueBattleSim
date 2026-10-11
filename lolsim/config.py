@@ -8,6 +8,10 @@ from dataclasses import dataclass, field, replace
 from params import SCORING, CALIBRATION, THREAT_CFG
 
 SP, LN, FT = SCORING["spikes"], SCORING["lane"], SCORING["fight"]
+import json as _json, os as _os
+from params import HERE as _HERE
+with open(_os.path.join(_HERE, "config", "teamfight.json"), encoding="utf-8") as _f:
+    _TF = _json.load(_f)
 
 
 @dataclass
@@ -37,6 +41,8 @@ class Config:
     soul_mark: bool = FT.get("soul_mark", False)                      # Kalista's Oathsworn Soul-Mark (W)
     secondary_targets: int = 0                                        # multi-target damage (reported, not scored)
     calibrate_kits: bool = False                                      # also calibrate real champion kits in use
+    team_scenarios: tuple = tuple(_TF["scenarios"])                   # team fights for the carry goal
+    carry_weights: dict = field(default_factory=lambda: dict(_TF["carry_weights"]))
     jobs: int = 1                                                     # worker processes
 
     def with_(self, **kw):

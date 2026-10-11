@@ -7,7 +7,7 @@
   --bg:#eef1f3; --panel:#ffffff; --ink:#15232e; --muted:#5b6b77; --line:#d5dde2; --grid:#e3e8eb;
   --spirit:#0d7a73; --spirit-soft:#d8eeeb; --gold:#a8730d;
   --win:#1f8a63; --win-soft:#d9efe5; --loss:#c0413f; --loss-soft:#f6dedd;
-  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#eda100;
+  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#eda100; --s5:#9b51e0;
   --f-display:"Barlow Condensed","Arial Narrow",sans-serif;
   --f-body:"IBM Plex Sans",system-ui,-apple-system,sans-serif;
   --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
@@ -16,12 +16,12 @@
   --bg:#0f1820; --panel:#16222c; --ink:#e3ebef; --muted:#93a4af; --line:#2a3a46; --grid:#22303b;
   --spirit:#4fc7b9; --spirit-soft:#173a3a; --gold:#e0ad4a;
   --win:#4cc28f; --win-soft:#173a2c; --loss:#e66767; --loss-soft:#3e2224;
-  --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; color-scheme:dark}}
+  --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; --s5:#b07ce8; color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#0f1820; --panel:#16222c; --ink:#e3ebef; --muted:#93a4af; --line:#2a3a46; --grid:#22303b;
   --spirit:#4fc7b9; --spirit-soft:#173a3a; --gold:#e0ad4a;
   --win:#4cc28f; --win-soft:#173a2c; --loss:#e66767; --loss-soft:#3e2224;
-  --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; color-scheme:dark}
+  --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; --s5:#b07ce8; color-scheme:dark}
 body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.5}
 .wrap{max-width:920px;margin:0 auto;padding-inline:16px;padding-block:28px 56px;display:flex;flex-direction:column;gap:34px}
 h1,h2,h3{font-family:var(--f-display);font-weight:600;letter-spacing:.01em;text-wrap:balance;margin:0}
@@ -36,7 +36,7 @@ p{margin:0;max-width:68ch}
 section,header{display:flex;flex-direction:column;gap:12px}
 
 /* goal switcher */
-.goals{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.goals{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px}
 @media (max-width:720px){.goals{grid-template-columns:1fr 1fr}}
 .goal{all:unset;box-sizing:border-box;cursor:pointer;background:var(--panel);border:1px solid var(--line);padding:10px 12px;display:flex;flex-direction:column;gap:4px;min-width:0}
 .goal:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
@@ -169,6 +169,13 @@ ul.plain{margin:0;padding-left:1.1rem;display:flex;flex-direction:column;gap:5px
   <p class="note">Same build as above. Each cell is the duel score against that enemy at that spike.</p>
 </section>
 
+<section id="teamsec">
+  <h2>Team fights</h2>
+  <p class="lede">The same build in skirmishes and teamfights. Both teams mirror each other except that Kalista replaces the enemy marksman, so with a plain marksman in her place every fight is exactly even: the score is what her build adds.</p>
+  <div class="tablebox"><table id="team"></table></div>
+  <p class="note" id="teamnote"></p>
+</section>
+
 <section>
   <h2>Power curve</h2>
   <p class="lede">Average duel score of each goal's build at every spike. Higher means Kalista is further ahead of an equally-itemed enemy.</p>
@@ -199,7 +206,7 @@ ul.plain{margin:0;padding-left:1.1rem;display:flex;flex-direction:column;gap:5px
 </section>
 
 <section>
-  <h2>How the four builds compare</h2>
+  <h2>How the builds compare</h2>
   <div class="tablebox"><table id="cross"></table></div>
   <p class="note">Each build averaged over all five spikes. Every build trades something: the fastest killer dies fastest, and the hardest to kill takes longest to finish anyone.</p>
 </section>
@@ -241,6 +248,7 @@ ul.plain{margin:0;padding-left:1.1rem;display:flex;flex-direction:column;gap:5px
     <div class="meta" id="edstats"></div>
     <div class="tablebox"><table id="edfights"></table></div>
     <div class="tablebox"><table id="edlane"></table></div>
+    <div class="tablebox"><table id="edteam"></table></div>
     <p class="note" id="ednote"></p>
   </div>
 </section>
@@ -268,14 +276,15 @@ const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":
 const pct = x => (x >= 0 ? "+" : "−") + Math.abs(x * 100).toFixed(0) + "%";
 const f2 = x => Number(x).toFixed(2);
 const GOALS = Object.keys(R.goals);
-const COLORS = {kill:"var(--s1)", duel:"var(--s2)", practical:"var(--s3)", safe:"var(--s4)"};
+const COLORS = {kill:"var(--s1)", duel:"var(--s2)", practical:"var(--s3)", safe:"var(--s4)", carry:"var(--s5)"};
 const TH = Object.keys(R.threats);
 const TH_SHORT = {marksman:"M", bruiser:"B", tank:"T", mage:"Mg", Caitlyn:"Cait", Ezreal:"Ez", Lux:"Lux", Nautilus:"Naut"};
 const NOTES = {
   kill: "Fastest kill against four dummies that don't fight back. This is the pure damage build.",
   duel: "Most HP left after one-on-one fights with each enemy. Guardian Angel's second life is included.",
   practical: "Same duel goal without Guardian Angel, the most realistic all-round build.",
-  safe: "Longest time before Kalista dies. Maximum survival, at a big cost in damage."
+  safe: "Longest time before Kalista dies. Maximum survival, at a big cost in damage.",
+  carry: "Solo queue carry: single-target strength in 1v1s, 2v2s and 3v3s without giving up 5v5 teamfights (weights in config/teamfight.json)."
 };
 let goal = "practical", slot = 0;
 try { const g = localStorage.getItem("kal-goal"); if (g && R.builds[g]) goal = g; } catch(e) {}
@@ -310,7 +319,23 @@ function render(){
   $("matrix").innerHTML = `<thead><tr><th>Enemy</th>${B.path.map(p=>`<th class="n">Item ${p.slot} · ${p.level}</th>`).join("")}</tr></thead><tbody>` +
     TH.map(t => `<tr><td>${esc(R.threats[t])}</td>${B.path.map(p => { const v = p.per[t]; return `<td class="hm ${v.win?"w":"l"}">${v.win?"W":"L"} ${pct(v.duel)}</td>`; }).join("")}</tr>`).join("") + "</tbody>";
 
-  renderPower(); renderSlots(); renderSide();
+  renderPower(); renderSlots(); renderSide(); renderTeam();
+}
+
+function renderTeam(){
+  const B = R.builds[goal];
+  if (!B.team) { $("teamsec").hidden = true; return; }
+  const SC = Object.keys(R.team_scenarios || {});
+  const cell = v => `<td class="hm ${v > 0.005 ? "w" : v < -0.005 ? "l" : ""}">${pct(v)}</td>`;
+  $("team").innerHTML = `<thead><tr><th>Fight</th>${B.team.map(t=>`<th class="n">Item ${t.slot} · ${t.level}</th>`).join("")}</tr></thead><tbody>` +
+    `<tr><td>1v1 duel (avg)</td>${B.team.map(t=>cell(t.duel)).join("")}</tr>` +
+    SC.map(sc => `<tr><td>${esc(R.team_scenarios[sc])}</td>${B.team.map(t=>cell(t[sc])).join("")}</tr>`).join("") +
+    `<tr><td><b>Carry score</b></td>${B.team.map(t=>cell(t.carry)).join("")}</tr>` +
+    `<tr><td>5v5: Kalista's damage share</td>${B.team.map(t=>`<td class="n">${Math.round(t.share["5v5"]*100)}%</td>`).join("")}</tr>` +
+    `<tr><td>5v5: Kalista survives</td>${B.team.map(t=>`<td class="n">${Math.round(t.alive["5v5"]*100)}%</td>`).join("")}</tr></tbody>`;
+  const w = R.carry_weights || {};
+  $("teamnote").textContent = "Score: your team's HP left if it wins, minus the enemy team's if it loses; each fight is averaged over Kalista hitting the frontline first and the backline first. Bruisers dive the carries, everyone else hits what is in front. Carry score = " +
+    Object.entries(w).map(([k,v]) => `${Math.round(v*100)}% ${k === "duel" ? "duel" : k}`).join(" + ") + ".";
 }
 
 function renderPower(){
@@ -337,7 +362,7 @@ function renderPower(){
     ends.push([g, pts[4][1]]);
   });
   ends.sort((a,b)=>a[1]-b[1]); for (let i=1;i<ends.length;i++) if (ends[i][1]-ends[i-1][1] < 13) ends[i][1] = ends[i-1][1] + 13;
-  ends.forEach(([g,yy]) => { s += `<text x="${W-Rr+8}" y="${yy+4}" style="fill:var(--ink)">${esc({kill:"Fastest kill",duel:"Duelist",practical:"No-GA duelist",safe:"Hardest to kill"}[g])}</text>`; });
+  ends.forEach(([g,yy]) => { s += `<text x="${W-Rr+8}" y="${yy+4}" style="fill:var(--ink)">${esc({kill:"Fastest kill",duel:"Duelist",practical:"No-GA duelist",safe:"Hardest to kill",carry:"Solo queue carry"}[g])}</text>`; });
   R.builds.kill.path.forEach((p,i) => { s += `<rect x="${x(i)-28}" y="${T}" width="56" height="${H-T-Bt}" fill="transparent" data-i="${i}" class="hit"/>`; });
   $("pc").innerHTML = s;
   $("pclegend").innerHTML = GOALS.map(g => `<span><span class="swatch" style="background:${COLORS[g]}"></span>${esc(R.goals[g])}</span>`).join("");
@@ -439,9 +464,9 @@ function renderSide(){
 }
 
 function renderStatic(){
-  $("cross").innerHTML = `<thead><tr><th>Build</th><th class="n">Kill time</th><th class="n">Duel score</th><th class="n">Time alive</th><th class="n">Duel wins</th></tr></thead><tbody>` +
+  $("cross").innerHTML = `<thead><tr><th>Build</th><th class="n">Kill time</th><th class="n">Duel score</th><th class="n">Time alive</th><th class="n">Duel wins</th><th class="n">Carry score</th></tr></thead><tbody>` +
     GOALS.map(g => { const c = R.cross[g], b = R.builds[g];
-      return `<tr><td><span class="swatch" style="display:inline-block;background:${COLORS[g]};margin-right:6px"></span>${esc(R.goals[g])}</td><td class="n">${f2(avg(c.map(x=>x.kill)))}s</td><td class="n">${pct(avg(c.map(x=>x.duel)))}</td><td class="n">${f2(avg(c.map(x=>x.safe)))}s</td><td class="n">${b.path.reduce((s,p)=>s+p.wins,0)}/20</td></tr>`; }).join("") + "</tbody>";
+      return `<tr><td><span class="swatch" style="display:inline-block;background:${COLORS[g]};margin-right:6px"></span>${esc(R.goals[g])}</td><td class="n">${f2(avg(c.map(x=>x.kill)))}s</td><td class="n">${pct(avg(c.map(x=>x.duel)))}</td><td class="n">${f2(avg(c.map(x=>x.safe)))}s</td><td class="n">${b.path.reduce((s,p)=>s+p.wins,0)}/20</td><td class="n">${c[0].carry == null ? "—" : pct(avg(c.map(x=>x.carry)))}</td></tr>`; }).join("") + "</tbody>";
 
   $("ap").innerHTML = `<thead><tr><th>Spike</th><th>Item</th><th class="n">AP duel</th><th class="n">No-GA build</th></tr></thead><tbody>` +
     R.ap.path.map((p,i) => `<tr><td class="mono">${p.slot} · lvl ${p.level}</td><td>${esc(p.item)}</td><td class="n">${pct(p.duel)}</td><td class="n">${pct(R.ap.vs_best[i].best_duel)}</td></tr>`).join("") + "</tbody>";
@@ -590,6 +615,8 @@ function runEditor(){
     Object.entries(r.fights).map(([t, f]) => `<tr><td>${esc(R.threats[t] || t)}</td><td class="n">${f.ttk == null ? "—" : f2(f.ttk) + "s"}</td>${sec ? `<td class="n" title="${esc(Object.entries(f.splash_by || {}).map(([k, v]) => k + " " + v).join(", "))}">${Math.round(f.splash || 0)}</td>` : ""}<td class="${f.win ? "cw" : "cl"}">${f.win ? "Won, " + Math.round(f.kal_hp_left * 100) + "% HP left" : "Lost, enemy on " + Math.round(f.enemy_hp_left * 100) + "%"}</td><td class="n">${f2(f.tk)}s</td><td class="n">${f.td >= 99 ? "—" : f2(f.td) + "s"}</td><td>${Object.entries(f.taken_by).sort((a, b) => b[1] - a[1]).map(([k, v]) => esc(k) + " " + v).join(" · ") || "—"}</td></tr>`).join("") + "</tbody>";
   $("edlane").innerHTML = `<thead><tr><th>Lane enemy</th><th class="n">Quick trade</th><th class="n">Extended</th><th class="n">Kill pressure</th></tr></thead><tbody>` +
     Object.entries(r.lane).map(([t, l]) => `<tr><td>${esc(R.lane.threats[t] || t)}</td><td class="n ${l.quick > 0.005 ? "cw" : l.quick < -0.005 ? "cl" : ""}">${sg(l.quick)}</td><td class="n ${l.long > 0.005 ? "cw" : l.long < -0.005 ? "cl" : ""}">${sg(l.long)}</td><td class="n">${Math.round(l.pressure * 100)}% HP</td></tr>`).join("") + "</tbody>";
+  $("edteam").innerHTML = `<thead><tr><th>Team fight</th><th class="n">Score</th><th class="n">Kalista's share</th><th class="n">Survives</th><th class="n">Kills</th></tr></thead><tbody>` +
+    Object.values(r.team).map(t => `<tr><td>${esc(t.label)}</td><td class="n ${t.score > 0.005 ? "cw" : t.score < -0.005 ? "cl" : ""}">${pct(t.score)}</td><td class="n">${Math.round(t.share*100)}%</td><td class="n">${Math.round(t.alive*100)}%</td><td class="n">${t.kills.toFixed(1)}</td></tr>`).join("") + "</tbody>";
   $("ednote").textContent = `${r.champion} at level ${r.level} against enemies with ${r.enemy_items} item${r.enemy_items === 1 ? "" : "s"}.` +
     (r.champion !== "Kalista" ? " Enemies stay calibrated against Kalista, so this compares champions on the same fights." : "") +
     (sec ? ` Damage to other enemies counts Runaan's bolts, Statikk's chain and Rend on their spears while killing the main target; it is not part of any score.` : "") +

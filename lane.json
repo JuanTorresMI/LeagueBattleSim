@@ -8559,6 +8559,53 @@
      "execs": 3
     }
    ]
+  },
+  {
+   "goal": "carry",
+   "name": "Solo queue carry",
+   "page": "Lethal Tempo / Bloodline / Last Stand",
+   "items": [
+    "Immortal Shieldbow",
+    "Yun Tal Wildarrows"
+   ],
+   "boots": "Plated Steelcaps",
+   "stages": [
+    {
+     "stage": "Level 2",
+     "trade": -0.0247,
+     "long": -0.0102,
+     "pressure": 0.371,
+     "execs": 3
+    },
+    {
+     "stage": "Level 3",
+     "trade": -0.0329,
+     "long": -0.0192,
+     "pressure": 0.338,
+     "execs": 3
+    },
+    {
+     "stage": "Level 6",
+     "trade": -0.0112,
+     "long": 0.0145,
+     "pressure": 0.318,
+     "execs": 3
+    },
+    {
+     "stage": "Item 1 \u00b7 lvl 9",
+     "trade": 0.0336,
+     "long": 0.1374,
+     "pressure": 0.425,
+     "execs": 3
+    },
+    {
+     "stage": "Item 2 \u00b7 lvl 11",
+     "trade": 0.1081,
+     "long": 0.3294,
+     "pressure": 0.489,
+     "execs": 2
+    }
+   ]
   }
  ],
  "statlines": [
@@ -8643,5 +8690,5 @@
    "tenacity %": 0
   }
  ],
- "runtime_s": 1.4
+ "runtime_s": 1.7
 }
