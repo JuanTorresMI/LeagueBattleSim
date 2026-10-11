@@ -20,6 +20,7 @@ from .runes import RunePage
 from .stats import ITEMS, PATCH, item_name, statline
 from . import spikes as SPK
 from .lane import LaneAnalysis
+from .kits import KITS
 
 ALIASES = {"ie": "3031", "yuntal": "3032", "yun": "3032", "ldr": "3036", "lord": "3036", "mr": "3033",
            "mortal": "3033", "serylda": "6694", "pd": "3046", "rfc": "3094", "storm": "3095",
@@ -61,13 +62,20 @@ def add_scenario(p, lane=True):
         g.add_argument("--long-windows", help="extended trade lengths in s (default 3.25,3.5,3.75)")
         g.add_argument("--lane-weights", help="quick,extended,pressure (default 0.6,0.4,0.25)")
         g.add_argument("--gunblade-share", type=float, help="share of trades with Gunblade's active up (default 0.5)")
+    g.add_argument("--champion", help="whose builds to score (default Kalista; kits: %s; others auto-attack only)" % ", ".join(KITS))
+    g.add_argument("--soul-mark", action="store_true", help="Kalista's Oathsworn support keeps targets Soul-Marked (W)")
     g.add_argument("--jobs", type=int, default=os.cpu_count() or 1, help="worker processes (default: all cores)")
 
 
 def config_from(a):
     d = Config()
     kw = {"jobs": a.jobs, "kite_uptime": getattr(a, "kite", None), "beam_width": getattr(a, "beam_width", None),
-          "gunblade_share": getattr(a, "gunblade_share", None)}
+          "gunblade_share": getattr(a, "gunblade_share", None), "soul_mark": True if getattr(a, "soul_mark", False) else None}
+    if getattr(a, "champion", None):
+        from .stats import CHAMPS
+        name = next((c for c in CHAMPS if c.lower() == a.champion.lower()), None)
+        if not name: raise SystemExit(f"unknown champion {a.champion!r}")
+        kw["champion"] = name
     if getattr(a, "threat", None):
         kw["threats"] = tuple(t.strip() for t in a.threat.split(","))
         bad = set(kw["threats"]) - set(THREATS)
@@ -154,7 +162,7 @@ def cmd_build(a):
     items = [find_item(x) for x in a.items]
     duel_m, lane_m = saved_mults("spikes.json"), saved_mults("lane.json")
     r = evaluate_build(items, a.level, a.runes, a.stacks, a.enemy_items, duel_m, lane_m, cfg=cfg)
-    print(f"Kalista level {r['level']}: {', '.join(r['items']) or 'no items'} · {r['page']} "
+    print(f"{r['champion']} level {r['level']}: {', '.join(r['items']) or 'no items'} · {r['page']} "
           f"(legend {r['stacks']}) · enemies own {r['enemy_items']} items")
     print("  " + "  ".join(f"{k} {v}" for k, v in r["stats"].items() if k != "level"))
     print(f"\n{'enemy':10s} {'kill time':>9s}   duel")

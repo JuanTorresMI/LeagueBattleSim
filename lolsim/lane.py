@@ -39,8 +39,13 @@ class LaneAnalysis:
         return self.cfg.legend[n_items]
 
     # -------------------------------------------------------------- scenarios
-    def trade(self, inv, lvl, kind, ne, page, path_last=None, windows=None):
+    def _champ(self, ref):
+        """Calibration always uses the reference (Kalista, no Soul-Mark)."""
+        return ("Kalista", False) if ref else (self.cfg.champion, self.cfg.soul_mark)
+
+    def trade(self, inv, lvl, kind, ne, page, path_last=None, windows=None, ref=False):
         windows = self.cfg.quick_windows if windows is None else windows
+        ch, soul = self._champ(ref)
         share = self.cfg.gunblade_share
         d = make_dummy(kind, lvl, ne)
         tot_net = tot_d = tot_t = 0.0
@@ -50,8 +55,8 @@ class LaneAnalysis:
         for w in windows:
             for act in actives:
                 wt = (2 * share if act else 2 * (1 - share)) if len(actives) == 2 else 1.0
-                r = simulate(inv, lvl, d, page, Opts(window=w, exit_e=True, gunblade_active=act,
-                             yuntal_prestacked=path_last != "3032"), self.threats[kind], ne)
+                r = simulate(inv, lvl, d, page, Opts(window=w, exit_e=True, gunblade_active=act, soul_mark=soul,
+                             yuntal_prestacked=path_last != "3032"), self.threats[kind], ne, champ=ch)
                 tot_d += wt * r["dealt_frac"]; tot_t += wt * r["taken_frac"]
                 tot_net += wt * (r["dealt_frac"] - r["taken_frac"])
                 last = r if w == windows[len(windows) // 2] else last
@@ -63,7 +68,8 @@ class LaneAnalysis:
         ex = self.cfg.execute
         r = simulate(inv, lvl, make_dummy(kind, lvl, ne), page,
                      Opts(window=ex["window"], enemy_start=ex["enemy_start"], kal_start=ex["kal_start"],
-                          yuntal_prestacked=path_last != "3032"), self.threats[kind], ne)
+                          soul_mark=self.cfg.soul_mark, yuntal_prestacked=path_last != "3032"),
+                     self.threats[kind], ne, champ=self.cfg.champion)
         return {"killed": r["killed"] and not r["died"], "time": r["kill_time"],
                 "cost": r["taken_frac"], "died": r["died"]}
 
@@ -73,7 +79,8 @@ class LaneAnalysis:
 
         def ok(f):
             r = simulate(inv, lvl, d, page, Opts(window=pr["window"], enemy_start=f, kal_start=pr["kal_start"],
-                         yuntal_prestacked=path_last != "3032"), self.threats[kind], ne)
+                         soul_mark=self.cfg.soul_mark, yuntal_prestacked=path_last != "3032"),
+                         self.threats[kind], ne, champ=self.cfg.champion)
             return r["killed"] and not r["died"]
         if not ok(pr["lo"]): return 0.0
         lo, hi = pr["lo"], 1.0
@@ -111,7 +118,7 @@ class LaneAnalysis:
 
             def avg_net(m):
                 self.threats[k] = replace(base, dmg_mult=m)
-                return sum(self.trade(self.base_items, lvl, k, 0, self.base_page)["net"]
+                return sum(self.trade(self.base_items, lvl, k, 0, self.base_page, ref=True)["net"]
                            for _, lvl, _, _ in self.cal_stages) / len(self.cal_stages)
             lo, hi, steps = cal["bisect"]
             for _ in range(steps):
@@ -206,7 +213,7 @@ class LaneAnalysis:
                   "lane_path": {"items": [item_name(pick1), item_name(pick2)], "boots": BOOTS[boots2],
                                 "page": best_page.label(), "stages": stage_series(lane_path, boots2, best_page)},
                   "goal_builds": goal_rows,
-                  "statlines": [statline("Kalista", lvl, inventory(lane_path[:n], boots2 if n >= 2 else None),
+                  "statlines": [statline(cfg.champion, lvl, inventory(lane_path[:n], boots2 if n >= 2 else None),
                                          best_page.at(self.stacks_for(n))) for _, lvl, n, _ in stages],
                   "runtime_s": round(time.time() - t0, 1)}
         return report

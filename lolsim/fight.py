@@ -11,7 +11,7 @@ from params import SCORING, MECH
 from .stats import build_stats, resist_mult, eff_resist
 from .runes import RunePage
 from .enemies import Enemy
-from .kits import KITS
+from .kits import kit_for
 from .effects import effects_for
 
 FIGHT = SCORING["fight"]
@@ -31,17 +31,19 @@ class Opts:
     enemy_start: float = 1.0       # enemy's starting HP fraction
     kal_start: float = 1.0         # Kalista's starting HP fraction
     gunblade_active: bool = True   # Hextech Gunblade's active is off cooldown
+    soul_mark: bool = False        # Kalista's Oathsworn support keeps the target Soul-Marked (W)
     margin_cap: float = FIGHT["margin_cap"]
 
 
 class Hit:
     """One auto attack being built up by the effect hooks."""
-    __slots__ = ("extra_as", "ad", "bad", "ap", "times", "ph", "mg", "rune", "pta_now", "spellblade")
+    __slots__ = ("extra_as", "ad", "bad", "ap", "times", "ph", "mg", "rune", "pta_now", "spellblade", "bonus")
 
     def __init__(self, extra_as, ad, bad, ap, spellblade):
         self.extra_as, self.ad, self.bad, self.ap = extra_as, ad, bad, ap
         self.times, self.ph, self.mg, self.rune = 1, 0.0, 0.0, 0.0
         self.pta_now, self.spellblade = False, spellblade
+        self.bonus = []              # kit damage riding on this attack: (source, raw, kind)
 
 
 class Side:
@@ -80,7 +82,7 @@ class Fight:
         if self.duel:
             self.enemy = Enemy(threat, level, enemy_items, opts.kite_uptime)
             self.kal.wounds = self.enemy.wounds
-        self.kit = KITS[champ](self)
+        self.kit = kit_for(champ)(self)
         self.effects, H = effects_for(self)
         self.h_amp, self.h_dealt, self.h_vamp = H["damage_amp"], H["on_damage"], H["omnivamp"]
         self.h_dealt_heal, self.h_tick, self.h_exec = H["on_damage_heal"], H["on_tick"], H["execute"]
@@ -239,8 +241,9 @@ class Fight:
             if h(): return True
         return self.kit.finisher()
 
-    def on_ability_cast(self):
-        for h in self.h_cast: h()
+    def on_ability_cast(self, damaging=True):
+        """An ability was cast; `damaging` if it dealt ability damage (Conqueror, Liandry's)."""
+        for h in self.h_cast: h(damaging)
 
     # ---------------------------------------------------------------- loop
     def attack(self):
@@ -251,6 +254,7 @@ class Fight:
         self.attacks += 1
         hit = Hit(extra, self.cur_ad(), self.cur_bad(), self.cur_ap(), self.spellblade)
         self.spellblade = False
+        self.kit.on_attack(hit)                            # empowered attacks
         for h in self.h_attack: h(hit)                     # Phantom Hit, spellblade
         for _ in range(hit.times):
             ph = mg = 0.0
@@ -263,6 +267,7 @@ class Fight:
         self.deal("Auto attacks", hit.ad * self.kit.aa_ratio * self.crit_factor, "physical", True)
         self.deal("On-hit (physical)", hit.ph, "physical", True)
         self.deal("On-hit (magic)", hit.mg, "magic", True)
+        for src, raw, kind in hit.bonus: self.deal(src, raw, kind, True)
         self.deal(self.runes.keystone, hit.rune, "magic" if self.adaptive_magic else "physical")
         for h in self.h_after: h(hit)
         if self.trace: self.log.append((round(self.t, 2), round(self.hp), self.kit.counter(), round(self.kal.hp)))

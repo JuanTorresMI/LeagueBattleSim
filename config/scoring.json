@@ -1,8 +1,8 @@
 {
  "_meta": {"about": "Model choices: spike schedule, search, scenario setup and scoring weights. Ask before changing a scoring weight or calibration target (HANDOFF.md)."},
  "fight": {
-  "kite_uptime": 0.65, "hop_units_per_attack": 200.0, "max_time": 40.0, "margin_cap": 5.0,
-  "note": "kite_uptime: share of melee damage that lands while Kalista hops. hop_units_per_attack: movement per attack, for Energized and Fleet charge."
+  "kite_uptime": 0.65, "hop_units_per_attack": 200.0, "max_time": 40.0, "margin_cap": 5.0, "soul_mark": false,
+  "note": "kite_uptime: share of melee damage that lands while Kalista hops. hop_units_per_attack: movement per attack, for Energized and Fleet charge. soul_mark: Kalista's support keeps targets Soul-Marked (off by default, an opt-in extension)."
  },
  "spikes": {
   "starter": "1055",

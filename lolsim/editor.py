@@ -12,18 +12,19 @@ from .stats import item_name, statline
 
 
 def evaluate_build(items, level, page="Press the Attack / Alacrity / Cut Down", stacks=10, enemy_items=None,
-                   duel_mults=None, lane_mults=None, kite=None, cfg=None):
+                   duel_mults=None, lane_mults=None, kite=None, cfg=None, champion=None, soul_mark=None):
     """Stat line, kill time and duel per full-fight threat, trades and pressure per lane threat."""
-    cfg = (cfg or Config()).with_(kite_uptime=kite)
+    cfg = (cfg or Config()).with_(kite_uptime=kite, champion=champion, soul_mark=soul_mark)
+    ch = cfg.champion
     rp = RunePage.parse(page, stacks)
     ne = enemy_items if enemy_items is not None else sum(i not in BOOTS and i != DORANS for i in items)
     r = Ranker(cfg, duel_mults)
-    opts = Opts(kite_uptime=cfg.kite_uptime)
+    opts = Opts(kite_uptime=cfg.kite_uptime, soul_mark=cfg.soul_mark)
     fights = {}
     for kind in cfg.threats:
         d = make_dummy(kind, level, ne)
-        ttk = simulate(items, level, d, rp, opts)["ttk"]
-        du = simulate(items, level, d, rp, opts, r.threats[kind], ne)
+        ttk = simulate(items, level, d, rp, opts, champ=ch)["ttk"]
+        du = simulate(items, level, d, rp, opts, r.threats[kind], ne, champ=ch)
         fights[kind] = {"ttk": None if math.isinf(ttk) else round(ttk, 2), "win": du["win"],
                         "kal_hp_left": round(du["kal_hp_left"], 3), "enemy_hp_left": round(du["enemy_hp_left"], 3),
                         "tk": round(min(du["tk"], 99), 2), "td": round(min(du["td"], 99), 2),
@@ -35,8 +36,8 @@ def evaluate_build(items, level, page="Press the Attack / Alacrity / Cut Down", 
         l = la.trade(items, level, kind, ne, rp, windows=cfg.long_windows)
         lane[kind] = {"quick": round(q["net"], 4), "long": round(l["net"], 4),
                       "pressure": round(la.pressure(items, level, kind, ne, rp), 3)}
-    return {"items": [item_name(i) for i in items], "warnings": warnings(items), "level": level, "page": rp.label(), "stacks": stacks,
-            "enemy_items": ne, "calibrated": bool(duel_mults), "stats": statline("Kalista", level, items, rp),
+    return {"champion": ch, "soul_mark": cfg.soul_mark, "items": [item_name(i) for i in items], "warnings": warnings(items), "level": level, "page": rp.label(), "stacks": stacks,
+            "enemy_items": ne, "calibrated": bool(duel_mults), "stats": statline(ch, level, items, rp),
             "fights": fights, "lane": lane}
 
 

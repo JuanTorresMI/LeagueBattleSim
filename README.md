@@ -175,3 +175,16 @@ measure: Dusk and Dawn's spear, Gunblade at 18, Kraken's missing-health curve.
 - Checks: `tests/test_page.py` (template filled, script parses under node, embedded engine
   runs standalone and matches); `tools/check_page.js` (Playwright: no errors, no horizontal
   scroll at 1100 px and 390 px, editor loads and fills its tables).
+
+## v5.3: champion kits and Soul-Mark (roadmap step 9, part 1)
+- Any champion can be simulated: `kit_for(champ)` returns its kit or a plain auto-attacker
+  (`--champion Jinx`). `Vayne` is a second full kit (Tumble empowers the next auto, Silver
+  Bolts every third hit), from data/wiki/champions.json. `skill_ranks()` derives skill
+  points from a start order and a max order.
+- Calibration always uses Kalista without Soul-Mark, so other champions and options are
+  scored against the same enemies.
+- `--soul-mark` (or `Opts(soul_mark=True)`, `Config(soul_mark=True)`): Kalista's Oathsworn
+  support keeps the target marked; her hits then deal 10–18% max health magic damage
+  (by W rank) once per 10 s. Off by default.
+- Ability hooks now pass `damaging`: Conqueror and Liandry's react only to ability damage
+  (Vayne's Tumble is basic-attack damage).

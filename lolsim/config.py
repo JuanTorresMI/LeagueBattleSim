@@ -33,6 +33,8 @@ class Config:
     gunblade_share: float = LN["gunblade_trade_share"]
     duel_cal: dict = field(default_factory=lambda: dict(CALIBRATION["duel"]))
     lane_cal: dict = field(default_factory=lambda: dict(CALIBRATION["lane"]))
+    champion: str = "Kalista"                                         # whose builds are scored
+    soul_mark: bool = FT.get("soul_mark", False)                      # Kalista's Oathsworn Soul-Mark (W)
     jobs: int = 1                                                     # worker processes
 
     def with_(self, **kw):

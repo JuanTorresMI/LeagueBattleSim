@@ -6,7 +6,7 @@ per owned item / chosen rune and calls its hook methods at fixed points:
   fight setup     bonus_crit, dyn_stats, on_fight_start
   own damage      damage_amp (multiplier), armor_reduction, armor_pen, mr_reduction,
                   on_damage(src, kind, dmg), omnivamp, on_damage_heal, execute
-  abilities       on_ability (after each cast)
+  abilities       on_ability(damaging) (after each cast)
   attacks         attack_speed, on_attack (before on-hit), on_hit (each application,
                   returns physical, magic), on_attack_bonus, on_rune, after_attack
   time            on_tick (DoTs and delayed effects)
@@ -110,7 +110,8 @@ class Liandrys(Effect):
         self.until, self.last = -1.0, 0.0
     def damage_amp(self, kind, is_attack):
         return 1 + min(self.v["amp_max"], self.v["amp_per_s"] * math.floor(self.f.t))
-    def on_ability(self):
+    def on_ability(self, damaging):
+        if not damaging: return
         t = self.f.t
         if self.until < t: self.last = t
         self.until = t + self.v["burn_duration"]
@@ -230,7 +231,7 @@ class YunTal(Effect):
 
 @effect("3100")
 class LichBane(Effect):
-    def on_ability(self): self.f.spellblade = True
+    def on_ability(self, damaging): self.f.spellblade = True
     def attack_speed(self): return self.v["as_after_spell"] if self.f.spellblade else 0.0
     def on_attack(self, hit):
         if hit.spellblade: hit.mg += self.v["base_ad_ratio"] * self.f.st.base_ad + self.v["ap_ratio"] * hit.ap
@@ -238,7 +239,7 @@ class LichBane(Effect):
 
 @effect("2510")
 class DuskAndDawn(Effect):
-    def on_ability(self): self.f.spellblade = True
+    def on_ability(self, damaging): self.f.spellblade = True
     def on_attack(self, hit):                                     # VERIFY: the repeat adds a spear
         if hit.spellblade:
             hit.mg += self.v["base_ad_ratio"] * self.f.st.base_ad + self.v["ap_ratio"] * hit.ap
@@ -411,7 +412,8 @@ class Conqueror(Effect):
     def dyn_stats(self):
         if self.f.adaptive_magic: return 0.0, self.stacks * self.ap_per
         return self.stacks * self.ad_per, 0.0
-    def on_ability(self): self.stacks = min(self.v["max_stacks"], self.stacks + self.v["stacks_per_ability"])
+    def on_ability(self, damaging):
+        if damaging: self.stacks = min(self.v["max_stacks"], self.stacks + self.v["stacks_per_ability"])
     def after_attack(self, hit): self.stacks = min(self.v["max_stacks"], self.stacks + self.v["stacks_per_attack"])
     def on_damage_heal(self, dmg):
         if self.stacks >= self.v["max_stacks"]: self.f.heal("Conqueror", self.v["heal_full"] * dmg)

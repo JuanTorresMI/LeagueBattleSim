@@ -128,12 +128,13 @@ class Ranker:
         if key in self.cache: return self.cache[key]
         inv = inventory(path, boots)
         rp = page.at(cfg.legend[len(path)])
-        opts = Opts(yuntal_prestacked=not (path and path[-1] == "3032"), kite_uptime=uptime)
+        opts = Opts(yuntal_prestacked=not (path and path[-1] == "3032"), kite_uptime=uptime, soul_mark=cfg.soul_mark)
+        ch = cfg.champion
         per = {}
         for kind in cfg.threats:
             d = make_dummy(kind, level, ne)
-            ttk = sum(simulate(inv, level, replace_hp(d, m), rp, opts)["ttk"] / m for m in cfg.kill_grid) / len(cfg.kill_grid)
-            duels = [simulate(inv, level, replace_hp(d, m), rp, opts, self.threats[kind], ne) for m in cfg.duel_grid]
+            ttk = sum(simulate(inv, level, replace_hp(d, m), rp, opts, champ=ch)["ttk"] / m for m in cfg.kill_grid) / len(cfg.kill_grid)
+            duels = [simulate(inv, level, replace_hp(d, m), rp, opts, self.threats[kind], ne, champ=ch) for m in cfg.duel_grid]
             mid = duels[len(duels) // 2]
             td = min(cfg.td_cap, sum(min(cfg.td_cap, r["td"]) for r in duels) / len(duels))
             per[kind] = {"ttk": round(ttk, 3), "duel": round(duel_score(duels), 3), "td": round(td, 2),
@@ -334,7 +335,7 @@ class Ranker:
                 f"{[item_name(i) for i in r['path']]}  ({time.time()-t0:.0f}s)")
         ap = self.optimize("practical", AP_ONHIT_POOL)
         log("AP duel", ap["page"].label(), [item_name(i) for i in ap["path"]])
-        report = {"patch": PATCH, "goals": GOALS,
+        report = {"patch": PATCH, "champion": cfg.champion, "goals": GOALS,
                   "threats": {k: THREATS[k].name for k in cfg.threats},
                   "calibration": calib, "builds": {}, "cross": self.cross_table(results),
                   "early_runes": self.early_runes()}
@@ -346,7 +347,7 @@ class Ranker:
                 "pages": [{"page": pg.label(), "score": round(s, 4)} for s, pg in res["pages"]],
                 "spikes": [self.rank_slot(g, res, s, l, ne, GOAL_POOL[g]) for s, l, ne in cfg.slots],
                 "kite": self.kite_sensitivity(res),
-                "statlines": [statline("Kalista", l, inventory(res["path"][:s], res["boots"]),
+                "statlines": [statline(cfg.champion, l, inventory(res["path"][:s], res["boots"]),
                                        res["page"].at(cfg.legend[s])) for s, l, _ in cfg.slots],
             }
         report["ap"] = {"page": ap["page"].label(), "boots": BOOTS[ap["boots"]], "path": self.path_view(ap),
