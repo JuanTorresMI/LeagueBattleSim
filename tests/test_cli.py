@@ -58,3 +58,14 @@ def test_optimize_json_with_fixed_runes():
     r = json.loads(out)
     assert r["page"] == "Lethal Tempo / Alacrity / Cut Down" and len(r["path"]) == 5
     assert set(r["path"][0]["per"]) == {"tank"}
+
+
+def test_optimize_start_exclude_boots():
+    out = subprocess.run(KALISTA + ["optimize", "--goal", "kill", "--runes", "Lethal Tempo / Alacrity / Cut Down",
+                                    "--threat", "tank", "--beam-width", "2", "--jobs", "2", "--json",
+                                    "--start", "bc,botrk", "--exclude", "ie", "--boots", "steelcaps"],
+                         capture_output=True, text=True, check=True).stdout
+    r = json.loads(out)
+    items = [p["item"] for p in r["path"]]
+    assert items[:2] == ["Black Cleaver", "Blade of The Ruined King"] and "Infinity Edge" not in items
+    assert r["boots"] == "Plated Steelcaps"
