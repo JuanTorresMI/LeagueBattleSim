@@ -107,3 +107,17 @@ gold timing beyond the fixed spike levels. (Survivability is covered by the v3 d
   `calibration.json` (reference builds and targets).
 - `params.py` loads both; `tests/test_data.py` checks every wiki entry has a source and patch.
 - Results unchanged (the full pipeline reproduces the JSON outputs exactly).
+
+## v4.3: restructured engine (roadmap step 4)
+- `lolsim/` package: `stats.py` (stat engine, damage math), `runes.py`, `enemies.py`
+  (dummies, threat profiles, the enemy's event queue), `kits.py` (`Kit` base class and
+  `Kalista`), `effects.py` (34 item and rune effects registered by hook), `fight.py`
+  (`Fight` state and loop, `simulate()`).
+- Hooks: `damage_amp`, `on_damage`, `omnivamp`, `on_ability`, `attack_speed`, `on_attack`,
+  `on_hit`, `on_attack_bonus`, `on_rune`, `after_attack`, `on_tick`, `on_take_damage`,
+  `on_low_hp`, `on_lethal` and a few more (listed in `effects.py`). Handlers of one hook run
+  in class-definition order, which keeps the v3 order wherever it changes a result.
+- `engine.py` is now a re-export layer, so `spikes.py`, `lane.py` and old scripts are unchanged.
+- `tests/reference/engine_v3.py` is a frozen copy of the old simulator;
+  `tests/test_equivalence.py` checks 1,000 random fights match it exactly. The full
+  pipeline also reproduces the JSON outputs exactly.
