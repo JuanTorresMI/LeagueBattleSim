@@ -1,0 +1,591 @@
+<title>Kalista Spike Ranker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one reading column. Goal switcher drives everything below it: verdict, matchups, power curve, spike rankings, fight breakdown. */
+:root{
+  --bg:#eef1f3; --panel:#ffffff; --ink:#15232e; --muted:#5b6b77; --line:#d5dde2; --grid:#e3e8eb;
+  --spirit:#0d7a73; --spirit-soft:#d8eeeb; --gold:#a8730d;
+  --win:#1f8a63; --win-soft:#d9efe5; --loss:#c0413f; --loss-soft:#f6dedd;
+  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#eda100;
+  --f-display:"Barlow Condensed","Arial Narrow",sans-serif;
+  --f-body:"IBM Plex Sans",system-ui,-apple-system,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f1820; --panel:#16222c; --ink:#e3ebef; --muted:#93a4af; --line:#2a3a46; --grid:#22303b;
+  --spirit:#4fc7b9; --spirit-soft:#173a3a; --gold:#e0ad4a;
+  --win:#4cc28f; --win-soft:#173a2c; --loss:#e66767; --loss-soft:#3e2224;
+  --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1820; --panel:#16222c; --ink:#e3ebef; --muted:#93a4af; --line:#2a3a46; --grid:#22303b;
+  --spirit:#4fc7b9; --spirit-soft:#173a3a; --gold:#e0ad4a;
+  --win:#4cc28f; --win-soft:#173a2c; --loss:#e66767; --loss-soft:#3e2224;
+  --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.5}
+.wrap{max-width:920px;margin:0 auto;padding-inline:16px;padding-block:28px 56px;display:flex;flex-direction:column;gap:34px}
+h1,h2,h3{font-family:var(--f-display);font-weight:600;letter-spacing:.01em;text-wrap:balance;margin:0}
+h1{font-size:2.6rem;line-height:1}
+h2{font-size:1.7rem}
+h3{font-size:1.2rem}
+p{margin:0;max-width:68ch}
+.eyebrow{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.lede,.note{color:var(--muted)}
+.note{font-size:.85rem}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+section,header{display:flex;flex-direction:column;gap:12px}
+
+/* goal switcher */
+.goals{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+@media (max-width:720px){.goals{grid-template-columns:1fr 1fr}}
+.goal{all:unset;box-sizing:border-box;cursor:pointer;background:var(--panel);border:1px solid var(--line);padding:10px 12px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.goal:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.goal[aria-pressed="true"]{border-color:var(--spirit);box-shadow:inset 0 3px 0 var(--spirit)}
+.goal .gname{font-family:var(--f-display);font-size:1.2rem;font-weight:600;display:flex;align-items:center;gap:6px}
+.goal .gsum{font-size:.8rem;color:var(--muted)}
+.swatch{width:10px;height:10px;border-radius:2px;flex:none}
+
+/* path strip */
+.path{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+@media (max-width:720px){.path{grid-template-columns:1fr 1fr}.path .step:last-child{grid-column:span 2}}
+.step{background:var(--panel);border:1px solid var(--line);padding:10px;display:flex;flex-direction:column;gap:5px;min-width:0}
+.step .lvl{font-family:var(--f-mono);font-size:.72rem;color:var(--muted)}
+.step .name{font-family:var(--f-display);font-size:1.15rem;font-weight:600;line-height:1.1}
+.step .nums{font-family:var(--f-mono);font-size:.76rem;color:var(--muted);display:flex;flex-wrap:wrap;gap:2px 10px}
+.pills{display:flex;gap:4px;flex-wrap:wrap}
+.pill{font-family:var(--f-mono);font-size:.68rem;padding:1px 6px;border-radius:999px;border:1px solid}
+.pill.w{color:var(--win);border-color:var(--win);background:var(--win-soft)}
+.pill.l{color:var(--loss);border-color:var(--loss);background:var(--loss-soft)}
+.meta{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-family:var(--f-mono);font-size:.78rem;border:1px solid var(--line);background:var(--panel);padding:3px 8px;border-radius:999px}
+.chip b{color:var(--spirit);font-weight:500}
+
+/* tables */
+.tablebox{overflow-x:auto;background:var(--panel);border:1px solid var(--line)}
+table{border-collapse:collapse;width:100%;font-size:.85rem}
+th,td{padding:7px 10px;text-align:left;white-space:nowrap;border-bottom:1px solid var(--line)}
+th{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500}
+td.n,th.n{text-align:right;font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+tr.pick td{background:var(--spirit-soft)}
+tr.pick td:first-child{box-shadow:inset 3px 0 0 var(--spirit)}
+td.rift{color:var(--gold);font-weight:600}
+td.cw{color:var(--win)} td.cl{color:var(--loss)}
+td.hm{text-align:center;font-family:var(--f-mono);font-variant-numeric:tabular-nums;font-weight:500}
+td.hm.w{background:var(--win-soft);color:var(--win)} td.hm.l{background:var(--loss-soft);color:var(--loss)}
+
+/* tabs */
+.tabs{display:flex;flex-wrap:wrap;gap:6px}
+.tabs button{font:600 1rem var(--f-display);letter-spacing:.02em;background:transparent;color:var(--muted);border:1px solid var(--line);padding:6px 12px;cursor:pointer;border-radius:4px}
+.tabs button[aria-selected="true"]{background:var(--spirit);border-color:var(--spirit);color:var(--panel)}
+.tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+/* charts */
+.chart{background:var(--panel);border:1px solid var(--line);padding:12px;position:relative;overflow-x:auto}
+.chart svg{display:block;width:100%;height:auto}
+.chart text{fill:var(--muted);font:11px var(--f-mono)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.8rem;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--bg);font:12px/1.4 var(--f-body);padding:6px 8px;border-radius:4px;max-width:240px;z-index:2}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.grid2>div{min-width:0;display:flex;flex-direction:column;gap:8px}
+.callout{background:var(--panel);border:1px solid var(--line);padding:14px 16px;display:flex;flex-direction:column;gap:8px}
+ul.plain{margin:0;padding-left:1.1rem;display:flex;flex-direction:column;gap:5px;max-width:72ch}
+
+[hidden]{display:none!important}
+
+/* build editor */
+#edform{display:flex;flex-direction:column;gap:14px}
+.btn{font:600 1rem var(--f-display);letter-spacing:.02em;background:var(--spirit);color:var(--panel);border:1px solid var(--spirit);padding:8px 14px;border-radius:4px;cursor:pointer;align-self:flex-start}
+.btn.ghost{background:transparent;color:var(--spirit)}
+.btn:disabled{opacity:.6;cursor:progress}
+.btn:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.edgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.edgrid label,.eitems label{display:flex;flex-direction:column;gap:4px;font-size:.78rem;color:var(--muted);min-width:0}
+.edgrid select,.edgrid input,.eitems select{font:inherit;font-size:.9rem;color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:4px;padding:6px 8px;min-width:0;width:100%;box-sizing:border-box}
+.edgrid label.wide{grid-column:span 2}
+.edgrid input[type=range]{padding:0;accent-color:var(--spirit)}
+.eitems{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+@media (max-width:560px){.eitems{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.warn{color:var(--loss);font-size:.85rem}
+@media (prefers-reduced-motion:no-preference){.goal,.tabs button{transition:border-color .15s,background .15s}}
+</style>
+
+<div class="wrap">
+<header>
+  <span class="eyebrow">Patch __PATCH__ · damage and two-way duels</span>
+  <h1>Kalista Spike Ranker</h1>
+  <p class="lede">Lane trades first: short exchanges, finishing low targets and how much kill pressure each build creates. Then full fights to the death, with every item ranked at each completed-item spike against enemies who level and buy items alongside you.</p>
+</header>
+
+<section id="lane">
+  <span class="eyebrow">Laning phase</span>
+  <h2>Trades and kill pressure</h2>
+  <p class="lede">Bot lane is won with short trades, not 100-to-0 fights. Each trade is about 2 seconds of autos and Q into the enemy's retaliation, then Rend as Kalista backs off. The score is the net HP lead it creates.</p>
+  <div class="meta" id="lanemeta"></div>
+  <div class="tablebox"><table id="lanestages"></table></div>
+  <p class="note"><b>Quick</b> is a ~2 s trade and <b>Extended</b> a ~3.5 s trade, both as enemy % max HP lost minus Kalista's % max HP lost. <b>Kill pressure</b> is the highest enemy HP % she can kill within 2 seconds while at 80% HP herself. <b>Execute</b> is the time to finish a 25% HP target from 60% HP before it escapes.</p>
+</section>
+
+<section>
+  <h3>Lane rune pages</h3>
+  <p class="note" id="runenote"></p>
+  <div class="tablebox"><table id="lanerunes"></table></div>
+</section>
+
+<section>
+  <h3>Best lane items</h3>
+  <div class="tabs" role="tablist" id="lanetabs"></div>
+  <p class="note" id="lanebase"></p>
+  <div class="tablebox"><table id="laneitems"></table></div>
+  <p class="note">Tap a column header to sort. Lane score blends quick trades (60%), extended trades (40%) and a smaller kill-pressure term. Gunblade's active has a 60 s cooldown, so quick and extended trades count it in only half of trades; all-ins always have it.</p>
+</section>
+
+<section>
+  <h3>Each full-fight build in lane</h3>
+  <div class="tablebox"><table id="lanegoals"></table></div>
+  <p class="note" id="lanecal"></p>
+</section>
+
+<section>
+  <span class="eyebrow">Full fights</span>
+  <h2>Fights to the death, by build goal</h2>
+</section>
+
+<section>
+  <div class="goals" id="goals" role="group" aria-label="Build goal"></div>
+  <p class="note" id="goalnote"></p>
+</section>
+
+<section>
+  <h2 id="buildtitle">Build</h2>
+  <div class="meta" id="buildmeta"></div>
+  <div class="path" id="path"></div>
+  <p class="note">Duel score is Kalista's HP left when the fight ends: +40% means she won with 40% HP; −30% means she lost with the enemy on 30%. Pills show the four matchups (M marksman, B bruiser, T tank, Mg mage).</p>
+</section>
+
+<section>
+  <h2>Matchups by spike</h2>
+  <div class="tablebox"><table id="matrix"></table></div>
+  <p class="note">Same build as above. Each cell is the duel score against that enemy at that spike.</p>
+</section>
+
+<section>
+  <h2>Power curve</h2>
+  <p class="lede">Average duel score of each goal's build at every spike. Higher means Kalista is further ahead of an equally-itemed enemy.</p>
+  <div class="legend" id="pclegend"></div>
+  <div class="chart" id="pcbox"><svg id="pc" viewBox="0 0 640 260" role="img" aria-label="Duel score by item spike for each build goal"></svg><div class="tip" id="pctip" hidden></div></div>
+</section>
+
+<section>
+  <h2>Item rankings by spike</h2>
+  <div class="tabs" role="tablist" id="slots"></div>
+  <p class="note" id="owned"></p>
+  <div class="chart" id="scbox"><svg id="sc" viewBox="0 0 640 300" role="img" aria-label="Kill time versus duel score for each candidate item"></svg><div class="tip" id="sctip" hidden></div></div>
+  <p class="note">Each dot is one item added at this spike. Right is a faster kill, up is a better duel. The highlighted dot is this goal's pick; gold is Riftmaker. Top-right items do both.</p>
+  <div class="tablebox"><table id="rank"></table></div>
+</section>
+
+<section>
+  <h2>Inside the fights</h2>
+  <p class="lede" id="fightlede"></p>
+  <div class="tablebox"><table id="fight"></table></div>
+</section>
+
+<section>
+  <div class="grid2">
+    <div><h3>Kiting check</h3><p class="note">Share of melee damage that lands while Kalista hops. 65% is the default.</p><div class="tablebox"><table id="kite"></table></div></div>
+    <div><h3>Best rune pages for this goal</h3><p class="note">Precision keystone / Legend rune / combat rune, scored on this goal's build.</p><div class="tablebox"><table id="pages"></table></div></div>
+  </div>
+</section>
+
+<section>
+  <h2>How the four builds compare</h2>
+  <div class="tablebox"><table id="cross"></table></div>
+  <p class="note">Each build averaged over all five spikes. Every build trades something: the fastest killer dies fastest, and the hardest to kill takes longest to finish anyone.</p>
+</section>
+
+<section>
+  <h2>AP and Riftmaker</h2>
+  <div class="grid2">
+    <div><h3>Best AP / on-hit duel build</h3><div class="tablebox"><table id="ap"></table></div></div>
+    <div><h3>Riftmaker rank at each spike</h3><div class="tablebox"><table id="rift"></table></div></div>
+  </div>
+  <p class="note" id="apnote"></p>
+</section>
+
+<section id="editor">
+  <span class="eyebrow">Build editor</span>
+  <h2>Try your own build</h2>
+  <p class="lede">Pick items, level and runes and see the stat line, kill times, duels and lane trades. It runs the same simulator in your browser, with the calibrated enemies from this run.</p>
+  <div class="callout" id="edload">
+    <p class="note">The simulator is Python. Loading it fetches Pyodide (about 10 MB, cached after the first time) from cdn.jsdelivr.net; the rest of this page works offline.</p>
+    <button type="button" class="btn" id="edstart">Load the simulator</button>
+    <p class="note" id="edstatus" role="status"></p>
+  </div>
+  <div id="edform" hidden>
+    <div class="edgrid">
+      <label class="wide">Start from<select id="edpreset"></select></label>
+      <label>Level <output id="edlvlout"></output><input type="range" id="edlevel" min="1" max="18" value="13"></label>
+      <label>Enemy items<select id="edne"></select></label>
+      <label>Keystone<select id="edks"></select></label>
+      <label>Legend rune<select id="edlg"></select></label>
+      <label>Combat rune<select id="edcb"></select></label>
+      <label>Legend stacks <output id="edstout"></output><input type="range" id="edstacks" min="0" max="10" value="10"></label>
+      <label>Melee damage landing <output id="edkiteout"></output><input type="range" id="edkite" min="0.3" max="1" step="0.05"></label>
+    </div>
+    <div class="eitems" id="eitems"></div>
+    <p class="warn" id="edwarn" hidden></p>
+    <div class="meta" id="edstats"></div>
+    <div class="tablebox"><table id="edfights"></table></div>
+    <div class="tablebox"><table id="edlane"></table></div>
+    <p class="note" id="ednote"></p>
+  </div>
+</section>
+
+<section class="callout">
+  <h3>How the duel works, and its limits</h3>
+  <ul class="plain">
+    <li>Both sides start at full HP and fight to the death. Kalista casts Q on cooldown, stacks spears and fires Rend when it kills. Enemies auto-attack and use an opener ability with crowd control, then repeat it on cooldown.</li>
+    <li>Kalista heals from lifesteal, omnivamp, Conqueror and Fleet Footwork, and is protected by Shieldbow, Maw, Bloodthirster's shield, Death's Dance and Guardian Angel. Grievous Wounds cut her healing by 40% once enemies have their wounds item. Tenacity shortens crowd control.</li>
+    <li>Melee enemies land only part of their damage because Kalista hops while attacking (the kiting check shows how much this matters).</li>
+    <li id="calib"></li>
+    <li>Guardian Angel is a second life in a 1v1, so the plain duel goal overvalues it. Its 300-second cooldown and teamfights make it much weaker in real games, which is why the no-GA duel build is shown separately.</li>
+    <li>Not modeled: positioning, skillshots missing, teammates, summoner spells, mana, and enemy items beyond the profile. Treat scores as relative between builds, not as real win rates.</li>
+    <li>Checked against the League Wiki (docs/ASSUMPTIONS.md). Still to confirm in the Practice Tool: whether Dusk and Dawn's repeat adds a Rend spear, Hextech Gunblade's active at level 18, and the shape of Kraken Slayer's missing-health bonus.</li>
+  </ul>
+</section>
+</div>
+
+<script type="application/json" id="engine-files">__ENGINE__</script>
+<script>
+const R = __DATA__;
+const ED = __EDITOR__;
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const pct = x => (x >= 0 ? "+" : "−") + Math.abs(x * 100).toFixed(0) + "%";
+const f2 = x => Number(x).toFixed(2);
+const GOALS = Object.keys(R.goals);
+const COLORS = {kill:"var(--s1)", duel:"var(--s2)", practical:"var(--s3)", safe:"var(--s4)"};
+const TH = Object.keys(R.threats);
+const TH_SHORT = {marksman:"M", bruiser:"B", tank:"T", mage:"Mg"};
+const NOTES = {
+  kill: "Fastest kill against four dummies that don't fight back. This is the pure damage build.",
+  duel: "Most HP left after one-on-one fights with each enemy. Guardian Angel's second life is included.",
+  practical: "Same duel goal without Guardian Angel, the most realistic all-round build.",
+  safe: "Longest time before Kalista dies. Maximum survival, at a big cost in damage."
+};
+let goal = "practical", slot = 0;
+try { const g = localStorage.getItem("kal-goal"); if (g && R.builds[g]) goal = g; } catch(e) {}
+
+function avg(a){ return a.reduce((x,y)=>x+y,0)/a.length; }
+// A matchup counts as won when the duel score (averaged over three enemy HP values) is positive.
+function normalize(){
+  const fix = o => { TH.forEach(t => { o.per[t].win = o.per[t].duel > 0; }); o.wins = TH.filter(t => o.per[t].win).length; };
+  GOALS.forEach(g => { const b = R.builds[g]; b.path.forEach(fix); b.spikes.forEach(sp => { fix(sp.base); sp.ranking.forEach(fix); }); });
+  R.ap.path.forEach(fix);
+}
+normalize();
+function pills(per){ return TH.map(t => `<span class="pill ${per[t].win?"w":"l"}" title="${esc(R.threats[t])}: ${pct(per[t].duel)}">${TH_SHORT[t]} ${per[t].win?"W":"L"}</span>`).join(""); }
+
+function renderGoals(){
+  $("goals").innerHTML = GOALS.map(g => {
+    const b = R.builds[g];
+    const d = avg(b.path.map(p => p.duel)), wins = b.path.reduce((s,p)=>s+p.wins,0);
+    return `<button class="goal" type="button" data-g="${g}" aria-pressed="${g===goal}"><span class="gname"><span class="swatch" style="background:${COLORS[g]}"></span>${esc(R.goals[g])}</span><span class="gsum">${esc(b.path.map(p=>p.item).slice(0,3).join(" → "))} …</span><span class="gsum mono">duel ${pct(d)} · ${wins}/20 wins</span></button>`;
+  }).join("");
+  [...$("goals").children].forEach(b => b.addEventListener("click", () => { goal = b.dataset.g; try{localStorage.setItem("kal-goal", goal);}catch(e){} render(); }));
+}
+
+function render(){
+  renderGoals();
+  const B = R.builds[goal];
+  $("goalnote").textContent = NOTES[goal];
+  $("buildtitle").textContent = R.goals[goal];
+  $("buildmeta").innerHTML = `<span class="chip">Runes <b>${esc(B.page)}</b></span><span class="chip">Boots <b>${esc(B.boots)}</b> at item 2</span><span class="chip">Start Doran's Blade</span>`;
+  $("path").innerHTML = B.path.map(p => `<div class="step"><span class="lvl">Item ${p.slot} · lvl ${p.level}</span><span class="name">${esc(p.item)}</span><span class="nums"><span>duel ${pct(p.duel)}</span><span>kill ${f2(p.kill)}s</span></span><span class="pills">${pills(p.per)}</span></div>`).join("");
+
+  $("matrix").innerHTML = `<thead><tr><th>Enemy</th>${B.path.map(p=>`<th class="n">Item ${p.slot} · ${p.level}</th>`).join("")}</tr></thead><tbody>` +
+    TH.map(t => `<tr><td>${esc(R.threats[t])}</td>${B.path.map(p => { const v = p.per[t]; return `<td class="hm ${v.win?"w":"l"}">${v.win?"W":"L"} ${pct(v.duel)}</td>`; }).join("")}</tr>`).join("") + "</tbody>";
+
+  renderPower(); renderSlots(); renderSide();
+}
+
+function renderPower(){
+  const W=Math.max(360, $("pcbox").clientWidth - 24),H=260,L=46,Rr=122,T=14,Bt=34;
+  $("pc").setAttribute("viewBox", `0 0 ${W} ${H}`);
+  const all = GOALS.flatMap(g => R.builds[g].path.map(p => p.duel));
+  let lo = Math.min(0, ...all), hi = Math.max(...all);
+  lo = Math.floor(lo*10)/10; hi = Math.ceil(hi*10)/10;
+  const x = i => L + i*(W-L-Rr)/4, y = v => T + (hi-v)/(hi-lo)*(H-T-Bt);
+  let s = "";
+  for (let v = lo; v <= hi + 1e-9; v += 0.1) {
+    const yy = y(v).toFixed(1);
+    s += `<line x1="${L}" x2="${W-Rr}" y1="${yy}" y2="${yy}" stroke="var(--grid)" stroke-width="${Math.abs(v)<1e-9?1.5:1}"/>`;
+    s += `<text x="${L-6}" y="${+yy+4}" text-anchor="end">${pct(v)}</text>`;
+  }
+  if (lo < 0) s += `<line x1="${L}" x2="${W-Rr}" y1="${y(0)}" y2="${y(0)}" stroke="var(--muted)" stroke-width="1"/>`;
+  R.builds.kill.path.forEach((p,i) => { s += `<text x="${x(i)}" y="${H-18}" text-anchor="middle">Item ${p.slot}</text><text x="${x(i)}" y="${H-5}" text-anchor="middle">lvl ${p.level}</text>`; });
+  const ends = [];
+  GOALS.forEach(g => {
+    const pts = R.builds[g].path.map((p,i) => [x(i), y(p.duel)]);
+    const w = g === goal ? 3 : 2, op = g === goal ? 1 : 0.55;
+    s += `<polyline fill="none" stroke="${COLORS[g]}" stroke-width="${w}" stroke-linejoin="round" stroke-linecap="round" opacity="${op}" points="${pts.map(p=>p.join(",")).join(" ")}"/>`;
+    pts.forEach((p,i) => { s += `<circle cx="${p[0]}" cy="${p[1]}" r="4.5" fill="${COLORS[g]}" stroke="var(--panel)" stroke-width="2" opacity="${op}"/>`; });
+    ends.push([g, pts[4][1]]);
+  });
+  ends.sort((a,b)=>a[1]-b[1]); for (let i=1;i<ends.length;i++) if (ends[i][1]-ends[i-1][1] < 13) ends[i][1] = ends[i-1][1] + 13;
+  ends.forEach(([g,yy]) => { s += `<text x="${W-Rr+8}" y="${yy+4}" style="fill:var(--ink)">${esc({kill:"Fastest kill",duel:"Duelist",practical:"No-GA duelist",safe:"Hardest to kill"}[g])}</text>`; });
+  R.builds.kill.path.forEach((p,i) => { s += `<rect x="${x(i)-28}" y="${T}" width="56" height="${H-T-Bt}" fill="transparent" data-i="${i}" class="hit"/>`; });
+  $("pc").innerHTML = s;
+  $("pclegend").innerHTML = GOALS.map(g => `<span><span class="swatch" style="background:${COLORS[g]}"></span>${esc(R.goals[g])}</span>`).join("");
+  const tip = $("pctip");
+  $("pc").querySelectorAll(".hit").forEach(h => {
+    h.addEventListener("mousemove", ev => {
+      const i = +h.dataset.i;
+      tip.innerHTML = `<b>Item ${i+1}</b><br>` + GOALS.map(g => `${esc(R.goals[g])}: ${pct(R.builds[g].path[i].duel)} · ${R.builds[g].path[i].wins}/4 wins`).join("<br>");
+      place(tip, $("pcbox"), ev);
+    });
+    h.addEventListener("mouseleave", () => tip.hidden = true);
+  });
+}
+
+function place(tip, box, ev){
+  tip.hidden = false;
+  const r = box.getBoundingClientRect();
+  let lx = ev.clientX - r.left + 12, ly = ev.clientY - r.top + 12;
+  if (lx + 250 > r.width) lx = ev.clientX - r.left - 250;
+  tip.style.left = Math.max(4, lx) + "px"; tip.style.top = ly + "px";
+}
+
+function renderSlots(){
+  const B = R.builds[goal];
+  $("slots").innerHTML = B.spikes.map((s,i) => `<button role="tab" type="button" aria-selected="${i===slot}">Item ${s.slot} · lvl ${s.level}</button>`).join("");
+  [...$("slots").children].forEach((b,i) => b.addEventListener("click", () => { slot = i; renderSlots(); }));
+  const sp = B.spikes[slot], pick = B.path[slot].item;
+  $("owned").textContent = `Level ${sp.level} · you own ${sp.owned.join(", ")} · enemies have ${sp.enemy_items} item${sp.enemy_items>1?"s":""} · without a new item your duel score is ${pct(sp.base.duel)}.`;
+  const rows = sp.ranking;
+  $("rank").innerHTML = `<thead><tr><th class="n">#</th><th>Item</th><th class="n">Duel</th><th class="n">Δ duel</th><th class="n">Kill</th><th class="n">Faster</th><th class="n">Alive</th><th class="n">Wins</th>${TH.map(t=>`<th class="n">${TH_SHORT[t]}</th>`).join("")}<th class="n">Cost</th></tr></thead><tbody>` +
+    rows.map(r => `<tr class="${r.item===pick?"pick":""}"><td class="n">${r.rank}</td><td class="${r.item==="Riftmaker"?"rift":""}">${esc(r.item)}</td><td class="n">${pct(r.duel)}</td><td class="n">${r.duel_gain>=0?"+":""}${r.duel_gain.toFixed(1)}</td><td class="n">${f2(r.kill)}s</td><td class="n">${r.faster_pct.toFixed(0)}%</td><td class="n">${f2(r.safe)}s</td><td class="n">${r.wins}/4</td>${TH.map(t=>`<td class="n ${r.per[t].win?"cw":"cl"}">${pct(r.per[t].duel)}</td>`).join("")}<td class="n">${r.cost}</td></tr>`).join("") + "</tbody>";
+  renderScatter(sp, pick);
+  renderFight();
+}
+
+function renderScatter(sp, pick){
+  const W=Math.max(360, $("scbox").clientWidth - 24),H=300,L=48,Rr=16,T=14,Bt=40;
+  $("sc").setAttribute("viewBox", `0 0 ${W} ${H}`);
+  const rows = sp.ranking;
+  const xs = rows.map(r=>r.kill), ys = rows.map(r=>r.duel);
+  let x0 = Math.min(...xs), x1 = Math.max(...xs), y0 = Math.min(...ys), y1 = Math.max(...ys);
+  const px = (x1-x0)*0.06||0.1, py = (y1-y0)*0.08||0.02; x0-=px; x1+=px; y0-=py; y1+=py;
+  // x reversed: faster kill (lower time) on the right
+  const X = v => L + (x1-v)/(x1-x0)*(W-L-Rr), Y = v => T + (y1-v)/(y1-y0)*(H-T-Bt);
+  let s = "";
+  const yt = niceTicks(y0,y1,5), xt = niceTicks(x0,x1,6);
+  yt.forEach(v => { s += `<line x1="${L}" x2="${W-Rr}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--grid)"/><text x="${L-6}" y="${Y(v)+4}" text-anchor="end">${pct(v)}</text>`; });
+  xt.forEach(v => { s += `<line y1="${T}" y2="${H-Bt}" x1="${X(v)}" x2="${X(v)}" stroke="var(--grid)"/><text x="${X(v)}" y="${H-Bt+16}" text-anchor="middle">${v.toFixed(1)}s</text>`; });
+  s += `<text x="${(L+W-Rr)/2}" y="${H-6}" text-anchor="middle">Kill time (faster →)</text>`;
+  const order = [...rows].sort((a,b) => (a.item===pick) - (b.item===pick) || (a.item==="Riftmaker") - (b.item==="Riftmaker"));
+  order.forEach(r => {
+    const isPick = r.item===pick, isRift = r.item==="Riftmaker";
+    const fill = isPick ? "var(--spirit)" : isRift ? "var(--gold)" : "var(--muted)";
+    const op = isPick || isRift ? 1 : 0.45;
+    s += `<circle cx="${X(r.kill)}" cy="${Y(r.duel)}" r="${isPick?7:5}" fill="${fill}" opacity="${op}" stroke="var(--panel)" stroke-width="2"/>`;
+    s += `<circle cx="${X(r.kill)}" cy="${Y(r.duel)}" r="12" fill="transparent" class="hit" data-n="${esc(r.item)}" data-k="${r.kill}" data-d="${r.duel}" data-w="${r.wins}" data-r="${r.rank}"/>`;
+  });
+  // direct labels: pick, Riftmaker, top 3 by goal
+  const lab = new Set([pick, "Riftmaker", ...rows.slice(0,3).map(r=>r.item)]);
+  rows.filter(r => lab.has(r.item)).forEach(r => {
+    const xx = X(r.kill), right = xx > W*0.55;
+    s += `<text x="${xx + (right?-10:10)}" y="${Y(r.duel)-8}" text-anchor="${right?"end":"start"}" style="fill:var(--ink)">${esc(r.item)}</text>`;
+  });
+  $("sc").innerHTML = s;
+  const tip = $("sctip");
+  $("sc").querySelectorAll(".hit").forEach(h => {
+    h.addEventListener("mousemove", ev => { const d = h.dataset;
+      tip.innerHTML = `<b>${d.n}</b> (#${d.r})<br>Kill ${(+d.k).toFixed(2)}s · duel ${pct(+d.d)} · ${d.w}/4 wins`; place(tip, $("scbox"), ev); });
+    h.addEventListener("mouseleave", () => tip.hidden = true);
+  });
+}
+
+function niceTicks(a,b,n){
+  const span = b-a, step0 = span/n, mag = Math.pow(10, Math.floor(Math.log10(step0)));
+  const step = [1,2,2.5,5,10].map(m=>m*mag).find(s => span/s <= n) || 10*mag;
+  const out = []; for (let v = Math.ceil(a/step)*step; v <= b+1e-9; v += step) out.push(+v.toFixed(6));
+  return out;
+}
+
+function renderFight(){
+  const B = R.builds[goal], p = B.path[slot], br = p.breakdown;
+  $("fightlede").textContent = `With ${p.item} at item ${p.slot} (level ${p.level}): where Kalista's damage taken and healing came from in each duel.`;
+  const srcs = s => Object.entries(s).sort((a,b)=>b[1]-a[1]).map(([k,v]) => `${esc(k)} ${v}`).join(" · ") || "—";
+  $("fight").innerHTML = `<thead><tr><th>Enemy</th><th>Result</th><th class="n">Kill</th><th>Damage taken</th><th>Healing and shields</th></tr></thead><tbody>` +
+    TH.map(t => { const v = p.per[t], b = br[t];
+      return `<tr><td>${esc(R.threats[t])}</td><td class="${v.win?"cw":"cl"}">${v.win?"Won":"Lost"} ${pct(v.duel)}${b.ga_used?" (GA used)":""}</td><td class="n">${f2(v.tk)}s</td><td>${srcs(b.taken_by)}</td><td>${srcs(b.healed_by)}</td></tr>`; }).join("") + "</tbody>";
+}
+
+function renderSide(){
+  const B = R.builds[goal];
+  const ups = [...new Set(B.kite.map(k=>k.uptime))];
+  $("kite").innerHTML = `<thead><tr><th>Melee lands</th>${B.path.map(p=>`<th class="n">Item ${p.slot}</th>`).join("")}</tr></thead><tbody>` +
+    ups.map(u => `<tr class="${u===0.65?"pick":""}"><td class="mono">${Math.round(u*100)}%</td>${B.kite.filter(k=>k.uptime===u).map(k=>`<td class="n ${k.wins===4?"cw":"cl"}">${pct(k.duel)} · ${k.wins}/4</td>`).join("")}</tr>`).join("") + "</tbody>";
+  const best = B.pages[0].score;
+  const higher = goal !== "kill";
+  $("pages").innerHTML = `<thead><tr><th>Page</th><th class="n">vs best</th></tr></thead><tbody>` +
+    B.pages.slice(0,8).map((p,i) => { const d = higher ? (p.score/best - 1) * -100 : (p.score/best - 1) * 100;
+      return `<tr class="${i===0?"pick":""}"><td>${esc(p.page)}</td><td class="n">${i===0?"best":(higher?"−":"+")+Math.abs(d).toFixed(1)+"%"}</td></tr>`; }).join("") + "</tbody>";
+}
+
+function renderStatic(){
+  $("cross").innerHTML = `<thead><tr><th>Build</th><th class="n">Kill time</th><th class="n">Duel score</th><th class="n">Time alive</th><th class="n">Duel wins</th></tr></thead><tbody>` +
+    GOALS.map(g => { const c = R.cross[g], b = R.builds[g];
+      return `<tr><td><span class="swatch" style="display:inline-block;background:${COLORS[g]};margin-right:6px"></span>${esc(R.goals[g])}</td><td class="n">${f2(avg(c.map(x=>x.kill)))}s</td><td class="n">${pct(avg(c.map(x=>x.duel)))}</td><td class="n">${f2(avg(c.map(x=>x.safe)))}s</td><td class="n">${b.path.reduce((s,p)=>s+p.wins,0)}/20</td></tr>`; }).join("") + "</tbody>";
+
+  $("ap").innerHTML = `<thead><tr><th>Spike</th><th>Item</th><th class="n">AP duel</th><th class="n">No-GA build</th></tr></thead><tbody>` +
+    R.ap.path.map((p,i) => `<tr><td class="mono">${p.slot} · lvl ${p.level}</td><td>${esc(p.item)}</td><td class="n">${pct(p.duel)}</td><td class="n">${pct(R.ap.vs_best[i].best_duel)}</td></tr>`).join("") + "</tbody>";
+  const rf = R.riftmaker;
+  $("rift").innerHTML = `<thead><tr><th>Goal</th>${[1,2,3,4,5].map(s=>`<th class="n">Item ${s}</th>`).join("")}</tr></thead><tbody>` +
+    GOALS.map(g => `<tr><td>${esc(R.goals[g])}</td>${[1,2,3,4,5].map(s => { const x = rf.find(z=>z.goal===g&&z.slot===s);
+      return `<td class="n">${x.rank==null?"owned":x.rank+" / "+x.of}</td>`; }).join("")}</tr>`).join("") + "</tbody>";
+  $("apnote").textContent = `AP Kalista (${R.ap.page}, ${R.ap.boots}) wins duels but trails the no-GA build at every spike after the first. Riftmaker only ranks near the top when the goal is survival, because its value is health and omnivamp rather than damage.`;
+  const c = R.calibration;
+  $("calib").textContent = "Enemy damage is calibrated: each enemy's damage is multiplied by one fixed number (" +
+    TH.map(t => `${R.threats[t].toLowerCase()} ×${c[t].mult}`).join(", ") +
+    ") so a standard crit Kalista (Yun Tal → IE → LDR → Stormrazor → BotRK) narrowly wins on average. The multiplier never changes between spikes, so early and late power shifts still show.";
+}
+
+function renderLane(){
+  const Ln = R.lane, LT = Object.keys(Ln.threats), P = Ln.lane_path;
+  const LS = {marksman:"ADC", mage:"Mage sup", tank:"Tank sup"};
+  const sgn = x => (x >= 0 ? "+" : "−") + Math.abs(x*100).toFixed(1) + "%";
+  const cls = x => x > 0.005 ? "cw" : x < -0.005 ? "cl" : "";
+  $("lanemeta").innerHTML = `<span class="chip">Runes <b>${esc(P.page)}</b></span><span class="chip">Items <b>${esc(P.items.join(" → "))}</b></span><span class="chip">Boots <b>${esc(P.boots)}</b> at item 2</span>`;
+  $("lanestages").innerHTML = `<thead><tr><th>Stage</th><th class="n">Quick</th><th class="n">Extended</th><th class="n">Kill pressure</th>${LT.map(t=>`<th class="n">${LS[t]} quick</th>`).join("")}${LT.map(t=>`<th class="n">${LS[t]} execute</th>`).join("")}</tr></thead><tbody>` +
+    P.stages.map(s => `<tr><td>${esc(s.stage)}</td><td class="n ${cls(s.trade)}">${sgn(s.trade)}</td><td class="n ${cls(s.long)}">${sgn(s.long)}</td><td class="n">${Math.round(s.pressure*100)}% HP</td>${LT.map(t=>`<td class="n ${cls(s.per[t].trade)}">${sgn(s.per[t].trade)}</td>`).join("")}${LT.map(t=>{const e=s.per[t].exec; return `<td class="n ${e.killed?"cw":"cl"}">${e.killed?(e.time.toFixed(2)+"s"):"escaped"}</td>`;}).join("")}</tr>`).join("") + "</tbody>";
+
+  const top = Ln.runes[0];
+  const quickBest = [...Ln.runes].sort((a,b)=>b.trade-a.trade)[0];
+  $("runenote").textContent = `Scored at levels 2, 3 and 6 on Doran's Blade. Kalista fits only two autos into a 2-second trade early, so Press the Attack (three hits) and Lethal Tempo (stacks) rarely fire in quick trades: ${quickBest.page.split(" / ")[0]} wins those narrowly, while Press the Attack wins extended trades by far more.`;
+  $("lanerunes").innerHTML = `<thead><tr><th>Page</th><th class="n">Lane score</th><th class="n">Quick</th><th class="n">Extended</th><th class="n">Kill pressure</th></tr></thead><tbody>` +
+    Ln.runes.slice(0,10).map((p,i) => `<tr class="${i===0?"pick":""}"><td>${esc(p.page)}</td><td class="n">${(p.score*100).toFixed(1)}</td><td class="n ${cls(p.trade)}">${sgn(p.trade)}</td><td class="n ${cls(p.long)}">${sgn(p.long)}</td><td class="n">${Math.round(p.pressure*100)}%</td></tr>`).join("") + "</tbody>";
+
+  const lists = [["first","Item 1 · lvl 9"],["second","Item 2 · lvl 11"]];
+  let li = 0, sortKey = "score", sortDir = -1;
+  function drawItems(){
+    $("lanetabs").innerHTML = lists.map(([k,lab],i) => `<button role="tab" type="button" aria-selected="${i===li}">${lab}</button>`).join("");
+    [...$("lanetabs").children].forEach((b,i) => b.addEventListener("click", () => { li = i; drawItems(); }));
+    const D = Ln[lists[li][0]], pick = P.items[li];
+    $("lanebase").textContent = `Without a new item: quick ${sgn(D.base.trade)}, extended ${sgn(D.base.long)}, kill pressure ${Math.round(D.base.pressure*100)}%.` + (li===1 ? " Boots shown are the best of Berserker's, Steelcaps or Mercury's for each item." : "");
+    const cols = [["rank","#","n"],["item","Item",""],["score","Lane score","n"],["trade","Quick","n"],["long","Extended","n"],["pressure","Kill pressure","n"],["exec_cost","Execute cost","n"],["cost","Gold","n"]];
+    if (li===1) cols.splice(2,0,["boots","Boots",""]);
+    const rows = [...D.ranking].sort((a,b) => { const x=a[sortKey], y=b[sortKey]; return (typeof x==="string" ? x.localeCompare(y) : x-y) * sortDir * (sortKey==="rank"||sortKey==="exec_cost"||sortKey==="cost"||sortKey==="item"||sortKey==="boots" ? -1 : 1); });
+    $("laneitems").innerHTML = `<thead><tr>${cols.map(([k,l,c])=>`<th class="${c}"><button type="button" data-k="${k}" style="all:unset;cursor:pointer">${l}${sortKey===k?(sortDir<0?" ↓":" ↑"):""}</button></th>`).join("")}</tr></thead><tbody>` +
+      rows.map(r => `<tr class="${r.item===pick?"pick":""}">${cols.map(([k,,c]) => {
+        let v = r[k];
+        if (k==="score") v = (v*100).toFixed(1);
+        else if (k==="trade"||k==="long") return `<td class="n ${cls(v)}">${sgn(v)}</td>`;
+        else if (k==="pressure") v = Math.round(v*100)+"%";
+        else if (k==="exec_cost") v = (v>=0?"":"+") + Math.round(-v*100) + "% HP";
+        else if (k==="item") return `<td class="${r.item==="Riftmaker"?"rift":""}">${esc(v)}</td>`;
+        return `<td class="${c}">${esc(v ?? "")}</td>`; }).join("")}</tr>`).join("") + "</tbody>";
+    $("laneitems").querySelectorAll("th button").forEach(b => b.addEventListener("click", () => {
+      const k = b.dataset.k; if (sortKey === k) sortDir = -sortDir; else { sortKey = k; sortDir = -1; } drawItems(); }));
+  }
+  drawItems();
+
+  $("lanegoals").innerHTML = `<thead><tr><th>Build</th><th>First two items</th><th class="n">Lvl 9 quick</th><th class="n">Lvl 9 ext.</th><th class="n">Lvl 11 quick</th><th class="n">Lvl 11 ext.</th><th class="n">Lvl 11 pressure</th></tr></thead><tbody>` +
+    `<tr class="pick"><td>Lane build</td><td>${esc(P.items.join(", "))}</td>${[3,4].map(i=>`<td class="n ${cls(P.stages[i].trade)}">${sgn(P.stages[i].trade)}</td><td class="n ${cls(P.stages[i].long)}">${sgn(P.stages[i].long)}</td>`).join("")}<td class="n">${Math.round(P.stages[4].pressure*100)}%</td></tr>` +
+    Ln.goal_builds.map(g => `<tr><td>${esc(g.name)}</td><td>${esc(g.items.join(", "))}</td>${[3,4].map(i=>`<td class="n ${cls(g.stages[i].trade)}">${sgn(g.stages[i].trade)}</td><td class="n ${cls(g.stages[i].long)}">${sgn(g.stages[i].long)}</td>`).join("")}<td class="n">${Math.round(g.stages[4].pressure*100)}%</td></tr>`).join("") + "</tbody>";
+  const c = Ln.calibration;
+  $("lanecal").textContent = "Lane enemies are calibrated separately from full fights: each one's damage is scaled (" + LT.map(t=>`${Ln.threats[t].toLowerCase()} ×${c[t].mult}`).join(", ") + ") so a standard Kalista (Doran's Blade, Press the Attack / Alacrity / Cut Down) trades exactly even across levels 2, 3 and 6. Each build uses its own runes and boots.";
+}
+
+// ---------------------------------------------------------------- build editor (Pyodide)
+const PYODIDE = "https://cdn.jsdelivr.net/pyodide/v0.26.4/full/pyodide.js";
+let py = null, edTimer = null;
+const ITEM_ID = Object.fromEntries(Object.entries(ED.items).map(([id, n]) => [n, id]));
+function loadScript(src){ return new Promise((ok, no) => { const s = document.createElement("script"); s.src = src; s.onload = ok; s.onerror = () => no(new Error("could not load " + src)); document.head.appendChild(s); }); }
+function opt(v, label, sel){ return `<option value="${esc(v)}"${sel ? " selected" : ""}>${esc(label)}</option>`; }
+
+function presets(){
+  const out = [];
+  GOALS.forEach(g => { const b = R.builds[g]; b.path.forEach(p => out.push({label: `${R.goals[g]} · item ${p.slot} (lvl ${p.level})`, goal: g, slot: p.slot, level: p.level, page: b.page, boots: b.boots, names: b.path.slice(0, p.slot).map(x => x.item)})); });
+  const L = R.lane.lane_path;
+  R.lane.lane_path.stages.forEach((st, i) => { const n = ED.lane_stages[i][2]; out.push({label: `Lane build · ${st.stage}`, slot: n, level: ED.lane_stages[i][1], page: L.page, boots: L.boots, names: L.items.slice(0, n), lane: true}); });
+  return out;
+}
+const PRESETS = presets();
+function inventoryIds(p){
+  const ids = p.names.map(n => ITEM_ID[n]);
+  if (p.slot >= 2 && p.boots) ids.push(ITEM_ID[p.boots]);
+  if (p.slot <= 4) ids.push(ED.starter);
+  return ids;
+}
+function setupForm(){
+  $("edpreset").innerHTML = PRESETS.map((p, i) => opt(i, p.label, p.goal === goal && p.slot === 3)).join("");
+  $("edne").innerHTML = opt("auto", "Same as yours", true) + [0,1,2,3,4,5].map(n => opt(n, n)).join("");
+  $("edks").innerHTML = ED.keystones.map(k => opt(k, k)).join("");
+  $("edlg").innerHTML = ED.legends.map(k => opt(k, k)).join("");
+  $("edcb").innerHTML = ED.combat.map(k => opt(k, k)).join("");
+  const names = Object.entries(ED.items).sort((a, b) => a[1].localeCompare(b[1]));
+  $("eitems").innerHTML = [1,2,3,4,5,6].map(i => `<label>Slot ${i}<select data-slot="${i}">${opt("", "— empty —")}${names.map(([id, n]) => opt(id, n)).join("")}</select></label>`).join("");
+  $("edkite").value = ED.kite;
+  applyPreset(+$("edpreset").value);
+  $("edform").querySelectorAll("select,input").forEach(el => el.addEventListener("input", () => { if (el.id === "edpreset") applyPreset(+el.value); scheduleRun(); }));
+}
+function applyPreset(i){
+  const p = PRESETS[i], ids = inventoryIds(p), [ks, lg, cb] = p.page.split(" / ");
+  $("eitems").querySelectorAll("select").forEach((s, j) => s.value = ids[j] || "");
+  $("edlevel").value = p.level; $("edks").value = ks; $("edlg").value = lg; $("edcb").value = cb;
+  $("edstacks").value = ED.legend[p.slot]; $("edne").value = "auto";
+}
+function scheduleRun(){ clearTimeout(edTimer); edTimer = setTimeout(runEditor, 120); }
+
+async function startEngine(){
+  const btn = $("edstart"), st = $("edstatus");
+  btn.disabled = true; st.textContent = "Loading Python…";
+  try {
+    if (!window.loadPyodide) await loadScript(PYODIDE);
+    py = await loadPyodide();
+    st.textContent = "Loading the simulator…";
+    const files = JSON.parse($("engine-files").textContent);
+    for (const [path, text] of Object.entries(files)) {
+      const parts = ("sim/" + path).split("/"); let dir = "";
+      for (const d of parts.slice(0, -1)) { dir += "/" + d; try { py.FS.mkdir(dir); } catch(e) {} }
+      py.FS.writeFile("/" + parts.join("/"), text);
+    }
+    py.runPython("import sys, json\nsys.path.insert(0, '/sim')\nfrom lolsim.editor import evaluate_build");
+    $("edload").hidden = true; $("edform").hidden = false;
+    setupForm(); runEditor();
+  } catch (e) {
+    btn.disabled = false; st.textContent = "Could not load the simulator (" + e.message + "). Check your connection, or use `./kalista build` locally.";
+  }
+}
+$("edstart").addEventListener("click", startEngine);
+
+function runEditor(){
+  if (!py) return;
+  const items = [...$("eitems").querySelectorAll("select")].map(s => s.value).filter(Boolean);
+  const ne = $("edne").value;
+  $("edlvlout").textContent = $("edlevel").value; $("edstout").textContent = $("edstacks").value;
+  $("edkiteout").textContent = Math.round($("edkite").value * 100) + "%";
+  const args = {items, level: +$("edlevel").value, page: [$("edks").value, $("edlg").value, $("edcb").value].join(" / "),
+    stacks: +$("edstacks").value, enemy_items: ne === "auto" ? null : +ne,
+    duel_mults: Object.fromEntries(TH.map(t => [t, R.calibration[t].mult])),
+    lane_mults: Object.fromEntries(Object.keys(R.lane.calibration).map(t => [t, R.lane.calibration[t].mult])),
+    kite: +$("edkite").value};
+  let r;
+  try { py.globals.set("args_json", JSON.stringify(args)); r = JSON.parse(py.runPython("json.dumps(evaluate_build(**json.loads(args_json)))")); }
+  catch (e) { $("edwarn").hidden = false; $("edwarn").textContent = "Simulator error: " + e.message.split("\n").slice(-2).join(" "); return; }
+  $("edwarn").hidden = !r.warnings.length; $("edwarn").textContent = r.warnings.join(" ");
+  $("edstats").innerHTML = Object.entries(r.stats).filter(([k]) => k !== "level").map(([k, v]) => `<span class="chip">${esc(k)} <b>${esc(v)}</b></span>`).join("");
+  const sg = x => (x >= 0 ? "+" : "−") + Math.abs(x * 100).toFixed(1) + "%";
+  $("edfights").innerHTML = `<thead><tr><th>Enemy</th><th class="n">Kill time</th><th>Duel</th><th class="n">Kill</th><th class="n">Death</th><th>Damage taken</th></tr></thead><tbody>` +
+    Object.entries(r.fights).map(([t, f]) => `<tr><td>${esc(R.threats[t] || t)}</td><td class="n">${f.ttk == null ? "—" : f2(f.ttk) + "s"}</td><td class="${f.win ? "cw" : "cl"}">${f.win ? "Won, " + Math.round(f.kal_hp_left * 100) + "% HP left" : "Lost, enemy on " + Math.round(f.enemy_hp_left * 100) + "%"}</td><td class="n">${f2(f.tk)}s</td><td class="n">${f.td >= 99 ? "—" : f2(f.td) + "s"}</td><td>${Object.entries(f.taken_by).sort((a, b) => b[1] - a[1]).map(([k, v]) => esc(k) + " " + v).join(" · ") || "—"}</td></tr>`).join("") + "</tbody>";
+  $("edlane").innerHTML = `<thead><tr><th>Lane enemy</th><th class="n">Quick trade</th><th class="n">Extended</th><th class="n">Kill pressure</th></tr></thead><tbody>` +
+    Object.entries(r.lane).map(([t, l]) => `<tr><td>${esc(R.lane.threats[t] || t)}</td><td class="n ${l.quick > 0.005 ? "cw" : l.quick < -0.005 ? "cl" : ""}">${sg(l.quick)}</td><td class="n ${l.long > 0.005 ? "cw" : l.long < -0.005 ? "cl" : ""}">${sg(l.long)}</td><td class="n">${Math.round(l.pressure * 100)}% HP</td></tr>`).join("") + "</tbody>";
+  $("ednote").textContent = `Level ${r.level} against enemies with ${r.enemy_items} item${r.enemy_items === 1 ? "" : "s"}. Lane enemies are calibrated for levels 2–11; later levels are a stress test, not a lane read.`;
+}
+
+renderStatic(); render(); renderLane();
+let rz; window.addEventListener("resize", () => { clearTimeout(rz); rz = setTimeout(() => { renderPower(); renderSlots(); }, 150); });
+</script>

@@ -149,31 +149,22 @@ def cmd_optimize(a):
 
 
 def cmd_build(a):
+    from .editor import evaluate_build
     cfg = config_from(a)
     items = [find_item(x) for x in a.items]
-    page = RunePage.parse(a.runes, a.stacks)
-    ne = a.enemy_items if a.enemy_items is not None else sum(i not in SPK.BOOTS and i != SPK.DORANS for i in items)
-    print(f"Kalista level {a.level}: {', '.join(item_name(i) for i in items) or 'no items'} · {page.label()} "
-          f"(legend {a.stacks}) · enemies own {ne} items")
-    print("  " + "  ".join(f"{k} {v}" for k, v in statline("Kalista", a.level, items, page).items() if k != "level"))
-    duel_m = saved_mults("spikes.json") or {}
-    lane_m = saved_mults("lane.json") or {}
-    r = SPK.Ranker(cfg, duel_m or None)
-    opts = Opts(kite_uptime=cfg.kite_uptime)
+    duel_m, lane_m = saved_mults("spikes.json"), saved_mults("lane.json")
+    r = evaluate_build(items, a.level, a.runes, a.stacks, a.enemy_items, duel_m, lane_m, cfg=cfg)
+    print(f"Kalista level {r['level']}: {', '.join(r['items']) or 'no items'} · {r['page']} "
+          f"(legend {r['stacks']}) · enemies own {r['enemy_items']} items")
+    print("  " + "  ".join(f"{k} {v}" for k, v in r["stats"].items() if k != "level"))
     print(f"\n{'enemy':10s} {'kill time':>9s}   duel")
-    for kind in cfg.threats:
-        d = make_dummy(kind, a.level, ne)
-        ttk = simulate(items, a.level, d, page, opts)["ttk"]
-        du = simulate(items, a.level, d, page, opts, r.threats[kind], ne)
-        res = f"won, {du['kal_hp_left'] * 100:.0f}% HP left" if du["win"] else f"lost, enemy on {du['enemy_hp_left'] * 100:.0f}%"
-        print(f"{kind:10s} {ttk:8.2f}s   {res} (kill {du['tk']:.2f}s, death {min(du['td'], 99):.2f}s)")
-    la = LaneAnalysis(cfg, lane_m or None)
+    for kind, f in r["fights"].items():
+        res = f"won, {f['kal_hp_left'] * 100:.0f}% HP left" if f["win"] else f"lost, enemy on {f['enemy_hp_left'] * 100:.0f}%"
+        ttk = f"{f['ttk']:8.2f}s" if f["ttk"] is not None else "   never"
+        print(f"{kind:10s} {ttk}   {res} (kill {f['tk']:.2f}s, death {f['td']:.2f}s)")
     print(f"\n{'lane enemy':10s} {'quick':>7s} {'extended':>9s} {'pressure':>9s}")
-    for kind in la.kinds:
-        q = la.trade(items, a.level, kind, ne, page)["net"]
-        l = la.trade(items, a.level, kind, ne, page, windows=cfg.long_windows)["net"]
-        p = la.pressure(items, a.level, kind, ne, page)
-        print(f"{kind:10s} {q * 100:+6.1f}% {l * 100:+8.1f}% {p * 100:8.0f}%")
+    for kind, l in r["lane"].items():
+        print(f"{kind:10s} {l['quick'] * 100:+6.1f}% {l['long'] * 100:+8.1f}% {l['pressure'] * 100:8.0f}%")
     if not duel_m: print("\n(no spikes.json yet: enemy damage is uncalibrated; run `kalista run` first)")
 
 

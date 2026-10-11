@@ -160,3 +160,18 @@ measure: Dusk and Dawn's spear, Gunblade at 18, Kraken's missing-health curve.
 - Analysis code moved into `lolsim/spikes.py` (`Ranker`) and `lolsim/lane.py`
   (`LaneAnalysis`); each holds its own threat multipliers, so nothing mutates globals.
   `spikes.py`, `lane.py` and `build_page.py` remain as thin scripts.
+
+## v5.2: results page (roadmap step 8)
+- The page is `templates/page.html` (HTML, CSS and JS) with placeholders `__DATA__`,
+  `__EDITOR__`, `__ENGINE__`, `__PATCH__`; `build_page.py` fills them. Same sections and
+  phone layout as before.
+- New **build editor** section: pick items (6 slots), level, enemy items, keystone / legend /
+  combat rune, legend stacks and kiting share, or start from any goal or lane build at any
+  spike; it shows the stat line, kill time and duel per threat (with damage taken) and
+  quick/extended trades and kill pressure per lane threat, with inventory warnings
+  (exclusive items, boots, duplicates). It runs the real `lolsim` engine in the browser via
+  Pyodide 0.26.4 (loaded from jsDelivr on demand); the engine source and trimmed data
+  (~140 KB) are embedded in the page. `lolsim/editor.py` is shared with `kalista build`.
+- Checks: `tests/test_page.py` (template filled, script parses under node, embedded engine
+  runs standalone and matches); `tools/check_page.js` (Playwright: no errors, no horizontal
+  scroll at 1100 px and 390 px, editor loads and fills its tables).
