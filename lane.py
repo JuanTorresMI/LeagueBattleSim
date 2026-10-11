@@ -18,16 +18,20 @@ import json, math, time
 from engine import (simulate, make_dummy, Dummy, RunePage, KEYSTONES, Opts, THREATS,
                     item_name, item_cost, statline)
 from spikes import (POOL, BOOTS, DORANS, LEGEND, ALL_PAGES, legal, inventory)
+from params import SCORING, CALIBRATION
 
-LANE = ["marksman", "mage", "tank"]
-LANE_NAMES = {"marksman": "Enemy marksman", "mage": "Poke mage support", "tank": "Engage tank support"}
-WINDOWS = [1.75, 2.0, 2.25]          # quick trade
-LONG_WINDOWS = [3.25, 3.5, 3.75]     # extended trade
-STAGES = [  # (label, level, our items as path length, enemy items)
-    ("Level 2", 2, 0, 0), ("Level 3", 3, 0, 0), ("Level 6", 6, 0, 0),
-    ("Item 1 · lvl 9", 9, 1, 1), ("Item 2 · lvl 11", 11, 2, 2)]
-BASE_PAGE = RunePage("Press the Attack", "Alacrity", 1, "Cut Down")
-CAL_STAGES = STAGES[:3]
+LN, CAL = SCORING["lane"], CALIBRATION["lane"]      # config/scoring.json, config/calibration.json
+LANE_NAMES = dict(LN["threats"])
+LANE = list(LANE_NAMES)
+WINDOWS = LN["quick_windows"]        # quick trade
+LONG_WINDOWS = LN["long_windows"]    # extended trade
+STAGES = [tuple(s) for s in LN["stages"]]   # (label, level, our items as path length, enemy items)
+BASE_PAGE = RunePage(CAL["reference_page"][0], CAL["reference_page"][1], CAL["reference_legend_stacks"],
+                     CAL["reference_page"][2])
+BASE_ITEMS = list(CAL["reference_items"])
+CAL_STAGES = [s for s in STAGES if s[2] == 0 and s[1] in CAL["levels"]]
+GUNBLADE_SHARE = LN["gunblade_trade_share"]
+EX, PR = LN["execute"], LN["pressure"]
 
 def stacks_for(n_items):
     return LEGEND[n_items]
@@ -36,14 +40,15 @@ def trade(inv, lvl, kind, ne, page, path_last=None, windows=WINDOWS):
     d = make_dummy(kind, lvl, ne)
     tot_net = tot_d = tot_t = 0.0
     last = None
-    # Gunblade's active (60 s cooldown) is up for about half of lane trades
-    actives = [True, False] if "3146" in inv else [True]
+    # Gunblade's active (60 s cooldown) is up for GUNBLADE_SHARE of lane trades
+    actives = [True, False] if "3146" in inv and 0 < GUNBLADE_SHARE < 1 else [GUNBLADE_SHARE > 0]
     for w in windows:
         for act in actives:
+            wt = (2 * GUNBLADE_SHARE if act else 2 * (1 - GUNBLADE_SHARE)) if len(actives) == 2 else 1.0
             r = simulate(inv, lvl, d, page, Opts(window=w, exit_e=True, gunblade_active=act,
                          yuntal_prestacked=path_last != "3032"), THREATS[kind], ne)
-            tot_d += r["dealt_frac"]; tot_t += r["taken_frac"]
-            tot_net += r["dealt_frac"] - r["taken_frac"]
+            tot_d += wt * r["dealt_frac"]; tot_t += wt * r["taken_frac"]
+            tot_net += wt * (r["dealt_frac"] - r["taken_frac"])
             last = r if w == windows[1] else last
     n = len(windows) * len(actives)
     return {"net": tot_net / n, "dealt": tot_d / n, "taken": tot_t / n,
@@ -51,7 +56,7 @@ def trade(inv, lvl, kind, ne, page, path_last=None, windows=WINDOWS):
 
 def execute(inv, lvl, kind, ne, page, path_last=None):
     d = make_dummy(kind, lvl, ne)
-    r = simulate(inv, lvl, d, page, Opts(window=2.0, enemy_start=0.25, kal_start=0.6,
+    r = simulate(inv, lvl, d, page, Opts(window=EX["window"], enemy_start=EX["enemy_start"], kal_start=EX["kal_start"],
                  yuntal_prestacked=path_last != "3032"), THREATS[kind], ne)
     return {"killed": r["killed"] and not r["died"], "time": r["kill_time"],
             "cost": r["taken_frac"], "died": r["died"]}
@@ -59,13 +64,13 @@ def execute(inv, lvl, kind, ne, page, path_last=None):
 def pressure(inv, lvl, kind, ne, page, path_last=None):
     d = make_dummy(kind, lvl, ne)
     def ok(f):
-        r = simulate(inv, lvl, d, page, Opts(window=2.0, enemy_start=f, kal_start=0.8,
+        r = simulate(inv, lvl, d, page, Opts(window=PR["window"], enemy_start=f, kal_start=PR["kal_start"],
                      yuntal_prestacked=path_last != "3032"), THREATS[kind], ne)
         return r["killed"] and not r["died"]
-    if not ok(0.02): return 0.0
-    lo, hi = 0.02, 1.0
+    if not ok(PR["lo"]): return 0.0
+    lo, hi = PR["lo"], 1.0
     if ok(hi): return 1.0
-    for _ in range(12):
+    for _ in range(PR["steps"]):
         mid = (lo + hi) / 2
         if ok(mid): lo = mid
         else: hi = mid
@@ -97,11 +102,11 @@ def calibrate():
         th = THREATS[k]
         def avg_net(m):
             th.dmg_mult = m
-            return sum(trade([DORANS], lvl, k, 0, BASE_PAGE)["net"] for _, lvl, _, _ in CAL_STAGES) / len(CAL_STAGES)
-        lo, hi = 0.2, 6.0
-        for _ in range(30):
+            return sum(trade(BASE_ITEMS, lvl, k, 0, BASE_PAGE)["net"] for _, lvl, _, _ in CAL_STAGES) / len(CAL_STAGES)
+        lo, hi, steps = CAL["bisect"]
+        for _ in range(steps):
             mid = (lo + hi) / 2
-            if avg_net(mid) > 0: lo = mid
+            if avg_net(mid) > CAL["target"]: lo = mid
             else: hi = mid
         th.dmg_mult = round((lo + hi) / 2, 3)
         out[k] = {"mult": th.dmg_mult, "check": round(avg_net(th.dmg_mult), 4)}
@@ -113,7 +118,7 @@ def view(ev):
             "per": {k: {"trade": v["trade"], "long": v["long"], "dealt": v["dealt"], "taken": v["taken"],
                         "pressure": v["pressure"], "exec": v["exec"]} for k, v in ev["per"].items()}}
 
-QUICK_W, LONG_W, PRESSURE_W = 0.6, 0.4, 0.25
+QUICK_W, LONG_W, PRESSURE_W = LN["weights"]["quick"], LN["weights"]["long"], LN["weights"]["pressure"]
 
 def lane_score(ev):
     """Net HP lead from trades (60% quick, 40% extended) plus a smaller kill-pressure term."""

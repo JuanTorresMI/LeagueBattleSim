@@ -14,9 +14,11 @@ Enemies have the same number of items as you. Early spikes are weighted more.
 import json, math, time, itertools
 from engine import (simulate, statline, item_name, item_cost, make_dummy, Dummy,
                     RunePage, KEYSTONES, Opts, THREATS)
+from params import SCORING, CALIBRATION
 
-DORANS = "1055"
-BOOTS = {"3006": "Berserker's Greaves", "3047": "Plated Steelcaps", "3111": "Mercury's Treads"}
+SP = SCORING["spikes"]
+DORANS = SP["starter"]
+BOOTS = dict(SP["boots"])
 AD_POOL = {
     "3031": "Infinity Edge", "3032": "Yun Tal Wildarrows", "3036": "Lord Dominik's Regards",
     "3033": "Mortal Reminder", "6694": "Serylda's Grudge", "3046": "Phantom Dancer",
@@ -43,13 +45,16 @@ EXCLUSIVE = [{"3036", "3033", "6694"},             # Last Whisper
              {"3135", "3137"},                     # Blight
              {"6673", "3156"}]                     # Lifeline
 
-SLOTS = [(1, 9, 1), (2, 11, 2), (3, 13, 3), (4, 15, 4), (5, 17, 5)]
-WEIGHTS = {1: 0.30, 2: 0.25, 3: 0.20, 4: 0.15, 5: 0.10}
-LEGEND = {0: 1, 1: 3, 2: 5, 3: 7, 4: 9, 5: 10}
-KILL_GRID = [0.85, 0.925, 1.0, 1.075, 1.15]
-DUEL_GRID = [0.9, 1.0, 1.1]
+# config/scoring.json
+SLOTS = [tuple(s) for s in SP["slots"]]          # (item number, level, enemy items)
+WEIGHTS = {int(k): v for k, v in SP["weights"].items()}
+LEGEND = {int(k): v for k, v in SP["legend_stacks"].items()}
+KILL_GRID = SP["kill_hp_grid"]
+DUEL_GRID = SP["duel_hp_grid"]
 KINDS = list(THREATS)                     # marksman, bruiser, tank, mage
-TD_CAP = 30.0
+TD_CAP = SP["td_cap"]
+BEAM_WIDTH = SP["beam_width"]
+KITE_UPTIME = SCORING["fight"]["kite_uptime"]
 GOALS = {"kill": "Fastest kill", "duel": "Best duelist", "practical": "Best duelist, no GA",
          "safe": "Hardest to kill"}
 # Guardian Angel is a second life in a 1v1, which a one-fight duel overvalues
@@ -68,7 +73,7 @@ def inventory(path, boots):
     return inv
 
 _cache = {}
-def evaluate(path, boots, level, ne, page, uptime=0.65):
+def evaluate(path, boots, level, ne, page, uptime=KITE_UPTIME):
     """All metrics for one inventory at one spike."""
     key = (tuple(sorted(path)), path[-1] if path else None, boots, level, ne, page.label(), uptime)
     if key in _cache: return _cache[key]
@@ -105,7 +110,7 @@ def cost(goal, ev):
     if goal in ("duel", "practical"): return -ev["duel"]
     return -ev["safe"]
 
-def beam(goal, page, pool, width=8):
+def beam(goal, page, pool, width=BEAM_WIDTH):
     states = [((), None, 0.0, [])]
     for slot, lvl, ne in SLOTS:
         nxt = {}
@@ -184,7 +189,7 @@ def path_view(res):
 
 def kite_sensitivity(res):
     rows = []
-    for up in (0.4, 0.65, 0.9):
+    for up in SP["kite_check"]:
         for s, l, ne in SLOTS:
             ev = evaluate(res["path"][:s], res["boots"], l, ne, res["page"], up)
             rows.append({"uptime": up, "slot": s, "duel": round(ev["duel"], 3), "wins": ev["wins"],
@@ -202,20 +207,21 @@ def cross_table(results):
 
 def early_runes():
     out = []
-    for lvl in (3, 6):
+    for lvl in SP["early_rune_levels"]:
         for pg in ALL_PAGES:
             ev = evaluate((), None, lvl, 0, pg)
             out.append({"level": lvl, "page": pg.label(), "kill": round(ev["kill"], 2),
                         "duel": round(ev["duel"], 3), "safe": round(ev["safe"], 2)})
     return out
 
-REFERENCE = (("3032", "3031", "3036", "3095", "3153"), "3006")   # standard crit Kalista
-TARGET = 0.05                                                     # a narrow win on average
+CAL = CALIBRATION["duel"]                                         # config/calibration.json
+REFERENCE = (tuple(CAL["reference_items"]), CAL["reference_boots"])   # standard crit Kalista
+TARGET = CAL["target"]                                            # a narrow win on average
 
 def calibrate():
     """Scale each threat's damage so the reference build narrowly wins on average.
     One multiplier per threat, constant across the game, so power curves still show."""
-    page = RunePage("Press the Attack", "Alacrity", 10, "Cut Down")
+    page = RunePage(CAL["reference_page"][0], CAL["reference_page"][1], 10, CAL["reference_page"][2])
     path, boots = REFERENCE
     mults = {}
     for kind, th in THREATS.items():
@@ -229,8 +235,8 @@ def calibrate():
                 rs = [simulate(inv, l, replace_hp(d, m2), page.at(LEGEND[s]), opts, th, ne) for m2 in DUEL_GRID]
                 tot += sum((r["kal_hp_left"] if r["win"] else -r["enemy_hp_left"]) for r in rs) / len(rs)
             return tot / len(SLOTS)
-        lo, hi = 0.5, 8.0
-        for _ in range(30):
+        lo, hi, steps = CAL["bisect"]
+        for _ in range(steps):
             mid = (lo + hi) / 2
             if score(mid) > TARGET: lo = mid
             else: hi = mid

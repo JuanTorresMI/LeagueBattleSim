@@ -96,3 +96,14 @@ gold timing beyond the fixed spike levels. (Survivability is covered by the v3 d
   compared with the committed JSON; `--runslow` full pipeline run.
 - Duel tests set `THREATS[*].dmg_mult` explicitly through a fixture, because both
   `calibrate()` functions mutate these globals.
+
+## v4.2: numbers in data files (roadmap step 3)
+- `data/wiki/*.json`: every game number Data Dragon leaves out (item passives and
+  description-only stats, runes, crit/AS/growth/Energized rules, Kalista's kit, AD growth
+  overrides), one entry per item / rune / rule with `source` (wiki URL), `patch`,
+  `values` and, where unconfirmed, `verify`.
+- `config/*.json`: model choices: `threats.json` (threat profiles and fastest-kill
+  dummies), `scoring.json` (spike schedule, grids, weights, trade windows, lane scenarios),
+  `calibration.json` (reference builds and targets).
+- `params.py` loads both; `tests/test_data.py` checks every wiki entry has a source and patch.
+- Results unchanged (the full pipeline reproduces the JSON outputs exactly).

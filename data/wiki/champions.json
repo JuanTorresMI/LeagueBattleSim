@@ -1,0 +1,17 @@
+{
+ "_meta": {"about": "Champion data Data Dragon gets wrong or leaves out, and Kalista's kit."},
+ "ad_growth": {"source": "https://wiki.leagueoflegends.com/en-us/Module:ChampionData/data", "patch": "16.20.1",
+               "values": {"Kalista": 4.75, "Jinx": 3.25, "Caitlyn": 3.8},
+               "note": "Data Dragon 16.20.1 reports 0 AD growth for every champion; update_data.py fills the rest."},
+ "Kalista": {"source": "https://wiki.leagueoflegends.com/en-us/Kalista", "patch": "16.20.1",
+             "values": {
+               "aa_ad_ratio": 1.0,
+               "ranks_by_level": {"1": [0,0,1], "2": [1,0,1], "3": [1,1,1], "4": [1,1,2], "5": [1,1,3], "6": [1,1,3],
+                                  "7": [1,1,4], "8": [2,1,4], "9": [2,1,5], "10": [3,1,5], "11": [3,1,5], "12": [4,1,5],
+                                  "13": [5,1,5], "14": [5,2,5], "15": [5,3,5], "16": [5,3,5], "17": [5,4,5], "18": [5,5,5]},
+               "q_base": [10, 75, 140, 205, 270], "q_ad_ratio": 1.05, "q_cd": 9.0, "q_cast": 0.25,
+               "e_first": [5, 15, 25, 35, 45], "e_first_ad": 0.70, "e_first_ap": 0.65,
+               "e_add": [7, 14, 21, 28, 35], "e_add_ad": [0.20, 0.275, 0.35, 0.425, 0.50], "e_add_ap": 0.50},
+             "verify": "Autos at 100% AD (older patches: 90%).",
+             "note": "ranks_by_level is the skill order (Q, W, E): E max, then Q, then W; it is a model choice, not a wiki value."}
+}
