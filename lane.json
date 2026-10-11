@@ -28,20 +28,20 @@
   {
    "page": "Press the Attack / Bloodline / Cut Down",
    "trade": 0.0011,
-   "long": 0.0825,
+   "long": 0.0849,
    "pressure": 0.328,
    "stages": [
     {
      "stage": "Level 2",
      "trade": 0.0,
-     "long": 0.0719,
+     "long": 0.0736,
      "pressure": 0.355,
      "execs": 3,
      "exec_cost": 0.163,
      "per": {
       "marksman": {
        "trade": -0.0082,
-       "long": 0.0303,
+       "long": 0.0319,
        "dealt": 0.3811,
        "taken": 0.3893,
        "pressure": 0.353,
@@ -54,7 +54,7 @@
       },
       "mage": {
        "trade": -0.0012,
-       "long": 0.1167,
+       "long": 0.1185,
        "dealt": 0.427,
        "taken": 0.4283,
        "pressure": 0.395,
@@ -67,7 +67,7 @@
       },
       "tank": {
        "trade": 0.0095,
-       "long": 0.0688,
+       "long": 0.0703,
        "dealt": 0.3436,
        "taken": 0.3341,
        "pressure": 0.318,
@@ -83,14 +83,14 @@
     {
      "stage": "Level 3",
      "trade": -0.01,
-     "long": 0.0644,
+     "long": 0.067,
      "pressure": 0.325,
      "execs": 3,
      "exec_cost": 0.236,
      "per": {
       "marksman": {
        "trade": -0.0145,
-       "long": 0.0372,
+       "long": 0.0398,
        "dealt": 0.3499,
        "taken": 0.3644,
        "pressure": 0.324,
@@ -103,7 +103,7 @@
       },
       "mage": {
        "trade": -0.013,
-       "long": 0.0996,
+       "long": 0.1025,
        "dealt": 0.3886,
        "taken": 0.4016,
        "pressure": 0.36,
@@ -116,7 +116,7 @@
       },
       "tank": {
        "trade": -0.0025,
-       "long": 0.0565,
+       "long": 0.0588,
        "dealt": 0.3144,
        "taken": 0.3169,
        "pressure": 0.291,
@@ -132,14 +132,14 @@
     {
      "stage": "Level 6",
      "trade": 0.0133,
-     "long": 0.1111,
+     "long": 0.1141,
      "pressure": 0.305,
      "execs": 3,
      "exec_cost": 0.301,
      "per": {
       "marksman": {
        "trade": 0.0268,
-       "long": 0.1065,
+       "long": 0.1095,
        "dealt": 0.3325,
        "taken": 0.3057,
        "pressure": 0.308,
@@ -152,7 +152,7 @@
       },
       "mage": {
        "trade": 0.018,
-       "long": 0.1529,
+       "long": 0.1562,
        "dealt": 0.3604,
        "taken": 0.3424,
        "pressure": 0.334,
@@ -165,7 +165,7 @@
       },
       "tank": {
        "trade": -0.005,
-       "long": 0.074,
+       "long": 0.0767,
        "dealt": 0.2958,
        "taken": 0.3008,
        "pressure": 0.274,
@@ -179,25 +179,25 @@
      }
     }
    ],
-   "score": 0.1157
+   "score": 0.1166
   },
   {
    "page": "Press the Attack / Alacrity / Cut Down",
    "trade": 0.0,
-   "long": 0.0808,
+   "long": 0.0832,
    "pressure": 0.328,
    "stages": [
     {
      "stage": "Level 2",
      "trade": -0.0012,
-     "long": 0.07,
+     "long": 0.0716,
      "pressure": 0.355,
      "execs": 3,
      "exec_cost": 0.164,
      "per": {
       "marksman": {
        "trade": -0.0096,
-       "long": 0.0281,
+       "long": 0.0297,
        "dealt": 0.3811,
        "taken": 0.3907,
        "pressure": 0.353,
@@ -210,7 +210,7 @@
       },
       "mage": {
        "trade": -0.0027,
-       "long": 0.1144,
+       "long": 0.1162,
        "dealt": 0.427,
        "taken": 0.4298,
        "pressure": 0.395,
@@ -223,7 +223,7 @@
       },
       "tank": {
        "trade": 0.0088,
-       "long": 0.0674,
+       "long": 0.0689,
        "dealt": 0.3436,
        "taken": 0.3348,
        "pressure": 0.318,
@@ -239,14 +239,14 @@
     {
      "stage": "Level 3",
      "trade": -0.0111,
-     "long": 0.0626,
+     "long": 0.0652,
      "pressure": 0.325,
      "execs": 3,
      "exec_cost": 0.237,
      "per": {
       "marksman": {
        "trade": -0.0159,
-       "long": 0.0352,
+       "long": 0.0378,
        "dealt": 0.3499,
        "taken": 0.3657,
        "pressure": 0.324,
@@ -259,7 +259,7 @@
       },
       "mage": {
        "trade": -0.0144,
-       "long": 0.0975,
+       "long": 0.1004,
        "dealt": 0.3886,
        "taken": 0.403,
        "pressure": 0.36,
@@ -272,7 +272,7 @@
       },
       "tank": {
        "trade": -0.0031,
-       "long": 0.0552,
+       "long": 0.0575,
        "dealt": 0.3144,
        "taken": 0.3175,
        "pressure": 0.291,
@@ -288,14 +288,14 @@
     {
      "stage": "Level 6",
      "trade": 0.0124,
-     "long": 0.1097,
+     "long": 0.1127,
      "pressure": 0.305,
      "execs": 3,
      "exec_cost": 0.302,
      "per": {
       "marksman": {
        "trade": 0.0257,
-       "long": 0.1049,
+       "long": 0.1079,
        "dealt": 0.3325,
        "taken": 0.3068,
        "pressure": 0.308,
@@ -308,7 +308,7 @@
       },
       "mage": {
        "trade": 0.0169,
-       "long": 0.1513,
+       "long": 0.1546,
        "dealt": 0.3604,
        "taken": 0.3435,
        "pressure": 0.334,
@@ -321,7 +321,7 @@
       },
       "tank": {
        "trade": -0.0055,
-       "long": 0.073,
+       "long": 0.0757,
        "dealt": 0.2958,
        "taken": 0.3013,
        "pressure": 0.274,
@@ -335,58 +335,58 @@
      }
     }
    ],
-   "score": 0.1143
+   "score": 0.1153
   },
   {
    "page": "Conqueror / Bloodline / Cut Down",
-   "trade": 0.013,
-   "long": 0.0398,
+   "trade": 0.0133,
+   "long": 0.0402,
    "pressure": 0.34,
    "stages": [
     {
      "stage": "Level 2",
-     "trade": 0.0129,
-     "long": 0.0311,
+     "trade": 0.0131,
+     "long": 0.0314,
      "pressure": 0.368,
      "execs": 3,
      "exec_cost": 0.163,
      "per": {
       "marksman": {
-       "trade": 0.0046,
-       "long": -0.0028,
-       "dealt": 0.3938,
+       "trade": 0.0048,
+       "long": -0.0025,
+       "dealt": 0.394,
        "taken": 0.3892,
        "pressure": 0.365,
        "exec": {
         "killed": true,
         "time": 0.25,
-        "cost": 0.12430597383187883,
+        "cost": 0.12430568470739341,
         "died": false
        }
       },
       "mage": {
-       "trade": 0.0131,
-       "long": 0.0673,
-       "dealt": 0.4413,
+       "trade": 0.0133,
+       "long": 0.0676,
+       "dealt": 0.4415,
        "taken": 0.4282,
        "pressure": 0.409,
        "exec": {
         "killed": true,
         "time": 0.25,
-        "cost": 0.06450682499930534,
+        "cost": 0.06450652595488153,
         "died": false
        }
       },
       "tank": {
-       "trade": 0.021,
-       "long": 0.0289,
-       "dealt": 0.3551,
+       "trade": 0.0211,
+       "long": 0.0291,
+       "dealt": 0.3552,
        "taken": 0.3341,
        "pressure": 0.329,
        "exec": {
         "killed": true,
         "time": 1.6457014628067892,
-        "cost": 0.3007510474538297,
+        "cost": 0.3007503654495443,
         "died": false
        }
       }
@@ -394,48 +394,48 @@
     },
     {
      "stage": "Level 3",
-     "trade": 0.0019,
-     "long": 0.0237,
+     "trade": 0.0022,
+     "long": 0.0242,
      "pressure": 0.336,
      "execs": 3,
      "exec_cost": 0.236,
      "per": {
       "marksman": {
-       "trade": -0.0026,
-       "long": -0.0071,
-       "dealt": 0.3617,
+       "trade": -0.0024,
+       "long": -0.0067,
+       "dealt": 0.362,
        "taken": 0.3643,
        "pressure": 0.335,
        "exec": {
         "killed": true,
         "time": 1.6012340313695737,
-        "cost": 0.36444169162379686,
+        "cost": 0.3644405592943904,
         "died": false
        }
       },
       "mage": {
-       "trade": 0.0002,
-       "long": 0.0617,
-       "dealt": 0.4017,
+       "trade": 0.0005,
+       "long": 0.0622,
+       "dealt": 0.402,
        "taken": 0.4015,
        "pressure": 0.372,
        "exec": {
         "killed": true,
         "time": 0.25,
-        "cost": 0.05789286459458869,
+        "cost": 0.057892399254460054,
         "died": false
        }
       },
       "tank": {
-       "trade": 0.0082,
-       "long": 0.0166,
-       "dealt": 0.325,
+       "trade": 0.0084,
+       "long": 0.017,
+       "dealt": 0.3253,
        "taken": 0.3169,
        "pressure": 0.301,
        "exec": {
         "killed": true,
         "time": 1.6012340313695737,
-        "cost": 0.2867621840029218,
+        "cost": 0.28676111989340397,
         "died": false
        }
       }
@@ -443,74 +443,74 @@
     },
     {
      "stage": "Level 6",
-     "trade": 0.0242,
-     "long": 0.0646,
+     "trade": 0.0245,
+     "long": 0.0651,
      "pressure": 0.315,
      "execs": 3,
      "exec_cost": 0.301,
      "per": {
       "marksman": {
-       "trade": 0.0378,
-       "long": 0.0595,
-       "dealt": 0.3434,
+       "trade": 0.0381,
+       "long": 0.06,
+       "dealt": 0.3438,
        "taken": 0.3057,
        "pressure": 0.318,
        "exec": {
         "killed": true,
         "time": 1.4734533561466605,
-        "cost": 0.30573814552998424,
+        "cost": 0.3057368617226359,
         "died": false
        }
       },
       "mage": {
-       "trade": 0.0299,
-       "long": 0.102,
-       "dealt": 0.3723,
+       "trade": 0.0303,
+       "long": 0.1026,
+       "dealt": 0.3726,
        "taken": 0.3423,
        "pressure": 0.345,
        "exec": {
         "killed": true,
         "time": 1.55,
-        "cost": 0.3424244814066111,
+        "cost": 0.34242318807546956,
         "died": false
        }
       },
       "tank": {
-       "trade": 0.0048,
-       "long": 0.0322,
-       "dealt": 0.3056,
+       "trade": 0.0051,
+       "long": 0.0327,
+       "dealt": 0.3059,
        "taken": 0.3008,
        "pressure": 0.283,
        "exec": {
         "killed": true,
         "time": 1.4734533561466605,
-        "cost": 0.2550413091207681,
+        "cost": 0.2550401168706067,
         "died": false
        }
       }
      }
     }
    ],
-   "score": 0.1087
+   "score": 0.1091
   },
   {
    "page": "Conqueror / Alacrity / Cut Down",
-   "trade": 0.0119,
-   "long": 0.038,
+   "trade": 0.0121,
+   "long": 0.0385,
    "pressure": 0.34,
    "stages": [
     {
      "stage": "Level 2",
-     "trade": 0.0116,
-     "long": 0.0291,
+     "trade": 0.0118,
+     "long": 0.0294,
      "pressure": 0.368,
      "execs": 3,
      "exec_cost": 0.164,
      "per": {
       "marksman": {
-       "trade": 0.0031,
-       "long": -0.0051,
-       "dealt": 0.3938,
+       "trade": 0.0033,
+       "long": -0.0048,
+       "dealt": 0.394,
        "taken": 0.3907,
        "pressure": 0.365,
        "exec": {
@@ -521,9 +521,9 @@
        }
       },
       "mage": {
-       "trade": 0.0115,
-       "long": 0.0649,
-       "dealt": 0.4413,
+       "trade": 0.0117,
+       "long": 0.0652,
+       "dealt": 0.4415,
        "taken": 0.4298,
        "pressure": 0.409,
        "exec": {
@@ -534,9 +534,9 @@
        }
       },
       "tank": {
-       "trade": 0.0203,
-       "long": 0.0274,
-       "dealt": 0.3551,
+       "trade": 0.0204,
+       "long": 0.0277,
+       "dealt": 0.3552,
        "taken": 0.3348,
        "pressure": 0.329,
        "exec": {
@@ -550,16 +550,16 @@
     },
     {
      "stage": "Level 3",
-     "trade": 0.0008,
-     "long": 0.0218,
+     "trade": 0.001,
+     "long": 0.0223,
      "pressure": 0.336,
      "execs": 3,
      "exec_cost": 0.237,
      "per": {
       "marksman": {
-       "trade": -0.004,
-       "long": -0.0093,
-       "dealt": 0.3617,
+       "trade": -0.0038,
+       "long": -0.0088,
+       "dealt": 0.362,
        "taken": 0.3657,
        "pressure": 0.335,
        "exec": {
@@ -570,9 +570,9 @@
        }
       },
       "mage": {
-       "trade": -0.0012,
-       "long": 0.0595,
-       "dealt": 0.4017,
+       "trade": -0.0009,
+       "long": 0.06,
+       "dealt": 0.402,
        "taken": 0.403,
        "pressure": 0.372,
        "exec": {
@@ -583,9 +583,9 @@
        }
       },
       "tank": {
-       "trade": 0.0075,
-       "long": 0.0153,
-       "dealt": 0.325,
+       "trade": 0.0077,
+       "long": 0.0157,
+       "dealt": 0.3253,
        "taken": 0.3175,
        "pressure": 0.301,
        "exec": {
@@ -599,16 +599,16 @@
     },
     {
      "stage": "Level 6",
-     "trade": 0.0233,
-     "long": 0.0631,
+     "trade": 0.0236,
+     "long": 0.0637,
      "pressure": 0.315,
      "execs": 3,
      "exec_cost": 0.302,
      "per": {
       "marksman": {
-       "trade": 0.0367,
-       "long": 0.0578,
-       "dealt": 0.3434,
+       "trade": 0.037,
+       "long": 0.0584,
+       "dealt": 0.3438,
        "taken": 0.3068,
        "pressure": 0.318,
        "exec": {
@@ -619,9 +619,9 @@
        }
       },
       "mage": {
-       "trade": 0.0288,
-       "long": 0.1003,
-       "dealt": 0.3723,
+       "trade": 0.0292,
+       "long": 0.1009,
+       "dealt": 0.3726,
        "taken": 0.3435,
        "pressure": 0.345,
        "exec": {
@@ -632,9 +632,9 @@
        }
       },
       "tank": {
-       "trade": 0.0043,
-       "long": 0.0311,
-       "dealt": 0.3056,
+       "trade": 0.0046,
+       "long": 0.0317,
+       "dealt": 0.3059,
        "taken": 0.3013,
        "pressure": 0.283,
        "exec": {
@@ -647,7 +647,7 @@
      }
     }
    ],
-   "score": 0.1073
+   "score": 0.1077
   },
   {
    "page": "Fleet Footwork / Bloodline / Cut Down",
@@ -964,20 +964,20 @@
   {
    "page": "Press the Attack / Bloodline / Last Stand",
    "trade": -0.0229,
-   "long": 0.0569,
+   "long": 0.0592,
    "pressure": 0.342,
    "stages": [
     {
      "stage": "Level 2",
      "trade": -0.0247,
-     "long": 0.0535,
+     "long": 0.0552,
      "pressure": 0.371,
      "execs": 3,
      "exec_cost": 0.163,
      "per": {
       "marksman": {
        "trade": -0.0365,
-       "long": 0.0196,
+       "long": 0.0213,
        "dealt": 0.3529,
        "taken": 0.3894,
        "pressure": 0.369,
@@ -990,7 +990,7 @@
       },
       "mage": {
        "trade": -0.0215,
-       "long": 0.1065,
+       "long": 0.1083,
        "dealt": 0.4069,
        "taken": 0.4283,
        "pressure": 0.415,
@@ -1003,7 +1003,7 @@
       },
       "tank": {
        "trade": -0.016,
-       "long": 0.0345,
+       "long": 0.0359,
        "dealt": 0.3181,
        "taken": 0.3342,
        "pressure": 0.33,
@@ -1019,14 +1019,14 @@
     {
      "stage": "Level 3",
      "trade": -0.0329,
-     "long": 0.0427,
+     "long": 0.0452,
      "pressure": 0.338,
      "execs": 3,
      "exec_cost": 0.237,
      "per": {
       "marksman": {
        "trade": -0.0405,
-       "long": 0.0153,
+       "long": 0.0178,
        "dealt": 0.324,
        "taken": 0.3645,
        "pressure": 0.338,
@@ -1039,7 +1039,7 @@
       },
       "mage": {
        "trade": -0.0324,
-       "long": 0.0881,
+       "long": 0.0909,
        "dealt": 0.3692,
        "taken": 0.4017,
        "pressure": 0.376,
@@ -1052,7 +1052,7 @@
       },
       "tank": {
        "trade": -0.0258,
-       "long": 0.0246,
+       "long": 0.0268,
        "dealt": 0.2911,
        "taken": 0.317,
        "pressure": 0.301,
@@ -1068,14 +1068,14 @@
     {
      "stage": "Level 6",
      "trade": -0.0112,
-     "long": 0.0745,
+     "long": 0.0773,
      "pressure": 0.318,
      "execs": 3,
      "exec_cost": 0.301,
      "per": {
       "marksman": {
        "trade": 0.0021,
-       "long": 0.0695,
+       "long": 0.0723,
        "dealt": 0.3079,
        "taken": 0.3058,
        "pressure": 0.321,
@@ -1088,7 +1088,7 @@
       },
       "mage": {
        "trade": -0.0088,
-       "long": 0.1129,
+       "long": 0.1159,
        "dealt": 0.3337,
        "taken": 0.3425,
        "pressure": 0.349,
@@ -1101,7 +1101,7 @@
       },
       "tank": {
        "trade": -0.0269,
-       "long": 0.0412,
+       "long": 0.0437,
        "dealt": 0.2739,
        "taken": 0.3008,
        "pressure": 0.285,
@@ -1115,25 +1115,25 @@
      }
     }
    ],
-   "score": 0.0945
+   "score": 0.0954
   },
   {
    "page": "Press the Attack / Alacrity / Last Stand",
    "trade": -0.0238,
-   "long": 0.0545,
+   "long": 0.0568,
    "pressure": 0.342,
    "stages": [
     {
      "stage": "Level 2",
      "trade": -0.0253,
-     "long": 0.052,
+     "long": 0.0536,
      "pressure": 0.371,
      "execs": 3,
      "exec_cost": 0.164,
      "per": {
       "marksman": {
        "trade": -0.0379,
-       "long": 0.0083,
+       "long": 0.0098,
        "dealt": 0.3529,
        "taken": 0.3907,
        "pressure": 0.369,
@@ -1146,7 +1146,7 @@
       },
       "mage": {
        "trade": -0.0229,
-       "long": 0.1045,
+       "long": 0.1063,
        "dealt": 0.4069,
        "taken": 0.4298,
        "pressure": 0.415,
@@ -1159,7 +1159,7 @@
       },
       "tank": {
        "trade": -0.0151,
-       "long": 0.0432,
+       "long": 0.0446,
        "dealt": 0.3197,
        "taken": 0.3348,
        "pressure": 0.33,
@@ -1175,14 +1175,14 @@
     {
      "stage": "Level 3",
      "trade": -0.034,
-     "long": 0.0384,
+     "long": 0.0408,
      "pressure": 0.338,
      "execs": 3,
      "exec_cost": 0.237,
      "per": {
       "marksman": {
        "trade": -0.0418,
-       "long": 0.0055,
+       "long": 0.0079,
        "dealt": 0.324,
        "taken": 0.3657,
        "pressure": 0.338,
@@ -1195,7 +1195,7 @@
       },
       "mage": {
        "trade": -0.0337,
-       "long": 0.0862,
+       "long": 0.089,
        "dealt": 0.3693,
        "taken": 0.403,
        "pressure": 0.376,
@@ -1208,7 +1208,7 @@
       },
       "tank": {
        "trade": -0.0264,
-       "long": 0.0234,
+       "long": 0.0256,
        "dealt": 0.2911,
        "taken": 0.3175,
        "pressure": 0.301,
@@ -1224,14 +1224,14 @@
     {
      "stage": "Level 6",
      "trade": -0.012,
-     "long": 0.0732,
+     "long": 0.076,
      "pressure": 0.318,
      "execs": 3,
      "exec_cost": 0.287,
      "per": {
       "marksman": {
        "trade": 0.0011,
-       "long": 0.068,
+       "long": 0.0708,
        "dealt": 0.3079,
        "taken": 0.3068,
        "pressure": 0.321,
@@ -1244,7 +1244,7 @@
       },
       "mage": {
        "trade": -0.0098,
-       "long": 0.1114,
+       "long": 0.1144,
        "dealt": 0.3337,
        "taken": 0.3435,
        "pressure": 0.349,
@@ -1257,7 +1257,7 @@
       },
       "tank": {
        "trade": -0.0274,
-       "long": 0.0403,
+       "long": 0.0427,
        "dealt": 0.2739,
        "taken": 0.3013,
        "pressure": 0.285,
@@ -1271,7 +1271,163 @@
      }
     }
    ],
-   "score": 0.093
+   "score": 0.0939
+  },
+  {
+   "page": "Press the Attack / Bloodline / Coup de Grace",
+   "trade": -0.0253,
+   "long": 0.0498,
+   "pressure": 0.354,
+   "stages": [
+    {
+     "stage": "Level 2",
+     "trade": -0.0285,
+     "long": 0.0398,
+     "pressure": 0.381,
+     "execs": 3,
+     "exec_cost": 0.163,
+     "per": {
+      "marksman": {
+       "trade": -0.0365,
+       "long": 0.0017,
+       "dealt": 0.3529,
+       "taken": 0.3894,
+       "pressure": 0.381,
+       "exec": {
+        "killed": true,
+        "time": 0.25,
+        "cost": 0.12427362916657253,
+        "died": false
+       }
+      },
+      "mage": {
+       "trade": -0.033,
+       "long": 0.0846,
+       "dealt": 0.3954,
+       "taken": 0.4284,
+       "pressure": 0.419,
+       "exec": {
+        "killed": true,
+        "time": 0.25,
+        "cost": 0.06447337057988248,
+        "died": false
+       }
+      },
+      "tank": {
+       "trade": -0.016,
+       "long": 0.033,
+       "dealt": 0.3181,
+       "taken": 0.3342,
+       "pressure": 0.343,
+       "exec": {
+        "killed": true,
+        "time": 1.6457014628067892,
+        "cost": 0.30070042557851173,
+        "died": false
+       }
+      }
+     }
+    },
+    {
+     "stage": "Level 3",
+     "trade": -0.0361,
+     "long": 0.0323,
+     "pressure": 0.351,
+     "execs": 3,
+     "exec_cost": 0.152,
+     "per": {
+      "marksman": {
+       "trade": -0.0405,
+       "long": 0.0014,
+       "dealt": 0.324,
+       "taken": 0.3645,
+       "pressure": 0.35,
+       "exec": {
+        "killed": true,
+        "time": 0.25,
+        "cost": 0.11193761916430267,
+        "died": false
+       }
+      },
+      "mage": {
+       "trade": -0.0419,
+       "long": 0.0712,
+       "dealt": 0.3598,
+       "taken": 0.4017,
+       "pressure": 0.388,
+       "exec": {
+        "killed": true,
+        "time": 0.25,
+        "cost": 0.057862539844684556,
+        "died": false
+       }
+      },
+      "tank": {
+       "trade": -0.0258,
+       "long": 0.0244,
+       "dealt": 0.2911,
+       "taken": 0.317,
+       "pressure": 0.314,
+       "exec": {
+        "killed": true,
+        "time": 1.6012340313695737,
+        "cost": 0.2867162750118966,
+        "died": false
+       }
+      }
+     }
+    },
+    {
+     "stage": "Level 6",
+     "trade": -0.0112,
+     "long": 0.0773,
+     "pressure": 0.329,
+     "execs": 3,
+     "exec_cost": 0.201,
+     "per": {
+      "marksman": {
+       "trade": 0.0021,
+       "long": 0.0723,
+       "dealt": 0.3079,
+       "taken": 0.3058,
+       "pressure": 0.332,
+       "exec": {
+        "killed": true,
+        "time": 1.4734533561466605,
+        "cost": 0.30569992280531666,
+        "died": false
+       }
+      },
+      "mage": {
+       "trade": -0.0088,
+       "long": 0.1159,
+       "dealt": 0.3337,
+       "taken": 0.3425,
+       "pressure": 0.36,
+       "exec": {
+        "killed": true,
+        "time": 0.25,
+        "cost": 0.04343803718032723,
+        "died": false
+       }
+      },
+      "tank": {
+       "trade": -0.0269,
+       "long": 0.0437,
+       "dealt": 0.2739,
+       "taken": 0.3008,
+       "pressure": 0.296,
+       "exec": {
+        "killed": true,
+        "time": 1.4734533561466605,
+        "cost": 0.2550058123231236,
+        "died": false
+       }
+      }
+     }
+    }
+   ],
+   "score": 0.0932
   },
   {
    "page": "Lethal Tempo / Alacrity / Cut Down",
@@ -1430,55 +1586,55 @@
    "score": 0.0927
   },
   {
-   "page": "Press the Attack / Bloodline / Coup de Grace",
-   "trade": -0.0253,
-   "long": 0.0475,
+   "page": "Press the Attack / Alacrity / Coup de Grace",
+   "trade": -0.0263,
+   "long": 0.0482,
    "pressure": 0.354,
    "stages": [
     {
      "stage": "Level 2",
-     "trade": -0.0285,
-     "long": 0.0382,
+     "trade": -0.0297,
+     "long": 0.0379,
      "pressure": 0.381,
      "execs": 3,
-     "exec_cost": 0.163,
+     "exec_cost": 0.164,
      "per": {
       "marksman": {
-       "trade": -0.0365,
-       "long": 0.0002,
+       "trade": -0.0379,
+       "long": -0.0004,
        "dealt": 0.3529,
-       "taken": 0.3894,
+       "taken": 0.3907,
        "pressure": 0.381,
        "exec": {
         "killed": true,
         "time": 0.25,
-        "cost": 0.12427362916657253,
+        "cost": 0.1250083231236133,
         "died": false
        }
       },
       "mage": {
-       "trade": -0.033,
-       "long": 0.0829,
+       "trade": -0.0344,
+       "long": 0.0825,
        "dealt": 0.3954,
-       "taken": 0.4284,
+       "taken": 0.4298,
        "pressure": 0.419,
        "exec": {
         "killed": true,
         "time": 0.25,
-        "cost": 0.06447337057988248,
+        "cost": 0.06523327208306684,
         "died": false
        }
       },
       "tank": {
-       "trade": -0.016,
-       "long": 0.0316,
+       "trade": -0.0167,
+       "long": 0.0317,
        "dealt": 0.3181,
-       "taken": 0.3342,
+       "taken": 0.3348,
        "pressure": 0.343,
        "exec": {
         "killed": true,
-        "time": 1.6457014628067892,
-        "cost": 0.30070042557851173,
+        "time": 1.5874068964189059,
+        "cost": 0.3020868579355179,
         "died": false
        }
       }
@@ -1486,48 +1642,48 @@
     },
     {
      "stage": "Level 3",
-     "trade": -0.0361,
-     "long": 0.0299,
+     "trade": -0.0371,
+     "long": 0.0306,
      "pressure": 0.351,
      "execs": 3,
-     "exec_cost": 0.152,
+     "exec_cost": 0.153,
      "per": {
       "marksman": {
-       "trade": -0.0405,
-       "long": -0.001,
+       "trade": -0.0418,
+       "long": -0.0005,
        "dealt": 0.324,
-       "taken": 0.3645,
+       "taken": 0.3657,
        "pressure": 0.35,
        "exec": {
         "killed": true,
         "time": 0.25,
-        "cost": 0.11193761916430267,
+        "cost": 0.11261094868707637,
         "died": false
        }
       },
       "mage": {
-       "trade": -0.0419,
-       "long": 0.0685,
+       "trade": -0.0432,
+       "long": 0.0692,
        "dealt": 0.3598,
-       "taken": 0.4017,
+       "taken": 0.403,
        "pressure": 0.388,
        "exec": {
         "killed": true,
         "time": 0.25,
-        "cost": 0.057862539844684556,
+        "cost": 0.05855431567637078,
         "died": false
        }
       },
       "tank": {
-       "trade": -0.0258,
-       "long": 0.0222,
+       "trade": -0.0264,
+       "long": 0.0232,
        "dealt": 0.2911,
-       "taken": 0.317,
+       "taken": 0.3175,
        "pressure": 0.314,
        "exec": {
         "killed": true,
-        "time": 1.6012340313695737,
-        "cost": 0.2867162750118966,
+        "time": 1.5465220471953474,
+        "cost": 0.2879818013680929,
         "died": false
        }
       }
@@ -1535,55 +1691,55 @@
     },
     {
      "stage": "Level 6",
-     "trade": -0.0112,
-     "long": 0.0745,
+     "trade": -0.012,
+     "long": 0.076,
      "pressure": 0.329,
      "execs": 3,
-     "exec_cost": 0.201,
+     "exec_cost": 0.202,
      "per": {
       "marksman": {
-       "trade": 0.0021,
-       "long": 0.0695,
+       "trade": 0.0011,
+       "long": 0.0708,
        "dealt": 0.3079,
-       "taken": 0.3058,
+       "taken": 0.3068,
        "pressure": 0.332,
        "exec": {
         "killed": true,
-        "time": 1.4734533561466605,
-        "cost": 0.30569992280531666,
+        "time": 1.4284274710298337,
+        "cost": 0.30677232726613607,
         "died": false
        }
       },
       "mage": {
-       "trade": -0.0088,
-       "long": 0.1129,
+       "trade": -0.0098,
+       "long": 0.1144,
        "dealt": 0.3337,
-       "taken": 0.3425,
+       "taken": 0.3435,
        "pressure": 0.36,
        "exec": {
         "killed": true,
         "time": 0.25,
-        "cost": 0.04343803718032723,
+        "cost": 0.0439782171720901,
         "died": false
        }
       },
       "tank": {
-       "trade": -0.0269,
-       "long": 0.0412,
+       "trade": -0.0274,
+       "long": 0.0427,
        "dealt": 0.2739,
-       "taken": 0.3008,
+       "taken": 0.3013,
        "pressure": 0.296,
        "exec": {
         "killed": true,
-        "time": 1.4734533561466605,
-        "cost": 0.2550058123231236,
+        "time": 1.4284274710298337,
+        "cost": 0.2560017362000823,
         "died": false
        }
       }
      }
     }
    ],
-   "score": 0.0923
+   "score": 0.092
   },
   {
    "page": "Lethal Tempo / Bloodline / Cut Down",
@@ -1742,25 +1898,181 @@
    "score": 0.0913
   },
   {
-   "page": "Press the Attack / Alacrity / Coup de Grace",
-   "trade": -0.0263,
-   "long": 0.0459,
-   "pressure": 0.354,
+   "page": "Conqueror / Bloodline / Last Stand",
+   "trade": -0.0116,
+   "long": 0.0141,
+   "pressure": 0.355,
    "stages": [
     {
      "stage": "Level 2",
-     "trade": -0.0297,
-     "long": 0.0364,
-     "pressure": 0.381,
+     "trade": -0.0124,
+     "long": 0.0105,
+     "pressure": 0.384,
+     "execs": 3,
+     "exec_cost": 0.163,
+     "per": {
+      "marksman": {
+       "trade": -0.0245,
+       "long": -0.0245,
+       "dealt": 0.3648,
+       "taken": 0.3893,
+       "pressure": 0.382,
+       "exec": {
+        "killed": true,
+        "time": 0.25,
+        "cost": 0.12425298565654765,
+        "died": false
+       }
+      },
+      "mage": {
+       "trade": -0.0074,
+       "long": 0.0582,
+       "dealt": 0.4208,
+       "taken": 0.4283,
+       "pressure": 0.429,
+       "exec": {
+        "killed": true,
+        "time": 0.25,
+        "cost": 0.0644607070428892,
+        "died": false
+       }
+      },
+      "tank": {
+       "trade": -0.0052,
+       "long": -0.0022,
+       "dealt": 0.3289,
+       "taken": 0.3341,
+       "pressure": 0.341,
+       "exec": {
+        "killed": true,
+        "time": 1.6457014628067892,
+        "cost": 0.3006762780157729,
+        "died": false
+       }
+      }
+     }
+    },
+    {
+     "stage": "Level 3",
+     "trade": -0.0215,
+     "long": 0.0,
+     "pressure": 0.351,
+     "execs": 3,
+     "exec_cost": 0.152,
+     "per": {
+      "marksman": {
+       "trade": -0.0293,
+       "long": -0.0284,
+       "dealt": 0.3351,
+       "taken": 0.3644,
+       "pressure": 0.35,
+       "exec": {
+        "killed": true,
+        "time": 0.25,
+        "cost": 0.11191995876411577,
+        "died": false
+       }
+      },
+      "mage": {
+       "trade": -0.0195,
+       "long": 0.0405,
+       "dealt": 0.3821,
+       "taken": 0.4016,
+       "pressure": 0.39,
+       "exec": {
+        "killed": true,
+        "time": 0.25,
+        "cost": 0.05785155182074047,
+        "died": false
+       }
+      },
+      "tank": {
+       "trade": -0.0158,
+       "long": -0.012,
+       "dealt": 0.3012,
+       "taken": 0.3169,
+       "pressure": 0.312,
+       "exec": {
+        "killed": true,
+        "time": 1.6012340313695737,
+        "cost": 0.2866949978272654,
+        "died": false
+       }
+      }
+     }
+    },
+    {
+     "stage": "Level 6",
+     "trade": -0.0008,
+     "long": 0.0319,
+     "pressure": 0.329,
+     "execs": 3,
+     "exec_cost": 0.201,
+     "per": {
+      "marksman": {
+       "trade": 0.0126,
+       "long": 0.0265,
+       "dealt": 0.3183,
+       "taken": 0.3057,
+       "pressure": 0.332,
+       "exec": {
+        "killed": true,
+        "time": 1.4734533561466605,
+        "cost": 0.3056449953959141,
+        "died": false
+       }
+      },
+      "mage": {
+       "trade": 0.0026,
+       "long": 0.0663,
+       "dealt": 0.345,
+       "taken": 0.3424,
+       "pressure": 0.361,
+       "exec": {
+        "killed": true,
+        "time": 0.25,
+        "cost": 0.043430510500188466,
+        "died": false
+       }
+      },
+      "tank": {
+       "trade": -0.0176,
+       "long": 0.0029,
+       "dealt": 0.2832,
+       "taken": 0.3008,
+       "pressure": 0.295,
+       "exec": {
+        "killed": true,
+        "time": 1.4734533561466605,
+        "cost": 0.25499110558465327,
+        "died": false
+       }
+      }
+     }
+    }
+   ],
+   "score": 0.0874
+  },
+  {
+   "page": "Conqueror / Alacrity / Last Stand",
+   "trade": -0.0124,
+   "long": 0.0121,
+   "pressure": 0.355,
+   "stages": [
+    {
+     "stage": "Level 2",
+     "trade": -0.013,
+     "long": 0.0092,
+     "pressure": 0.384,
      "execs": 3,
      "exec_cost": 0.164,
      "per": {
       "marksman": {
-       "trade": -0.0379,
-       "long": -0.0019,
-       "dealt": 0.3529,
+       "trade": -0.0259,
+       "long": -0.0326,
+       "dealt": 0.3648,
        "taken": 0.3907,
-       "pressure": 0.381,
+       "pressure": 0.382,
        "exec": {
         "killed": true,
         "time": 0.25,
@@ -1769,11 +2081,11 @@
        }
       },
       "mage": {
-       "trade": -0.0344,
-       "long": 0.0808,
-       "dealt": 0.3954,
+       "trade": -0.0089,
+       "long": 0.056,
+       "dealt": 0.4209,
        "taken": 0.4298,
-       "pressure": 0.419,
+       "pressure": 0.429,
        "exec": {
         "killed": true,
         "time": 0.25,
@@ -1782,11 +2094,11 @@
        }
       },
       "tank": {
-       "trade": -0.0167,
-       "long": 0.0303,
-       "dealt": 0.3181,
+       "trade": -0.0042,
+       "long": 0.0043,
+       "dealt": 0.3306,
        "taken": 0.3348,
-       "pressure": 0.343,
+       "pressure": 0.341,
        "exec": {
         "killed": true,
         "time": 1.5874068964189059,
@@ -1798,16 +2110,16 @@
     },
     {
      "stage": "Level 3",
-     "trade": -0.0371,
-     "long": 0.0282,
+     "trade": -0.0226,
+     "long": -0.0034,
      "pressure": 0.351,
      "execs": 3,
      "exec_cost": 0.153,
      "per": {
       "marksman": {
-       "trade": -0.0418,
-       "long": -0.0029,
-       "dealt": 0.324,
+       "trade": -0.0306,
+       "long": -0.0354,
+       "dealt": 0.3351,
        "taken": 0.3657,
        "pressure": 0.35,
        "exec": {
@@ -1818,321 +2130,9 @@
        }
       },
       "mage": {
-       "trade": -0.0432,
-       "long": 0.0666,
-       "dealt": 0.3598,
-       "taken": 0.403,
-       "pressure": 0.388,
-       "exec": {
-        "killed": true,
-        "time": 0.25,
-        "cost": 0.05855431567637078,
-        "died": false
-       }
-      },
-      "tank": {
-       "trade": -0.0264,
-       "long": 0.021,
-       "dealt": 0.2911,
-       "taken": 0.3175,
-       "pressure": 0.314,
-       "exec": {
-        "killed": true,
-        "time": 1.5465220471953474,
-        "cost": 0.2879818013680929,
-        "died": false
-       }
-      }
-     }
-    },
-    {
-     "stage": "Level 6",
-     "trade": -0.012,
-     "long": 0.0732,
-     "pressure": 0.329,
-     "execs": 3,
-     "exec_cost": 0.202,
-     "per": {
-      "marksman": {
-       "trade": 0.0011,
-       "long": 0.068,
-       "dealt": 0.3079,
-       "taken": 0.3068,
-       "pressure": 0.332,
-       "exec": {
-        "killed": true,
-        "time": 1.4284274710298337,
-        "cost": 0.30677232726613607,
-        "died": false
-       }
-      },
-      "mage": {
-       "trade": -0.0098,
-       "long": 0.1114,
-       "dealt": 0.3337,
-       "taken": 0.3435,
-       "pressure": 0.36,
-       "exec": {
-        "killed": true,
-        "time": 0.25,
-        "cost": 0.0439782171720901,
-        "died": false
-       }
-      },
-      "tank": {
-       "trade": -0.0274,
-       "long": 0.0403,
-       "dealt": 0.2739,
-       "taken": 0.3013,
-       "pressure": 0.296,
-       "exec": {
-        "killed": true,
-        "time": 1.4284274710298337,
-        "cost": 0.2560017362000823,
-        "died": false
-       }
-      }
-     }
-    }
-   ],
-   "score": 0.0911
-  },
-  {
-   "page": "Conqueror / Bloodline / Last Stand",
-   "trade": -0.0118,
-   "long": 0.0137,
-   "pressure": 0.354,
-   "stages": [
-    {
-     "stage": "Level 2",
-     "trade": -0.0126,
-     "long": 0.0102,
-     "pressure": 0.384,
-     "execs": 3,
-     "exec_cost": 0.163,
-     "per": {
-      "marksman": {
-       "trade": -0.0247,
-       "long": -0.0247,
-       "dealt": 0.3647,
-       "taken": 0.3893,
-       "pressure": 0.382,
-       "exec": {
-        "killed": true,
-        "time": 0.25,
-        "cost": 0.12425329646585073,
-        "died": false
-       }
-      },
-      "mage": {
-       "trade": -0.0076,
-       "long": 0.0579,
-       "dealt": 0.4207,
-       "taken": 0.4283,
-       "pressure": 0.429,
-       "exec": {
-        "killed": true,
-        "time": 0.25,
-        "cost": 0.06446102494106343,
-        "died": false
-       }
-      },
-      "tank": {
-       "trade": -0.0054,
-       "long": -0.0025,
-       "dealt": 0.3288,
-       "taken": 0.3341,
-       "pressure": 0.341,
-       "exec": {
-        "killed": true,
-        "time": 1.6457014628067892,
-        "cost": 0.30067700503234107,
-        "died": false
-       }
-      }
-     }
-    },
-    {
-     "stage": "Level 3",
-     "trade": -0.0217,
-     "long": -0.0004,
-     "pressure": 0.35,
-     "execs": 3,
-     "exec_cost": 0.152,
-     "per": {
-      "marksman": {
-       "trade": -0.0295,
-       "long": -0.0288,
-       "dealt": 0.3349,
-       "taken": 0.3644,
-       "pressure": 0.349,
-       "exec": {
-        "killed": true,
-        "time": 0.25,
-        "cost": 0.11192044454348152,
-        "died": false
-       }
-      },
-      "mage": {
-       "trade": -0.0197,
-       "long": 0.04,
-       "dealt": 0.3819,
-       "taken": 0.4016,
-       "pressure": 0.39,
-       "exec": {
-        "killed": true,
-        "time": 0.25,
-        "cost": 0.057852045877410156,
-        "died": false
-       }
-      },
-      "tank": {
-       "trade": -0.016,
-       "long": -0.0123,
-       "dealt": 0.301,
-       "taken": 0.3169,
-       "pressure": 0.312,
-       "exec": {
-        "killed": true,
-        "time": 1.6012340313695737,
-        "cost": 0.2866961305037385,
-        "died": false
-       }
-      }
-     }
-    },
-    {
-     "stage": "Level 6",
-     "trade": -0.0011,
-     "long": 0.0314,
-     "pressure": 0.329,
-     "execs": 3,
-     "exec_cost": 0.201,
-     "per": {
-      "marksman": {
-       "trade": 0.0123,
-       "long": 0.026,
-       "dealt": 0.318,
-       "taken": 0.3057,
-       "pressure": 0.332,
-       "exec": {
-        "killed": true,
-        "time": 1.4734533561466605,
-        "cost": 0.30564639838547064,
-        "died": false
-       }
-      },
-      "mage": {
-       "trade": 0.0023,
-       "long": 0.0657,
-       "dealt": 0.3447,
-       "taken": 0.3424,
-       "pressure": 0.361,
-       "exec": {
-        "killed": true,
-        "time": 0.25,
-        "cost": 0.043431058249539724,
-        "died": false
-       }
-      },
-      "tank": {
-       "trade": -0.0179,
-       "long": 0.0025,
-       "dealt": 0.2829,
-       "taken": 0.3008,
-       "pressure": 0.295,
-       "exec": {
-        "killed": true,
-        "time": 1.4734533561466605,
-        "cost": 0.25499237011410025,
-        "died": false
-       }
-      }
-     }
-    }
-   ],
-   "score": 0.0869
-  },
-  {
-   "page": "Conqueror / Alacrity / Last Stand",
-   "trade": -0.0127,
-   "long": 0.0117,
-   "pressure": 0.354,
-   "stages": [
-    {
-     "stage": "Level 2",
-     "trade": -0.0132,
-     "long": 0.0089,
-     "pressure": 0.384,
-     "execs": 3,
-     "exec_cost": 0.164,
-     "per": {
-      "marksman": {
-       "trade": -0.0261,
-       "long": -0.0329,
-       "dealt": 0.3647,
-       "taken": 0.3907,
-       "pressure": 0.382,
-       "exec": {
-        "killed": true,
-        "time": 0.25,
-        "cost": 0.1250083231236133,
-        "died": false
-       }
-      },
-      "mage": {
-       "trade": -0.0091,
-       "long": 0.0557,
-       "dealt": 0.4207,
-       "taken": 0.4298,
-       "pressure": 0.429,
-       "exec": {
-        "killed": true,
-        "time": 0.25,
-        "cost": 0.06523327208306684,
-        "died": false
-       }
-      },
-      "tank": {
-       "trade": -0.0044,
-       "long": 0.004,
-       "dealt": 0.3304,
-       "taken": 0.3348,
-       "pressure": 0.341,
-       "exec": {
-        "killed": true,
-        "time": 1.5874068964189059,
-        "cost": 0.3020868579355179,
-        "died": false
-       }
-      }
-     }
-    },
-    {
-     "stage": "Level 3",
-     "trade": -0.0228,
-     "long": -0.0038,
-     "pressure": 0.35,
-     "execs": 3,
-     "exec_cost": 0.153,
-     "per": {
-      "marksman": {
-       "trade": -0.0308,
-       "long": -0.0358,
-       "dealt": 0.3349,
-       "taken": 0.3657,
-       "pressure": 0.349,
-       "exec": {
-        "killed": true,
-        "time": 0.25,
-        "cost": 0.11261094868707637,
-        "died": false
-       }
-      },
-      "mage": {
-       "trade": -0.0211,
-       "long": 0.038,
-       "dealt": 0.3819,
+       "trade": -0.0208,
+       "long": 0.0385,
+       "dealt": 0.3822,
        "taken": 0.403,
        "pressure": 0.39,
        "exec": {
@@ -2143,9 +2143,9 @@
        }
       },
       "tank": {
-       "trade": -0.0166,
-       "long": -0.0136,
-       "dealt": 0.301,
+       "trade": -0.0164,
+       "long": -0.0132,
+       "dealt": 0.3012,
        "taken": 0.3175,
        "pressure": 0.312,
        "exec": {
@@ -2159,16 +2159,16 @@
     },
     {
      "stage": "Level 6",
-     "trade": -0.002,
-     "long": 0.03,
+     "trade": -0.0017,
+     "long": 0.0306,
      "pressure": 0.329,
      "execs": 3,
      "exec_cost": 0.202,
      "per": {
       "marksman": {
-       "trade": 0.0112,
-       "long": 0.0244,
-       "dealt": 0.318,
+       "trade": 0.0115,
+       "long": 0.025,
+       "dealt": 0.3183,
        "taken": 0.3068,
        "pressure": 0.332,
        "exec": {
@@ -2179,9 +2179,9 @@
        }
       },
       "mage": {
-       "trade": 0.0012,
-       "long": 0.0642,
-       "dealt": 0.3447,
+       "trade": 0.0016,
+       "long": 0.0647,
+       "dealt": 0.345,
        "taken": 0.3435,
        "pressure": 0.361,
        "exec": {
@@ -2192,9 +2192,9 @@
        }
       },
       "tank": {
-       "trade": -0.0184,
-       "long": 0.0015,
-       "dealt": 0.2829,
+       "trade": -0.0181,
+       "long": 0.002,
+       "dealt": 0.2832,
        "taken": 0.3013,
        "pressure": 0.295,
        "exec": {
@@ -2207,58 +2207,58 @@
      }
     }
    ],
-   "score": 0.0856
+   "score": 0.0861
   },
   {
    "page": "Conqueror / Bloodline / Coup de Grace",
-   "trade": -0.0143,
-   "long": 0.0057,
-   "pressure": 0.365,
+   "trade": -0.014,
+   "long": 0.0061,
+   "pressure": 0.366,
    "stages": [
     {
      "stage": "Level 2",
-     "trade": -0.0166,
-     "long": -0.003,
+     "trade": -0.0164,
+     "long": -0.0028,
      "pressure": 0.394,
      "execs": 3,
      "exec_cost": 0.063,
      "per": {
       "marksman": {
-       "trade": -0.0247,
-       "long": -0.0408,
-       "dealt": 0.3647,
+       "trade": -0.0245,
+       "long": -0.0405,
+       "dealt": 0.3648,
        "taken": 0.3893,
        "pressure": 0.394,
        "exec": {
         "killed": true,
         "time": 0.25,
-        "cost": 0.12424978588854006,
+        "cost": 0.12424947363409587,
         "died": false
        }
       },
       "mage": {
-       "trade": -0.0197,
-       "long": 0.037,
-       "dealt": 0.4086,
+       "trade": -0.0195,
+       "long": 0.0373,
+       "dealt": 0.4088,
        "taken": 0.4283,
        "pressure": 0.433,
        "exec": {
         "killed": true,
         "time": 0.25,
-        "cost": 0.06444870923260435,
+        "cost": 0.06444838626462669,
         "died": false
        }
       },
       "tank": {
-       "trade": -0.0054,
-       "long": -0.0053,
-       "dealt": 0.3288,
+       "trade": -0.0052,
+       "long": -0.0051,
+       "dealt": 0.3289,
        "taken": 0.3341,
        "pressure": 0.355,
        "exec": {
         "killed": true,
         "time": 0.25,
-        "cost": -0.0007157133637899325,
+        "cost": -0.0007160079896412256,
         "died": false
        }
       }
@@ -2266,48 +2266,48 @@
     },
     {
      "stage": "Level 3",
-     "trade": -0.0251,
-     "long": -0.0113,
+     "trade": -0.0248,
+     "long": -0.0108,
      "pressure": 0.362,
      "execs": 3,
      "exec_cost": 0.152,
      "per": {
       "marksman": {
-       "trade": -0.0295,
-       "long": -0.042,
-       "dealt": 0.3349,
+       "trade": -0.0293,
+       "long": -0.0416,
+       "dealt": 0.3351,
        "taken": 0.3644,
        "pressure": 0.362,
        "exec": {
         "killed": true,
         "time": 0.25,
-        "cost": 0.11191563022912912,
+        "cost": 0.11191514106282555,
         "died": false
        }
       },
       "mage": {
-       "trade": -0.0297,
-       "long": 0.0229,
-       "dealt": 0.372,
+       "trade": -0.0294,
+       "long": 0.0234,
+       "dealt": 0.3722,
        "taken": 0.4016,
        "pressure": 0.4,
        "exec": {
         "killed": true,
         "time": 0.25,
-        "cost": 0.05783994850804612,
+        "cost": 0.057839445940707175,
         "died": false
        }
       },
       "tank": {
-       "trade": -0.016,
-       "long": -0.0147,
-       "dealt": 0.301,
+       "trade": -0.0158,
+       "long": -0.0143,
+       "dealt": 0.3012,
        "taken": 0.3169,
        "pressure": 0.325,
        "exec": {
         "killed": true,
         "time": 1.6012340313695737,
-        "cost": 0.2866646146137082,
+        "cost": 0.28666346537542886,
         "died": false
        }
       }
@@ -2315,74 +2315,74 @@
     },
     {
      "stage": "Level 6",
-     "trade": -0.0011,
-     "long": 0.0314,
-     "pressure": 0.34,
+     "trade": -0.0008,
+     "long": 0.0319,
+     "pressure": 0.341,
      "execs": 3,
      "exec_cost": 0.201,
      "per": {
       "marksman": {
-       "trade": 0.0123,
-       "long": 0.026,
-       "dealt": 0.318,
+       "trade": 0.0126,
+       "long": 0.0265,
+       "dealt": 0.3183,
        "taken": 0.3057,
-       "pressure": 0.343,
+       "pressure": 0.344,
        "exec": {
         "killed": true,
         "time": 1.4734533561466605,
-        "cost": 0.30565541099109206,
+        "cost": 0.3056540244791559,
         "died": false
        }
       },
       "mage": {
-       "trade": 0.0023,
-       "long": 0.0657,
-       "dealt": 0.3447,
+       "trade": 0.0026,
+       "long": 0.0663,
+       "dealt": 0.345,
        "taken": 0.3424,
        "pressure": 0.372,
        "exec": {
         "killed": true,
         "time": 0.25,
-        "cost": 0.04342010037210253,
+        "cost": 0.043419541653049384,
         "died": false
        }
       },
       "tank": {
-       "trade": -0.0179,
-       "long": 0.0025,
-       "dealt": 0.2829,
+       "trade": -0.0176,
+       "long": 0.0029,
+       "dealt": 0.2832,
        "taken": 0.3008,
-       "pressure": 0.305,
+       "pressure": 0.306,
        "exec": {
         "killed": true,
         "time": 1.4734533561466605,
-        "cost": 0.254964474954423,
+        "cost": 0.25496318732424866,
         "died": false
        }
       }
      }
     }
    ],
-   "score": 0.0849
+   "score": 0.0855
   },
   {
    "page": "Conqueror / Alacrity / Coup de Grace",
-   "trade": -0.0153,
-   "long": 0.004,
-   "pressure": 0.365,
+   "trade": -0.0151,
+   "long": 0.0044,
+   "pressure": 0.366,
    "stages": [
     {
      "stage": "Level 2",
-     "trade": -0.0177,
-     "long": -0.0049,
+     "trade": -0.0176,
+     "long": -0.0047,
      "pressure": 0.394,
      "execs": 3,
      "exec_cost": 0.063,
      "per": {
       "marksman": {
-       "trade": -0.0261,
-       "long": -0.0429,
-       "dealt": 0.3647,
+       "trade": -0.0259,
+       "long": -0.0427,
+       "dealt": 0.3648,
        "taken": 0.3907,
        "pressure": 0.394,
        "exec": {
@@ -2393,9 +2393,9 @@
        }
       },
       "mage": {
-       "trade": -0.0211,
-       "long": 0.0348,
-       "dealt": 0.4086,
+       "trade": -0.021,
+       "long": 0.0351,
+       "dealt": 0.4088,
        "taken": 0.4298,
        "pressure": 0.433,
        "exec": {
@@ -2406,9 +2406,9 @@
        }
       },
       "tank": {
-       "trade": -0.006,
-       "long": -0.0067,
-       "dealt": 0.3288,
+       "trade": -0.0059,
+       "long": -0.0064,
+       "dealt": 0.3289,
        "taken": 0.3348,
        "pressure": 0.355,
        "exec": {
@@ -2422,16 +2422,16 @@
     },
     {
      "stage": "Level 3",
-     "trade": -0.0261,
-     "long": -0.013,
+     "trade": -0.0259,
+     "long": -0.0126,
      "pressure": 0.362,
      "execs": 3,
      "exec_cost": 0.153,
      "per": {
       "marksman": {
-       "trade": -0.0308,
-       "long": -0.044,
-       "dealt": 0.3349,
+       "trade": -0.0306,
+       "long": -0.0436,
+       "dealt": 0.3351,
        "taken": 0.3657,
        "pressure": 0.362,
        "exec": {
@@ -2442,9 +2442,9 @@
        }
       },
       "mage": {
-       "trade": -0.031,
-       "long": 0.0209,
-       "dealt": 0.372,
+       "trade": -0.0307,
+       "long": 0.0213,
+       "dealt": 0.3722,
        "taken": 0.403,
        "pressure": 0.4,
        "exec": {
@@ -2455,9 +2455,9 @@
        }
       },
       "tank": {
-       "trade": -0.0166,
-       "long": -0.0159,
-       "dealt": 0.301,
+       "trade": -0.0164,
+       "long": -0.0156,
+       "dealt": 0.3012,
        "taken": 0.3175,
        "pressure": 0.325,
        "exec": {
@@ -2471,18 +2471,18 @@
     },
     {
      "stage": "Level 6",
-     "trade": -0.002,
-     "long": 0.03,
-     "pressure": 0.34,
+     "trade": -0.0017,
+     "long": 0.0306,
+     "pressure": 0.341,
      "execs": 3,
      "exec_cost": 0.202,
      "per": {
       "marksman": {
-       "trade": 0.0112,
-       "long": 0.0244,
-       "dealt": 0.318,
+       "trade": 0.0115,
+       "long": 0.025,
+       "dealt": 0.3183,
        "taken": 0.3068,
-       "pressure": 0.343,
+       "pressure": 0.344,
        "exec": {
         "killed": true,
         "time": 1.4284274710298337,
@@ -2491,9 +2491,9 @@
        }
       },
       "mage": {
-       "trade": 0.0012,
-       "long": 0.0642,
-       "dealt": 0.3447,
+       "trade": 0.0016,
+       "long": 0.0647,
+       "dealt": 0.345,
        "taken": 0.3435,
        "pressure": 0.372,
        "exec": {
@@ -2504,11 +2504,11 @@
        }
       },
       "tank": {
-       "trade": -0.0184,
-       "long": 0.0015,
-       "dealt": 0.2829,
+       "trade": -0.0181,
+       "long": 0.002,
+       "dealt": 0.2832,
        "taken": 0.3013,
-       "pressure": 0.305,
+       "pressure": 0.306,
        "exec": {
         "killed": true,
         "time": 1.4284274710298337,
@@ -2519,7 +2519,7 @@
      }
     }
    ],
-   "score": 0.0837
+   "score": 0.0842
   },
   {
    "page": "Fleet Footwork / Bloodline / Last Stand",
@@ -3773,14 +3773,14 @@
  "first": {
   "base": {
    "trade": -0.0903,
-   "long": -0.0358,
+   "long": -0.0343,
    "pressure": 0.269,
    "execs": 2,
    "exec_cost": 0.359,
    "per": {
     "marksman": {
      "trade": -0.1875,
-     "long": -0.1777,
+     "long": -0.1761,
      "dealt": 0.326,
      "taken": 0.5135,
      "pressure": 0.302,
@@ -3793,7 +3793,7 @@
     },
     "mage": {
      "trade": 0.0064,
-     "long": 0.1344,
+     "long": 0.1362,
      "dealt": 0.3496,
      "taken": 0.3432,
      "pressure": 0.324,
@@ -3806,7 +3806,7 @@
     },
     "tank": {
      "trade": -0.0898,
-     "long": -0.0641,
+     "long": -0.0631,
      "dealt": 0.1957,
      "taken": 0.2855,
      "pressure": 0.181,
@@ -3825,33 +3825,33 @@
     "id": "3146",
     "cost": 3000,
     "boots": null,
-    "score": 0.3308,
-    "trade_gain": 23.9,
-    "trade": 0.1483,
-    "long": 0.284,
-    "pressure": 0.513,
+    "score": 0.3299,
+    "trade_gain": 23.8,
+    "trade": 0.1473,
+    "long": 0.2848,
+    "pressure": 0.51,
     "execs": 3,
     "exec_cost": 0.028,
     "per": {
      "marksman": {
-      "trade": 0.0858,
-      "long": 0.182,
-      "dealt": 0.5489,
+      "trade": 0.0847,
+      "long": 0.1829,
+      "dealt": 0.5478,
       "taken": 0.4631,
-      "pressure": 0.567,
+      "pressure": 0.565,
       "exec": {
        "killed": true,
        "time": 0.0,
-       "cost": 0.10574614096682161,
+       "cost": 0.10574614096682168,
        "died": false
       }
      },
      "mage": {
-      "trade": 0.2865,
-      "long": 0.4976,
-      "dealt": 0.5808,
+      "trade": 0.2854,
+      "long": 0.4985,
+      "dealt": 0.5796,
       "taken": 0.2942,
-      "pressure": 0.622,
+      "pressure": 0.619,
       "exec": {
        "killed": true,
        "time": 0.0,
@@ -3860,11 +3860,11 @@
       }
      },
      "tank": {
-      "trade": 0.0726,
-      "long": 0.1725,
-      "dealt": 0.3339,
+      "trade": 0.0719,
+      "long": 0.1731,
+      "dealt": 0.3332,
       "taken": 0.2613,
-      "pressure": 0.349,
+      "pressure": 0.347,
       "exec": {
        "killed": true,
        "time": 0.25,
@@ -3880,18 +3880,18 @@
     "id": "3095",
     "cost": 3200,
     "boots": null,
-    "score": 0.2955,
+    "score": 0.2961,
     "trade_gain": 21.1,
-    "trade": 0.1207,
-    "long": 0.2813,
+    "trade": 0.1208,
+    "long": 0.2826,
     "pressure": 0.442,
     "execs": 3,
     "exec_cost": 0.134,
     "per": {
      "marksman": {
-      "trade": 0.0876,
-      "long": 0.1876,
-      "dealt": 0.5971,
+      "trade": 0.0881,
+      "long": 0.1891,
+      "dealt": 0.5977,
       "taken": 0.5095,
       "pressure": 0.495,
       "exec": {
@@ -3903,7 +3903,7 @@
      },
      "mage": {
       "trade": 0.2345,
-      "long": 0.5095,
+      "long": 0.5111,
       "dealt": 0.5743,
       "taken": 0.3398,
       "pressure": 0.532,
@@ -3916,7 +3916,7 @@
      },
      "tank": {
       "trade": 0.0399,
-      "long": 0.1467,
+      "long": 0.1477,
       "dealt": 0.3245,
       "taken": 0.2845,
       "pressure": 0.3,
@@ -3935,17 +3935,17 @@
     "id": "3031",
     "cost": 3500,
     "boots": null,
-    "score": 0.2873,
+    "score": 0.2879,
     "trade_gain": 20.9,
     "trade": 0.1187,
-    "long": 0.2528,
+    "long": 0.2541,
     "pressure": 0.46,
     "execs": 3,
     "exec_cost": 0.134,
     "per": {
      "marksman": {
       "trade": 0.0474,
-      "long": 0.1503,
+      "long": 0.1518,
       "dealt": 0.5577,
       "taken": 0.5103,
       "pressure": 0.516,
@@ -3958,7 +3958,7 @@
      },
      "mage": {
       "trade": 0.2581,
-      "long": 0.458,
+      "long": 0.4596,
       "dealt": 0.5981,
       "taken": 0.34,
       "pressure": 0.554,
@@ -3971,7 +3971,7 @@
      },
      "tank": {
       "trade": 0.0506,
-      "long": 0.15,
+      "long": 0.1509,
       "dealt": 0.3348,
       "taken": 0.2842,
       "pressure": 0.31,
@@ -3990,50 +3990,50 @@
     "id": "2510",
     "cost": 3100,
     "boots": null,
-    "score": 0.2796,
-    "trade_gain": 21.8,
-    "trade": 0.1279,
-    "long": 0.2637,
+    "score": 0.2871,
+    "trade_gain": 22.5,
+    "trade": 0.1349,
+    "long": 0.2722,
     "pressure": 0.389,
     "execs": 3,
-    "exec_cost": 0.111,
+    "exec_cost": 0.101,
     "per": {
      "marksman": {
-      "trade": 0.1091,
-      "long": 0.2004,
-      "dealt": 0.5309,
-      "taken": 0.4218,
+      "trade": 0.1199,
+      "long": 0.2124,
+      "dealt": 0.5315,
+      "taken": 0.4116,
       "pressure": 0.436,
       "exec": {
        "killed": true,
        "time": 0.25,
-       "cost": 0.10670080275626813,
+       "cost": 0.09651559589120458,
        "died": false
       }
      },
      "mage": {
-      "trade": 0.2243,
-      "long": 0.4525,
+      "trade": 0.2345,
+      "long": 0.4646,
       "dealt": 0.5059,
-      "taken": 0.2816,
+      "taken": 0.2714,
       "pressure": 0.468,
       "exec": {
        "killed": true,
        "time": 0.25,
-       "cost": 0.02718997613236673,
+       "cost": 0.017004769267303172,
        "died": false
       }
      },
      "tank": {
       "trade": 0.0503,
-      "long": 0.1383,
+      "long": 0.1395,
       "dealt": 0.2854,
       "taken": 0.235,
       "pressure": 0.264,
       "exec": {
        "killed": true,
        "time": 1.4,
-       "cost": 0.19902684186851527,
+       "cost": 0.18884163500345166,
        "died": false
       }
      }
@@ -4045,20 +4045,20 @@
     "id": "3032",
     "cost": 3000,
     "boots": null,
-    "score": 0.2676,
-    "trade_gain": 18.3,
-    "trade": 0.0931,
-    "long": 0.2639,
+    "score": 0.2687,
+    "trade_gain": 18.4,
+    "trade": 0.0938,
+    "long": 0.2653,
     "pressure": 0.425,
     "execs": 2,
     "exec_cost": 0.156,
     "per": {
      "marksman": {
-      "trade": 0.1253,
-      "long": 0.1958,
-      "dealt": 0.6357,
+      "trade": 0.127,
+      "long": 0.1975,
+      "dealt": 0.6374,
       "taken": 0.5104,
-      "pressure": 0.588,
+      "pressure": 0.59,
       "exec": {
        "killed": true,
        "time": 0.25,
@@ -4068,7 +4068,7 @@
      },
      "mage": {
       "trade": 0.1339,
-      "long": 0.4712,
+      "long": 0.4729,
       "dealt": 0.4753,
       "taken": 0.3414,
       "pressure": 0.44,
@@ -4080,9 +4080,9 @@
       }
      },
      "tank": {
-      "trade": 0.0202,
-      "long": 0.1246,
-      "dealt": 0.3046,
+      "trade": 0.0205,
+      "long": 0.1255,
+      "dealt": 0.3049,
       "taken": 0.2844,
       "pressure": 0.246,
       "exec": {
@@ -4096,77 +4096,22 @@
     "rank": 5
    },
    {
-    "item": "Kraken Slayer",
-    "id": "6672",
-    "cost": 3000,
-    "boots": null,
-    "score": 0.265,
-    "trade_gain": 17.0,
-    "trade": 0.0793,
-    "long": 0.2637,
-    "pressure": 0.448,
-    "execs": 2,
-    "exec_cost": 0.156,
-    "per": {
-     "marksman": {
-      "trade": 0.0884,
-      "long": 0.1652,
-      "dealt": 0.5984,
-      "taken": 0.51,
-      "pressure": 0.675,
-      "exec": {
-       "killed": true,
-       "time": 0.25,
-       "cost": 0.12971910786228444,
-       "died": false
-      }
-     },
-     "mage": {
-      "trade": 0.1212,
-      "long": 0.4932,
-      "dealt": 0.4628,
-      "taken": 0.3415,
-      "pressure": 0.428,
-      "exec": {
-       "killed": true,
-       "time": 0.25,
-       "cost": 0.03328342516831907,
-       "died": false
-      }
-     },
-     "tank": {
-      "trade": 0.0283,
-      "long": 0.1328,
-      "dealt": 0.3124,
-      "taken": 0.2841,
-      "pressure": 0.24,
-      "exec": {
-       "killed": false,
-       "time": null,
-       "cost": 0.30525720643696175,
-       "died": false
-      }
-     }
-    },
-    "rank": 6
-   },
-   {
     "item": "Blade of The Ruined King",
     "id": "3153",
     "cost": 3200,
     "boots": null,
-    "score": 0.2624,
-    "trade_gain": 19.0,
-    "trade": 0.1002,
-    "long": 0.2783,
+    "score": 0.2631,
+    "trade_gain": 19.1,
+    "trade": 0.1003,
+    "long": 0.2797,
     "pressure": 0.364,
     "execs": 2,
     "exec_cost": 0.148,
     "per": {
      "marksman": {
-      "trade": 0.0681,
-      "long": 0.1828,
-      "dealt": 0.554,
+      "trade": 0.0686,
+      "long": 0.1843,
+      "dealt": 0.5545,
       "taken": 0.4859,
       "pressure": 0.41,
       "exec": {
@@ -4178,7 +4123,7 @@
      },
      "mage": {
       "trade": 0.1985,
-      "long": 0.4825,
+      "long": 0.4841,
       "dealt": 0.5189,
       "taken": 0.3204,
       "pressure": 0.439,
@@ -4191,7 +4136,7 @@
      },
      "tank": {
       "trade": 0.0339,
-      "long": 0.1697,
+      "long": 0.1707,
       "dealt": 0.3094,
       "taken": 0.2755,
       "pressure": 0.243,
@@ -4203,6 +4148,61 @@
       }
      }
     },
+    "rank": 6
+   },
+   {
+    "item": "Kraken Slayer",
+    "id": "6672",
+    "cost": 3000,
+    "boots": null,
+    "score": 0.2601,
+    "trade_gain": 16.8,
+    "trade": 0.0774,
+    "long": 0.2565,
+    "pressure": 0.444,
+    "execs": 2,
+    "exec_cost": 0.156,
+    "per": {
+     "marksman": {
+      "trade": 0.0844,
+      "long": 0.1591,
+      "dealt": 0.5945,
+      "taken": 0.5101,
+      "pressure": 0.665,
+      "exec": {
+       "killed": true,
+       "time": 0.25,
+       "cost": 0.12971910786228444,
+       "died": false
+      }
+     },
+     "mage": {
+      "trade": 0.1212,
+      "long": 0.4828,
+      "dealt": 0.4628,
+      "taken": 0.3415,
+      "pressure": 0.428,
+      "exec": {
+       "killed": true,
+       "time": 0.25,
+       "cost": 0.03328342516831907,
+       "died": false
+      }
+     },
+     "tank": {
+      "trade": 0.0266,
+      "long": 0.1275,
+      "dealt": 0.3107,
+      "taken": 0.2842,
+      "pressure": 0.24,
+      "exec": {
+       "killed": false,
+       "time": null,
+       "cost": 0.30525720643696175,
+       "died": false
+      }
+     }
+    },
     "rank": 7
    },
    {
@@ -4210,17 +4210,17 @@
     "id": "3072",
     "cost": 3400,
     "boots": null,
-    "score": 0.2589,
+    "score": 0.2595,
     "trade_gain": 19.4,
     "trade": 0.1035,
-    "long": 0.2272,
+    "long": 0.2286,
     "pressure": 0.424,
     "execs": 3,
     "exec_cost": 0.12,
     "per": {
      "marksman": {
       "trade": 0.0291,
-      "long": 0.1202,
+      "long": 0.1219,
       "dealt": 0.5136,
       "taken": 0.4845,
       "pressure": 0.476,
@@ -4233,7 +4233,7 @@
      },
      "mage": {
       "trade": 0.2362,
-      "long": 0.4229,
+      "long": 0.4245,
       "dealt": 0.5508,
       "taken": 0.3145,
       "pressure": 0.51,
@@ -4246,7 +4246,7 @@
      },
      "tank": {
       "trade": 0.0453,
-      "long": 0.1384,
+      "long": 0.1394,
       "dealt": 0.3083,
       "taken": 0.2631,
       "pressure": 0.285,
@@ -4265,18 +4265,18 @@
     "id": "3087",
     "cost": 3000,
     "boots": null,
-    "score": 0.2543,
+    "score": 0.255,
     "trade_gain": 17.9,
-    "trade": 0.0884,
-    "long": 0.2444,
+    "trade": 0.0886,
+    "long": 0.2459,
     "pressure": 0.414,
     "execs": 3,
     "exec_cost": 0.134,
     "per": {
      "marksman": {
-      "trade": 0.0503,
-      "long": 0.1336,
-      "dealt": 0.5611,
+      "trade": 0.0508,
+      "long": 0.1352,
+      "dealt": 0.5616,
       "taken": 0.5108,
       "pressure": 0.464,
       "exec": {
@@ -4288,7 +4288,7 @@
      },
      "mage": {
       "trade": 0.1969,
-      "long": 0.4552,
+      "long": 0.4569,
       "dealt": 0.5378,
       "taken": 0.3409,
       "pressure": 0.498,
@@ -4301,7 +4301,7 @@
      },
      "tank": {
       "trade": 0.018,
-      "long": 0.1445,
+      "long": 0.1455,
       "dealt": 0.3028,
       "taken": 0.2848,
       "pressure": 0.28,
@@ -4320,17 +4320,17 @@
     "id": "3071",
     "cost": 3000,
     "boots": null,
-    "score": 0.2529,
+    "score": 0.2536,
     "trade_gain": 19.6,
     "trade": 0.1056,
-    "long": 0.2418,
+    "long": 0.2434,
     "pressure": 0.371,
     "execs": 3,
     "exec_cost": 0.105,
     "per": {
      "marksman": {
       "trade": 0.0497,
-      "long": 0.1714,
+      "long": 0.1732,
       "dealt": 0.4482,
       "taken": 0.3985,
       "pressure": 0.415,
@@ -4343,7 +4343,7 @@
      },
      "mage": {
       "trade": 0.2151,
-      "long": 0.3982,
+      "long": 0.4001,
       "dealt": 0.481,
       "taken": 0.2659,
       "pressure": 0.445,
@@ -4356,7 +4356,7 @@
      },
      "tank": {
       "trade": 0.0521,
-      "long": 0.1559,
+      "long": 0.157,
       "dealt": 0.2739,
       "taken": 0.2218,
       "pressure": 0.254,
@@ -4375,17 +4375,17 @@
     "id": "3036",
     "cost": 3300,
     "boots": null,
-    "score": 0.2395,
+    "score": 0.2401,
     "trade_gain": 17.4,
     "trade": 0.0835,
-    "long": 0.2059,
+    "long": 0.2075,
     "pressure": 0.428,
     "execs": 3,
     "exec_cost": 0.134,
     "per": {
      "marksman": {
       "trade": -0.0038,
-      "long": 0.0769,
+      "long": 0.0786,
       "dealt": 0.5071,
       "taken": 0.511,
       "pressure": 0.47,
@@ -4398,7 +4398,7 @@
      },
      "mage": {
       "trade": 0.2037,
-      "long": 0.3877,
+      "long": 0.3895,
       "dealt": 0.5444,
       "taken": 0.3407,
       "pressure": 0.504,
@@ -4411,7 +4411,7 @@
      },
      "tank": {
       "trade": 0.0506,
-      "long": 0.1531,
+      "long": 0.1543,
       "dealt": 0.3349,
       "taken": 0.2843,
       "pressure": 0.31,
@@ -4430,17 +4430,17 @@
     "id": "6333",
     "cost": 3300,
     "boots": null,
-    "score": 0.2345,
+    "score": 0.2351,
     "trade_gain": 18.2,
     "trade": 0.0916,
-    "long": 0.2085,
+    "long": 0.21,
     "pressure": 0.385,
     "execs": 3,
     "exec_cost": 0.116,
     "per": {
      "marksman": {
       "trade": 0.0782,
-      "long": 0.1733,
+      "long": 0.1749,
       "dealt": 0.4667,
       "taken": 0.3885,
       "pressure": 0.432,
@@ -4453,7 +4453,7 @@
      },
      "mage": {
       "trade": 0.1757,
-      "long": 0.345,
+      "long": 0.3468,
       "dealt": 0.5005,
       "taken": 0.3248,
       "pressure": 0.463,
@@ -4466,7 +4466,7 @@
      },
      "tank": {
       "trade": 0.0209,
-      "long": 0.1073,
+      "long": 0.1083,
       "dealt": 0.2802,
       "taken": 0.2593,
       "pressure": 0.259,
@@ -4485,17 +4485,17 @@
     "id": "2523",
     "cost": 2800,
     "boots": null,
-    "score": 0.2305,
+    "score": 0.231,
     "trade_gain": 16.8,
     "trade": 0.0777,
-    "long": 0.196,
+    "long": 0.1973,
     "pressure": 0.422,
     "execs": 3,
     "exec_cost": 0.134,
     "per": {
      "marksman": {
       "trade": 0.0014,
-      "long": 0.0851,
+      "long": 0.0866,
       "dealt": 0.512,
       "taken": 0.5106,
       "pressure": 0.474,
@@ -4508,7 +4508,7 @@
      },
      "mage": {
       "trade": 0.2087,
-      "long": 0.3932,
+      "long": 0.3948,
       "dealt": 0.5491,
       "taken": 0.3403,
       "pressure": 0.508,
@@ -4521,7 +4521,7 @@
      },
      "tank": {
       "trade": 0.023,
-      "long": 0.1096,
+      "long": 0.1105,
       "dealt": 0.3074,
       "taken": 0.2844,
       "pressure": 0.284,
@@ -4540,17 +4540,17 @@
     "id": "6676",
     "cost": 3000,
     "boots": null,
-    "score": 0.2287,
+    "score": 0.2292,
     "trade_gain": 16.7,
     "trade": 0.0768,
-    "long": 0.1929,
+    "long": 0.1943,
     "pressure": 0.422,
     "execs": 3,
     "exec_cost": 0.134,
     "per": {
      "marksman": {
       "trade": 0.0024,
-      "long": 0.084,
+      "long": 0.0856,
       "dealt": 0.5133,
       "taken": 0.5108,
       "pressure": 0.475,
@@ -4563,7 +4563,7 @@
      },
      "mage": {
       "trade": 0.2095,
-      "long": 0.3929,
+      "long": 0.3946,
       "dealt": 0.55,
       "taken": 0.3406,
       "pressure": 0.509,
@@ -4576,7 +4576,7 @@
      },
      "tank": {
       "trade": 0.0186,
-      "long": 0.1017,
+      "long": 0.1027,
       "dealt": 0.3031,
       "taken": 0.2845,
       "pressure": 0.281,
@@ -4595,20 +4595,20 @@
     "id": "3302",
     "cost": 3000,
     "boots": null,
-    "score": 0.2272,
-    "trade_gain": 14.5,
-    "trade": 0.0551,
-    "long": 0.2192,
-    "pressure": 0.426,
+    "score": 0.2288,
+    "trade_gain": 14.6,
+    "trade": 0.0554,
+    "long": 0.2208,
+    "pressure": 0.429,
     "execs": 2,
     "exec_cost": 0.156,
     "per": {
      "marksman": {
-      "trade": 0.0509,
-      "long": 0.1322,
-      "dealt": 0.5613,
+      "trade": 0.052,
+      "long": 0.1339,
+      "dealt": 0.5624,
       "taken": 0.5104,
-      "pressure": 0.593,
+      "pressure": 0.602,
       "exec": {
        "killed": true,
        "time": 0.25,
@@ -4618,7 +4618,7 @@
      },
      "mage": {
       "trade": 0.131,
-      "long": 0.4007,
+      "long": 0.4025,
       "dealt": 0.4721,
       "taken": 0.3411,
       "pressure": 0.437,
@@ -4631,7 +4631,7 @@
      },
      "tank": {
       "trade": -0.0167,
-      "long": 0.1248,
+      "long": 0.1259,
       "dealt": 0.2679,
       "taken": 0.2846,
       "pressure": 0.248,
@@ -4646,21 +4646,76 @@
     "rank": 15
    },
    {
+    "item": "Wit's End",
+    "id": "3091",
+    "cost": 2800,
+    "boots": null,
+    "score": 0.2274,
+    "trade_gain": 16.8,
+    "trade": 0.0782,
+    "long": 0.2022,
+    "pressure": 0.398,
+    "execs": 3,
+    "exec_cost": 0.24,
+    "per": {
+     "marksman": {
+      "trade": -0.0179,
+      "long": 0.0504,
+      "dealt": 0.4929,
+      "taken": 0.5109,
+      "pressure": 0.511,
+      "exec": {
+       "killed": true,
+       "time": 1.049047407642505,
+       "cost": 0.42467166974052234,
+       "died": false
+      }
+     },
+     "mage": {
+      "trade": 0.1925,
+      "long": 0.4417,
+      "dealt": 0.4667,
+      "taken": 0.2742,
+      "pressure": 0.373,
+      "exec": {
+       "killed": true,
+       "time": 0.25,
+       "cost": 0.03323751201849813,
+       "died": false
+      }
+     },
+     "tank": {
+      "trade": 0.0599,
+      "long": 0.1145,
+      "dealt": 0.3004,
+      "taken": 0.2405,
+      "pressure": 0.311,
+      "exec": {
+       "killed": true,
+       "time": 1.999047407642505,
+       "cost": 0.2606221731152152,
+       "died": false
+      }
+     }
+    },
+    "rank": 16
+   },
+   {
     "item": "Youmuu's Ghostblade",
     "id": "3142",
     "cost": 2800,
     "boots": null,
-    "score": 0.2262,
+    "score": 0.2268,
     "trade_gain": 16.7,
     "trade": 0.0765,
-    "long": 0.1874,
+    "long": 0.189,
     "pressure": 0.421,
     "execs": 3,
     "exec_cost": 0.135,
     "per": {
      "marksman": {
       "trade": 0.0038,
-      "long": 0.0816,
+      "long": 0.0834,
       "dealt": 0.515,
       "taken": 0.5113,
       "pressure": 0.477,
@@ -4673,7 +4728,7 @@
      },
      "mage": {
       "trade": 0.2105,
-      "long": 0.3884,
+      "long": 0.3903,
       "dealt": 0.5515,
       "taken": 0.341,
       "pressure": 0.51,
@@ -4686,7 +4741,7 @@
      },
      "tank": {
       "trade": 0.0151,
-      "long": 0.0922,
+      "long": 0.0932,
       "dealt": 0.2997,
       "taken": 0.2846,
       "pressure": 0.277,
@@ -4698,61 +4753,6 @@
       }
      }
     },
-    "rank": 16
-   },
-   {
-    "item": "Wit's End",
-    "id": "3091",
-    "cost": 2800,
-    "boots": null,
-    "score": 0.2261,
-    "trade_gain": 16.8,
-    "trade": 0.0774,
-    "long": 0.2008,
-    "pressure": 0.398,
-    "execs": 3,
-    "exec_cost": 0.24,
-    "per": {
-     "marksman": {
-      "trade": -0.019,
-      "long": 0.0488,
-      "dealt": 0.4918,
-      "taken": 0.5109,
-      "pressure": 0.51,
-      "exec": {
-       "killed": true,
-       "time": 1.049047407642505,
-       "cost": 0.42467166974052234,
-       "died": false
-      }
-     },
-     "mage": {
-      "trade": 0.1919,
-      "long": 0.44,
-      "dealt": 0.4661,
-      "taken": 0.2742,
-      "pressure": 0.373,
-      "exec": {
-       "killed": true,
-       "time": 0.25,
-       "cost": 0.03323751201849813,
-       "died": false
-      }
-     },
-     "tank": {
-      "trade": 0.0592,
-      "long": 0.1135,
-      "dealt": 0.2997,
-      "taken": 0.2405,
-      "pressure": 0.31,
-      "exec": {
-       "killed": true,
-       "time": 1.999047407642505,
-       "cost": 0.2606221731152152,
-       "died": false
-      }
-     }
-    },
     "rank": 17
    },
    {
@@ -4760,20 +4760,20 @@
     "id": "3115",
     "cost": 2900,
     "boots": null,
-    "score": 0.2189,
+    "score": 0.22,
     "trade_gain": 14.4,
-    "trade": 0.0536,
-    "long": 0.2115,
-    "pressure": 0.408,
+    "trade": 0.0542,
+    "long": 0.2132,
+    "pressure": 0.409,
     "execs": 2,
     "exec_cost": 0.156,
     "per": {
      "marksman": {
-      "trade": 0.0404,
-      "long": 0.1373,
-      "dealt": 0.5517,
+      "trade": 0.0416,
+      "long": 0.1391,
+      "dealt": 0.5529,
       "taken": 0.5113,
-      "pressure": 0.571,
+      "pressure": 0.573,
       "exec": {
        "killed": true,
        "time": 0.25,
@@ -4783,7 +4783,7 @@
      },
      "mage": {
       "trade": 0.1098,
-      "long": 0.4062,
+      "long": 0.4082,
       "dealt": 0.4516,
       "taken": 0.3418,
       "pressure": 0.418,
@@ -4795,9 +4795,9 @@
       }
      },
      "tank": {
-      "trade": 0.0107,
-      "long": 0.0911,
-      "dealt": 0.2953,
+      "trade": 0.0111,
+      "long": 0.0923,
+      "dealt": 0.2957,
       "taken": 0.2846,
       "pressure": 0.236,
       "exec": {
@@ -4815,17 +4815,17 @@
     "id": "3026",
     "cost": 3200,
     "boots": null,
-    "score": 0.217,
+    "score": 0.2176,
     "trade_gain": 16.7,
     "trade": 0.0768,
-    "long": 0.1928,
+    "long": 0.1942,
     "pressure": 0.375,
     "execs": 3,
     "exec_cost": 0.118,
     "per": {
      "marksman": {
       "trade": 0.0568,
-      "long": 0.1586,
+      "long": 0.1602,
       "dealt": 0.455,
       "taken": 0.3982,
       "pressure": 0.421,
@@ -4838,7 +4838,7 @@
      },
      "mage": {
       "trade": 0.1617,
-      "long": 0.3264,
+      "long": 0.3282,
       "dealt": 0.4879,
       "taken": 0.3262,
       "pressure": 0.452,
@@ -4851,7 +4851,7 @@
      },
      "tank": {
       "trade": 0.0119,
-      "long": 0.0934,
+      "long": 0.0943,
       "dealt": 0.2731,
       "taken": 0.2613,
       "pressure": 0.253,
@@ -4870,17 +4870,17 @@
     "id": "3033",
     "cost": 3000,
     "boots": null,
-    "score": 0.2157,
+    "score": 0.2164,
     "trade_gain": 15.7,
     "trade": 0.0666,
-    "long": 0.1817,
+    "long": 0.1834,
     "pressure": 0.412,
     "execs": 3,
     "exec_cost": 0.134,
     "per": {
      "marksman": {
       "trade": -0.0178,
-      "long": 0.0596,
+      "long": 0.0615,
       "dealt": 0.4932,
       "taken": 0.5111,
       "pressure": 0.457,
@@ -4893,7 +4893,7 @@
      },
      "mage": {
       "trade": 0.1895,
-      "long": 0.3678,
+      "long": 0.3696,
       "dealt": 0.5302,
       "taken": 0.3408,
       "pressure": 0.491,
@@ -4906,7 +4906,7 @@
      },
      "tank": {
       "trade": 0.028,
-      "long": 0.1178,
+      "long": 0.119,
       "dealt": 0.3124,
       "taken": 0.2844,
       "pressure": 0.289,
@@ -4925,17 +4925,17 @@
     "id": "6694",
     "cost": 3000,
     "boots": null,
-    "score": 0.2135,
+    "score": 0.2142,
     "trade_gain": 15.7,
     "trade": 0.0664,
-    "long": 0.1765,
+    "long": 0.1782,
     "pressure": 0.412,
     "execs": 3,
     "exec_cost": 0.135,
     "per": {
      "marksman": {
       "trade": -0.0193,
-      "long": 0.049,
+      "long": 0.0508,
       "dealt": 0.4921,
       "taken": 0.5115,
       "pressure": 0.455,
@@ -4948,7 +4948,7 @@
      },
      "mage": {
       "trade": 0.1881,
-      "long": 0.3635,
+      "long": 0.3655,
       "dealt": 0.5293,
       "taken": 0.3412,
       "pressure": 0.49,
@@ -4961,7 +4961,7 @@
      },
      "tank": {
       "trade": 0.0304,
-      "long": 0.117,
+      "long": 0.1182,
       "dealt": 0.315,
       "taken": 0.2846,
       "pressure": 0.292,
@@ -4980,18 +4980,18 @@
     "id": "3124",
     "cost": 3000,
     "boots": null,
-    "score": 0.2117,
+    "score": 0.2124,
     "trade_gain": 13.9,
-    "trade": 0.0484,
-    "long": 0.2224,
+    "trade": 0.0486,
+    "long": 0.2238,
     "pressure": 0.375,
     "execs": 3,
     "exec_cost": 0.135,
     "per": {
      "marksman": {
-      "trade": 0.0097,
-      "long": 0.1403,
-      "dealt": 0.5207,
+      "trade": 0.0102,
+      "long": 0.142,
+      "dealt": 0.5213,
       "taken": 0.511,
       "pressure": 0.42,
       "exec": {
@@ -5003,7 +5003,7 @@
      },
      "mage": {
       "trade": 0.1458,
-      "long": 0.4077,
+      "long": 0.4094,
       "dealt": 0.487,
       "taken": 0.3412,
       "pressure": 0.451,
@@ -5016,7 +5016,7 @@
      },
      "tank": {
       "trade": -0.0103,
-      "long": 0.1191,
+      "long": 0.1201,
       "dealt": 0.2744,
       "taken": 0.2847,
       "pressure": 0.254,
@@ -5035,17 +5035,17 @@
     "id": "6673",
     "cost": 3000,
     "boots": null,
-    "score": 0.2052,
+    "score": 0.2058,
     "trade_gain": 15.1,
     "trade": 0.0605,
-    "long": 0.1683,
+    "long": 0.1697,
     "pressure": 0.406,
     "execs": 3,
     "exec_cost": 0.134,
     "per": {
      "marksman": {
       "trade": -0.018,
-      "long": 0.0528,
+      "long": 0.0543,
       "dealt": 0.493,
       "taken": 0.511,
       "pressure": 0.456,
@@ -5058,7 +5058,7 @@
      },
      "mage": {
       "trade": 0.188,
-      "long": 0.3621,
+      "long": 0.3638,
       "dealt": 0.5287,
       "taken": 0.3407,
       "pressure": 0.489,
@@ -5071,7 +5071,7 @@
      },
      "tank": {
       "trade": 0.0115,
-      "long": 0.0901,
+      "long": 0.0911,
       "dealt": 0.296,
       "taken": 0.2845,
       "pressure": 0.274,
@@ -5090,17 +5090,17 @@
     "id": "3156",
     "cost": 3100,
     "boots": null,
-    "score": 0.2037,
+    "score": 0.2043,
     "trade_gain": 16.0,
     "trade": 0.0702,
-    "long": 0.1637,
+    "long": 0.1652,
     "pressure": 0.385,
     "execs": 3,
     "exec_cost": 0.121,
     "per": {
      "marksman": {
       "trade": -0.0449,
-      "long": 0.0085,
+      "long": 0.0102,
       "dealt": 0.4667,
       "taken": 0.5116,
       "pressure": 0.432,
@@ -5113,7 +5113,7 @@
      },
      "mage": {
       "trade": 0.2202,
-      "long": 0.3813,
+      "long": 0.383,
       "dealt": 0.5005,
       "taken": 0.2803,
       "pressure": 0.463,
@@ -5126,7 +5126,7 @@
      },
      "tank": {
       "trade": 0.0352,
-      "long": 0.1013,
+      "long": 0.1023,
       "dealt": 0.2802,
       "taken": 0.2449,
       "pressure": 0.259,
@@ -5145,17 +5145,17 @@
     "id": "6653",
     "cost": 3000,
     "boots": null,
-    "score": 0.1942,
+    "score": 0.1949,
     "trade_gain": 14.7,
     "trade": 0.0571,
-    "long": 0.1848,
+    "long": 0.1865,
     "pressure": 0.344,
     "execs": 2,
     "exec_cost": 0.129,
     "per": {
      "marksman": {
       "trade": -0.009,
-      "long": 0.0944,
+      "long": 0.0963,
       "dealt": 0.4136,
       "taken": 0.4226,
       "pressure": 0.384,
@@ -5168,7 +5168,7 @@
      },
      "mage": {
       "trade": 0.1594,
-      "long": 0.3527,
+      "long": 0.3547,
       "dealt": 0.4416,
       "taken": 0.2822,
       "pressure": 0.41,
@@ -5181,7 +5181,7 @@
      },
      "tank": {
       "trade": 0.021,
-      "long": 0.1072,
+      "long": 0.1084,
       "dealt": 0.256,
       "taken": 0.235,
       "pressure": 0.238,
@@ -5200,18 +5200,18 @@
     "id": "3100",
     "cost": 2900,
     "boots": null,
-    "score": 0.1927,
+    "score": 0.191,
     "trade_gain": 15.1,
-    "trade": 0.0607,
-    "long": 0.1485,
+    "trade": 0.0609,
+    "long": 0.1438,
     "pressure": 0.388,
     "execs": 3,
     "exec_cost": 0.134,
     "per": {
      "marksman": {
-      "trade": 0.0198,
-      "long": 0.0554,
-      "dealt": 0.531,
+      "trade": 0.0204,
+      "long": 0.0383,
+      "dealt": 0.5316,
       "taken": 0.5112,
       "pressure": 0.433,
       "exec": {
@@ -5223,7 +5223,7 @@
      },
      "mage": {
       "trade": 0.1623,
-      "long": 0.3325,
+      "long": 0.3344,
       "dealt": 0.5035,
       "taken": 0.3412,
       "pressure": 0.466,
@@ -5236,7 +5236,7 @@
      },
      "tank": {
       "trade": 0.0,
-      "long": 0.0576,
+      "long": 0.0588,
       "dealt": 0.2852,
       "taken": 0.2851,
       "pressure": 0.264,
@@ -5255,17 +5255,17 @@
     "id": "3139",
     "cost": 3200,
     "boots": null,
-    "score": 0.1882,
+    "score": 0.1888,
     "trade_gain": 14.8,
     "trade": 0.0575,
-    "long": 0.156,
+    "long": 0.1575,
     "pressure": 0.365,
     "execs": 2,
     "exec_cost": 0.136,
     "per": {
      "marksman": {
       "trade": -0.0537,
-      "long": 0.0144,
+      "long": 0.016,
       "dealt": 0.4432,
       "taken": 0.4969,
       "pressure": 0.41,
@@ -5278,7 +5278,7 @@
      },
      "mage": {
       "trade": 0.2034,
-      "long": 0.3638,
+      "long": 0.3656,
       "dealt": 0.4753,
       "taken": 0.2719,
       "pressure": 0.44,
@@ -5291,7 +5291,7 @@
      },
      "tank": {
       "trade": 0.0227,
-      "long": 0.0898,
+      "long": 0.0908,
       "dealt": 0.2661,
       "taken": 0.2434,
       "pressure": 0.246,
@@ -5310,17 +5310,17 @@
     "id": "4633",
     "cost": 3100,
     "boots": null,
-    "score": 0.1808,
+    "score": 0.1815,
     "trade_gain": 14.0,
     "trade": 0.05,
-    "long": 0.1711,
+    "long": 0.1728,
     "pressure": 0.329,
     "execs": 2,
     "exec_cost": 0.125,
     "per": {
      "marksman": {
       "trade": -0.0128,
-      "long": 0.0865,
+      "long": 0.0884,
       "dealt": 0.3978,
       "taken": 0.4106,
       "pressure": 0.37,
@@ -5333,7 +5333,7 @@
      },
      "mage": {
       "trade": 0.1524,
-      "long": 0.3372,
+      "long": 0.3392,
       "dealt": 0.4266,
       "taken": 0.2742,
       "pressure": 0.396,
@@ -5346,7 +5346,7 @@
      },
      "tank": {
       "trade": 0.0105,
-      "long": 0.0896,
+      "long": 0.0908,
       "dealt": 0.2388,
       "taken": 0.2284,
       "pressure": 0.222,
@@ -5365,17 +5365,17 @@
     "id": "3089",
     "cost": 3500,
     "boots": null,
-    "score": 0.1761,
+    "score": 0.1767,
     "trade_gain": 12.3,
     "trade": 0.033,
-    "long": 0.1516,
+    "long": 0.1533,
     "pressure": 0.382,
     "execs": 3,
     "exec_cost": 0.135,
     "per": {
      "marksman": {
       "trade": -0.049,
-      "long": 0.0371,
+      "long": 0.0388,
       "dealt": 0.4637,
       "taken": 0.5126,
       "pressure": 0.429,
@@ -5388,7 +5388,7 @@
      },
      "mage": {
       "trade": 0.1549,
-      "long": 0.3496,
+      "long": 0.3516,
       "dealt": 0.4972,
       "taken": 0.3423,
       "pressure": 0.46,
@@ -5401,7 +5401,7 @@
      },
      "tank": {
       "trade": -0.0068,
-      "long": 0.0682,
+      "long": 0.0694,
       "dealt": 0.2783,
       "taken": 0.2851,
       "pressure": 0.258,
@@ -5420,17 +5420,17 @@
     "id": "8010",
     "cost": 2900,
     "boots": null,
-    "score": 0.1615,
+    "score": 0.1621,
     "trade_gain": 13.2,
     "trade": 0.0416,
-    "long": 0.146,
+    "long": 0.1477,
     "pressure": 0.312,
     "execs": 2,
     "exec_cost": 0.122,
     "per": {
      "marksman": {
       "trade": -0.0203,
-      "long": 0.0603,
+      "long": 0.0621,
       "dealt": 0.3789,
       "taken": 0.3992,
       "pressure": 0.351,
@@ -5443,7 +5443,7 @@
      },
      "mage": {
       "trade": 0.1398,
-      "long": 0.3049,
+      "long": 0.3069,
       "dealt": 0.4064,
       "taken": 0.2666,
       "pressure": 0.376,
@@ -5456,7 +5456,7 @@
      },
      "tank": {
       "trade": 0.0054,
-      "long": 0.0728,
+      "long": 0.074,
       "dealt": 0.2275,
       "taken": 0.2221,
       "pressure": 0.21,
@@ -5475,20 +5475,20 @@
     "id": "3046",
     "cost": 2650,
     "boots": null,
-    "score": 0.1289,
+    "score": 0.13,
     "trade_gain": 8.9,
-    "trade": -0.0017,
-    "long": 0.1125,
+    "trade": -0.001,
+    "long": 0.114,
     "pressure": 0.34,
     "execs": 2,
     "exec_cost": 0.302,
     "per": {
      "marksman": {
-      "trade": 0.0027,
-      "long": 0.0314,
-      "dealt": 0.5138,
+      "trade": 0.0043,
+      "long": 0.0331,
+      "dealt": 0.5154,
       "taken": 0.5111,
-      "pressure": 0.476,
+      "pressure": 0.477,
       "exec": {
        "killed": true,
        "time": 0.9876860647118871,
@@ -5498,7 +5498,7 @@
      },
      "mage": {
       "trade": 0.0339,
-      "long": 0.2768,
+      "long": 0.2786,
       "dealt": 0.3758,
       "taken": 0.3419,
       "pressure": 0.348,
@@ -5510,9 +5510,9 @@
       }
      },
      "tank": {
-      "trade": -0.0416,
-      "long": 0.0293,
-      "dealt": 0.2431,
+      "trade": -0.0413,
+      "long": 0.0303,
+      "dealt": 0.2434,
       "taken": 0.2847,
       "pressure": 0.195,
       "exec": {
@@ -5530,20 +5530,20 @@
     "id": "3094",
     "cost": 2650,
     "boots": null,
-    "score": 0.1188,
+    "score": 0.1197,
     "trade_gain": 8.0,
-    "trade": -0.0107,
-    "long": 0.0893,
+    "trade": -0.0103,
+    "long": 0.0908,
     "pressure": 0.358,
     "execs": 2,
     "exec_cost": 0.254,
     "per": {
      "marksman": {
-      "trade": -0.03,
-      "long": -0.0207,
-      "dealt": 0.481,
+      "trade": -0.0289,
+      "long": -0.0191,
+      "dealt": 0.4821,
       "taken": 0.5111,
-      "pressure": 0.496,
+      "pressure": 0.497,
       "exec": {
        "killed": true,
        "time": 1.121543089700435,
@@ -5553,7 +5553,7 @@
      },
      "mage": {
       "trade": 0.0581,
-      "long": 0.2673,
+      "long": 0.2691,
       "dealt": 0.3996,
       "taken": 0.3415,
       "pressure": 0.37,
@@ -5566,7 +5566,7 @@
      },
      "tank": {
       "trade": -0.0601,
-      "long": 0.0213,
+      "long": 0.0223,
       "dealt": 0.2249,
       "taken": 0.2849,
       "pressure": 0.208,
@@ -5585,17 +5585,17 @@
     "id": "4645",
     "cost": 3200,
     "boots": null,
-    "score": 0.1175,
+    "score": 0.1182,
     "trade_gain": 8.1,
     "trade": -0.0097,
-    "long": 0.0939,
+    "long": 0.0958,
     "pressure": 0.343,
     "execs": 2,
     "exec_cost": 0.157,
     "per": {
      "marksman": {
       "trade": -0.097,
-      "long": -0.0298,
+      "long": -0.0278,
       "dealt": 0.4156,
       "taken": 0.5126,
       "pressure": 0.385,
@@ -5608,7 +5608,7 @@
      },
      "mage": {
       "trade": 0.1034,
-      "long": 0.2838,
+      "long": 0.286,
       "dealt": 0.4457,
       "taken": 0.3423,
       "pressure": 0.413,
@@ -5621,7 +5621,7 @@
      },
      "tank": {
       "trade": -0.0356,
-      "long": 0.0278,
+      "long": 0.0291,
       "dealt": 0.2495,
       "taken": 0.2851,
       "pressure": 0.231,
@@ -5640,20 +5640,20 @@
     "id": "6675",
     "cost": 2650,
     "boots": null,
-    "score": 0.1069,
-    "trade_gain": 7.0,
-    "trade": -0.0199,
-    "long": 0.0848,
+    "score": 0.1078,
+    "trade_gain": 7.1,
+    "trade": -0.0195,
+    "long": 0.0863,
     "pressure": 0.34,
     "execs": 2,
     "exec_cost": 0.358,
     "per": {
      "marksman": {
-      "trade": -0.0521,
-      "long": -0.0293,
-      "dealt": 0.4593,
+      "trade": -0.051,
+      "long": -0.0276,
+      "dealt": 0.4604,
       "taken": 0.5115,
-      "pressure": 0.476,
+      "pressure": 0.477,
       "exec": {
        "killed": true,
        "time": 1.0959591323910816,
@@ -5663,7 +5663,7 @@
      },
      "mage": {
       "trade": 0.0339,
-      "long": 0.2768,
+      "long": 0.2786,
       "dealt": 0.3758,
       "taken": 0.3419,
       "pressure": 0.348,
@@ -5675,9 +5675,9 @@
       }
      },
      "tank": {
-      "trade": -0.0416,
-      "long": 0.0068,
-      "dealt": 0.2431,
+      "trade": -0.0413,
+      "long": 0.0078,
+      "dealt": 0.2434,
       "taken": 0.2847,
       "pressure": 0.195,
       "exec": {
@@ -5695,20 +5695,20 @@
     "id": "3085",
     "cost": 2650,
     "boots": null,
-    "score": 0.1069,
-    "trade_gain": 7.0,
-    "trade": -0.0199,
-    "long": 0.0848,
+    "score": 0.1078,
+    "trade_gain": 7.1,
+    "trade": -0.0195,
+    "long": 0.0863,
     "pressure": 0.34,
     "execs": 2,
     "exec_cost": 0.358,
     "per": {
      "marksman": {
-      "trade": -0.0521,
-      "long": -0.0293,
-      "dealt": 0.4593,
+      "trade": -0.051,
+      "long": -0.0276,
+      "dealt": 0.4604,
       "taken": 0.5115,
-      "pressure": 0.476,
+      "pressure": 0.477,
       "exec": {
        "killed": true,
        "time": 1.0959591323910816,
@@ -5718,7 +5718,7 @@
      },
      "mage": {
       "trade": 0.0339,
-      "long": 0.2768,
+      "long": 0.2786,
       "dealt": 0.3758,
       "taken": 0.3419,
       "pressure": 0.348,
@@ -5730,9 +5730,9 @@
       }
      },
      "tank": {
-      "trade": -0.0416,
-      "long": 0.0068,
-      "dealt": 0.2431,
+      "trade": -0.0413,
+      "long": 0.0078,
+      "dealt": 0.2434,
       "taken": 0.2847,
       "pressure": 0.195,
       "exec": {
@@ -5750,17 +5750,17 @@
     "id": "3135",
     "cost": 3000,
     "boots": null,
-    "score": 0.1023,
+    "score": 0.1031,
     "trade_gain": 7.0,
     "trade": -0.0207,
-    "long": 0.0792,
+    "long": 0.0811,
     "pressure": 0.332,
     "execs": 2,
     "exec_cost": 0.157,
     "per": {
      "marksman": {
       "trade": -0.1093,
-      "long": -0.0478,
+      "long": -0.0457,
       "dealt": 0.4034,
       "taken": 0.5126,
       "pressure": 0.373,
@@ -5773,7 +5773,7 @@
      },
      "mage": {
       "trade": 0.0902,
-      "long": 0.2657,
+      "long": 0.2679,
       "dealt": 0.4326,
       "taken": 0.3423,
       "pressure": 0.4,
@@ -5786,7 +5786,7 @@
      },
      "tank": {
       "trade": -0.043,
-      "long": 0.0197,
+      "long": 0.0211,
       "dealt": 0.2422,
       "taken": 0.2851,
       "pressure": 0.224,
@@ -5805,17 +5805,17 @@
     "id": "4646",
     "cost": 2800,
     "boots": null,
-    "score": 0.0968,
+    "score": 0.0975,
     "trade_gain": 6.6,
     "trade": -0.0243,
-    "long": 0.0726,
+    "long": 0.0744,
     "pressure": 0.329,
     "execs": 2,
     "exec_cost": 0.157,
     "per": {
      "marksman": {
       "trade": -0.1133,
-      "long": -0.0545,
+      "long": -0.0525,
       "dealt": 0.3993,
       "taken": 0.5126,
       "pressure": 0.37,
@@ -5828,7 +5828,7 @@
      },
      "mage": {
       "trade": 0.0859,
-      "long": 0.2593,
+      "long": 0.2615,
       "dealt": 0.4282,
       "taken": 0.3423,
       "pressure": 0.396,
@@ -5841,7 +5841,7 @@
      },
      "tank": {
       "trade": -0.0454,
-      "long": 0.013,
+      "long": 0.0143,
       "dealt": 0.2397,
       "taken": 0.2851,
       "pressure": 0.222,
@@ -5859,48 +5859,48 @@
  },
  "second": {
   "base": {
-   "trade": -0.0393,
-   "long": -0.0704,
-   "pressure": 0.419,
+   "trade": -0.0402,
+   "long": -0.0708,
+   "pressure": 0.417,
    "execs": 2,
    "exec_cost": 0.154,
    "per": {
     "marksman": {
-     "trade": -0.245,
-     "long": -0.6099,
-     "dealt": 0.4778,
+     "trade": -0.2461,
+     "long": -0.6104,
+     "dealt": 0.4767,
      "taken": 0.7228,
-     "pressure": 0.493,
+     "pressure": 0.49,
      "exec": {
       "killed": true,
       "time": 0.0,
-      "cost": 0.16961548317246633,
+      "cost": 0.1696154831724662,
       "died": false
      }
     },
     "mage": {
-     "trade": 0.1704,
-     "long": 0.3868,
-     "dealt": 0.5113,
+     "trade": 0.1693,
+     "long": 0.3863,
+     "dealt": 0.5101,
      "taken": 0.3409,
-     "pressure": 0.528,
+     "pressure": 0.526,
      "exec": {
       "killed": true,
       "time": 0.0,
-      "cost": 0.005902896846575066,
+      "cost": 0.005902896846575135,
       "died": false
      }
     },
     "tank": {
-     "trade": -0.0432,
-     "long": 0.012,
-     "dealt": 0.2253,
+     "trade": -0.0438,
+     "long": 0.0118,
+     "dealt": 0.2248,
      "taken": 0.2685,
-     "pressure": 0.235,
+     "pressure": 0.234,
      "exec": {
       "killed": false,
       "time": null,
-      "cost": 0.28601842529573845,
+      "cost": 0.2861114094441697,
       "died": false
      }
     }
@@ -5912,33 +5912,33 @@
     "id": "3036",
     "cost": 3300,
     "boots": "Berserker's Greaves",
-    "score": 0.4439,
+    "score": 0.4442,
     "trade_gain": 24.9,
-    "trade": 0.2096,
-    "long": 0.37,
-    "pressure": 0.681,
+    "trade": 0.2088,
+    "long": 0.3732,
+    "pressure": 0.679,
     "execs": 3,
     "exec_cost": 0.051,
     "per": {
      "marksman": {
-      "trade": 0.1359,
-      "long": 0.1493,
-      "dealt": 0.8154,
-      "taken": 0.6795,
-      "pressure": 0.936,
+      "trade": 0.1353,
+      "long": 0.1494,
+      "dealt": 0.8147,
+      "taken": 0.6794,
+      "pressure": 0.934,
       "exec": {
        "killed": true,
        "time": 0.0,
-       "cost": 0.1696154831724662,
+       "cost": 0.16961548317246633,
        "died": false
       }
      },
      "mage": {
-      "trade": 0.3904,
-      "long": 0.6828,
-      "dealt": 0.7072,
+      "trade": 0.3892,
+      "long": 0.683,
+      "dealt": 0.706,
       "taken": 0.3168,
-      "pressure": 0.741,
+      "pressure": 0.738,
       "exec": {
        "killed": true,
        "time": 0.0,
@@ -5947,15 +5947,15 @@
       }
      },
      "tank": {
-      "trade": 0.1025,
-      "long": 0.2778,
-      "dealt": 0.3629,
+      "trade": 0.1019,
+      "long": 0.2871,
+      "dealt": 0.3623,
       "taken": 0.2604,
-      "pressure": 0.365,
+      "pressure": 0.364,
       "exec": {
        "killed": true,
        "time": 0.25,
-       "cost": -0.023757966633650235,
+       "cost": -0.023757966633650165,
        "died": false
       }
      }
@@ -5967,50 +5967,50 @@
     "id": "2510",
     "cost": 3100,
     "boots": "Plated Steelcaps",
-    "score": 0.4304,
-    "trade_gain": 28.0,
-    "trade": 0.2404,
-    "long": 0.3734,
-    "pressure": 0.547,
+    "score": 0.4337,
+    "trade_gain": 28.4,
+    "trade": 0.2439,
+    "long": 0.3776,
+    "pressure": 0.545,
     "execs": 3,
-    "exec_cost": 0.029,
+    "exec_cost": 0.089,
     "per": {
      "marksman": {
-      "trade": 0.2293,
-      "long": 0.2343,
-      "dealt": 0.6914,
-      "taken": 0.4621,
-      "pressure": 0.644,
+      "trade": 0.2415,
+      "long": 0.2469,
+      "dealt": 0.6905,
+      "taken": 0.449,
+      "pressure": 0.642,
       "exec": {
        "killed": true,
        "time": 0.0,
-       "cost": 0.10772131475598583,
+       "cost": 0.10772131475598576,
        "died": false
       }
      },
      "mage": {
-      "trade": 0.3976,
-      "long": 0.6714,
-      "dealt": 0.6616,
+      "trade": 0.3964,
+      "long": 0.6716,
+      "dealt": 0.6604,
       "taken": 0.2641,
-      "pressure": 0.692,
+      "pressure": 0.69,
       "exec": {
        "killed": true,
        "time": 0.0,
-       "cost": -0.0004434355577746482,
+       "cost": -0.0004434355577747654,
        "died": false
       }
      },
      "tank": {
-      "trade": 0.0944,
-      "long": 0.2144,
-      "dealt": 0.2982,
+      "trade": 0.0938,
+      "long": 0.2142,
+      "dealt": 0.2976,
       "taken": 0.2038,
-      "pressure": 0.305,
+      "pressure": 0.304,
       "exec": {
        "killed": true,
-       "time": 0.25,
-       "cost": -0.019862093989097034,
+       "time": 1.4,
+       "cost": 0.1607742256958518,
        "died": false
       }
      }
@@ -6018,24 +6018,24 @@
     "rank": 2
    },
    {
-    "item": "Immortal Shieldbow",
-    "id": "6673",
-    "cost": 3000,
+    "item": "Infinity Edge",
+    "id": "3031",
+    "cost": 3500,
     "boots": "Berserker's Greaves",
-    "score": 0.4223,
-    "trade_gain": 24.5,
-    "trade": 0.2053,
-    "long": 0.3652,
-    "pressure": 0.612,
+    "score": 0.4205,
+    "trade_gain": 23.4,
+    "trade": 0.1939,
+    "long": 0.3458,
+    "pressure": 0.663,
     "execs": 3,
     "exec_cost": 0.129,
     "per": {
      "marksman": {
-      "trade": 0.2598,
-      "long": 0.299,
-      "dealt": 0.7508,
-      "taken": 0.491,
-      "pressure": 0.864,
+      "trade": 0.1384,
+      "long": 0.151,
+      "dealt": 0.8166,
+      "taken": 0.6781,
+      "pressure": 0.934,
       "exec": {
        "killed": true,
        "time": 0.0,
@@ -6044,11 +6044,11 @@
       }
      },
      "mage": {
-      "trade": 0.33,
-      "long": 0.6423,
-      "dealt": 0.6522,
-      "taken": 0.3223,
-      "pressure": 0.676,
+      "trade": 0.3912,
+      "long": 0.6838,
+      "dealt": 0.7078,
+      "taken": 0.3166,
+      "pressure": 0.738,
       "exec": {
        "killed": true,
        "time": 0.0,
@@ -6057,15 +6057,15 @@
       }
      },
      "tank": {
-      "trade": 0.0262,
-      "long": 0.1544,
-      "dealt": 0.2906,
-      "taken": 0.2643,
-      "pressure": 0.296,
+      "trade": 0.052,
+      "long": 0.2027,
+      "dealt": 0.3149,
+      "taken": 0.2629,
+      "pressure": 0.318,
       "exec": {
        "killed": true,
        "time": 1.4,
-       "cost": 0.21252508757474528,
+       "cost": 0.21208257917089351,
        "died": false
       }
      }
@@ -6073,79 +6073,24 @@
     "rank": 3
    },
    {
-    "item": "Infinity Edge",
-    "id": "3031",
-    "cost": 3500,
-    "boots": "Berserker's Greaves",
-    "score": 0.4215,
-    "trade_gain": 23.4,
-    "trade": 0.1947,
-    "long": 0.3458,
-    "pressure": 0.665,
-    "execs": 3,
-    "exec_cost": 0.129,
-    "per": {
-     "marksman": {
-      "trade": 0.1391,
-      "long": 0.1509,
-      "dealt": 0.8173,
-      "taken": 0.6782,
-      "pressure": 0.936,
-      "exec": {
-       "killed": true,
-       "time": 0.0,
-       "cost": 0.16961548317246633,
-       "died": false
-      }
-     },
-     "mage": {
-      "trade": 0.3924,
-      "long": 0.6836,
-      "dealt": 0.709,
-      "taken": 0.3166,
-      "pressure": 0.741,
-      "exec": {
-       "killed": true,
-       "time": 0.0,
-       "cost": 0.005902896846575066,
-       "died": false
-      }
-     },
-     "tank": {
-      "trade": 0.0526,
-      "long": 0.203,
-      "dealt": 0.3155,
-      "taken": 0.2629,
-      "pressure": 0.319,
-      "exec": {
-       "killed": true,
-       "time": 1.4,
-       "cost": 0.21208257917089357,
-       "died": false
-      }
-     }
-    },
-    "rank": 4
-   },
-   {
     "item": "Yun Tal Wildarrows",
     "id": "3032",
     "cost": 3000,
     "boots": "Plated Steelcaps",
-    "score": 0.4191,
+    "score": 0.4184,
     "trade_gain": 25.2,
-    "trade": 0.2124,
-    "long": 0.3765,
-    "pressure": 0.564,
+    "trade": 0.2117,
+    "long": 0.3766,
+    "pressure": 0.563,
     "execs": 3,
     "exec_cost": 0.109,
     "per": {
      "marksman": {
-      "trade": 0.2177,
-      "long": 0.2611,
-      "dealt": 0.7551,
+      "trade": 0.2172,
+      "long": 0.2614,
+      "dealt": 0.7546,
       "taken": 0.5374,
-      "pressure": 0.79,
+      "pressure": 0.789,
       "exec": {
        "killed": true,
        "time": 0.0,
@@ -6154,28 +6099,83 @@
       }
      },
      "mage": {
-      "trade": 0.3587,
-      "long": 0.6685,
-      "dealt": 0.6683,
+      "trade": 0.3577,
+      "long": 0.6688,
+      "dealt": 0.6673,
       "taken": 0.3096,
-      "pressure": 0.628,
+      "pressure": 0.626,
       "exec": {
        "killed": true,
        "time": 0.0,
-       "cost": -0.0005245345106398954,
+       "cost": -0.000524534510639826,
        "died": false
       }
      },
      "tank": {
-      "trade": 0.0607,
-      "long": 0.1999,
-      "dealt": 0.3005,
+      "trade": 0.0602,
+      "long": 0.1996,
+      "dealt": 0.3001,
       "taken": 0.2398,
-      "pressure": 0.275,
+      "pressure": 0.274,
       "exec": {
        "killed": true,
        "time": 1.4,
        "cost": 0.19954894544504262,
+       "died": false
+      }
+     }
+    },
+    "rank": 4
+   },
+   {
+    "item": "Immortal Shieldbow",
+    "id": "6673",
+    "cost": 3000,
+    "boots": "Berserker's Greaves",
+    "score": 0.4172,
+    "trade_gain": 24.5,
+    "trade": 0.2045,
+    "long": 0.3546,
+    "pressure": 0.611,
+    "execs": 3,
+    "exec_cost": 0.129,
+    "per": {
+     "marksman": {
+      "trade": 0.2591,
+      "long": 0.2676,
+      "dealt": 0.7501,
+      "taken": 0.491,
+      "pressure": 0.863,
+      "exec": {
+       "killed": true,
+       "time": 0.0,
+       "cost": 0.1696154831724662,
+       "died": false
+      }
+     },
+     "mage": {
+      "trade": 0.3288,
+      "long": 0.6422,
+      "dealt": 0.6511,
+      "taken": 0.3223,
+      "pressure": 0.674,
+      "exec": {
+       "killed": true,
+       "time": 0.0,
+       "cost": 0.005902896846575135,
+       "died": false
+      }
+     },
+     "tank": {
+      "trade": 0.0257,
+      "long": 0.1541,
+      "dealt": 0.29,
+      "taken": 0.2643,
+      "pressure": 0.295,
+      "exec": {
+       "killed": true,
+       "time": 1.4,
+       "cost": 0.2125250875747452,
        "died": false
       }
      }
@@ -6187,20 +6187,20 @@
     "id": "3087",
     "cost": 3000,
     "boots": "Plated Steelcaps",
-    "score": 0.4129,
+    "score": 0.4121,
     "trade_gain": 23.8,
-    "trade": 0.1983,
-    "long": 0.3519,
-    "pressure": 0.613,
+    "trade": 0.1975,
+    "long": 0.352,
+    "pressure": 0.611,
     "execs": 3,
     "exec_cost": 0.109,
     "per": {
      "marksman": {
-      "trade": 0.2062,
-      "long": 0.2287,
-      "dealt": 0.7452,
-      "taken": 0.539,
-      "pressure": 0.858,
+      "trade": 0.2056,
+      "long": 0.229,
+      "dealt": 0.7445,
+      "taken": 0.5389,
+      "pressure": 0.856,
       "exec": {
        "killed": true,
        "time": 0.0,
@@ -6209,11 +6209,11 @@
       }
      },
      "mage": {
-      "trade": 0.3381,
-      "long": 0.6408,
-      "dealt": 0.6528,
+      "trade": 0.3369,
+      "long": 0.6409,
+      "dealt": 0.6517,
       "taken": 0.3148,
-      "pressure": 0.681,
+      "pressure": 0.679,
       "exec": {
        "killed": true,
        "time": 0.0,
@@ -6222,11 +6222,11 @@
       }
      },
      "tank": {
-      "trade": 0.0507,
-      "long": 0.1862,
-      "dealt": 0.2928,
+      "trade": 0.0501,
+      "long": 0.186,
+      "dealt": 0.2922,
       "taken": 0.2421,
-      "pressure": 0.299,
+      "pressure": 0.298,
       "exec": {
        "killed": true,
        "time": 1.4,
@@ -6242,20 +6242,20 @@
     "id": "3095",
     "cost": 3200,
     "boots": "Plated Steelcaps",
-    "score": 0.4122,
+    "score": 0.4112,
     "trade_gain": 24.3,
-    "trade": 0.204,
+    "trade": 0.2031,
     "long": 0.3732,
-    "pressure": 0.562,
+    "pressure": 0.56,
     "execs": 3,
     "exec_cost": 0.108,
     "per": {
      "marksman": {
-      "trade": 0.1731,
-      "long": 0.246,
-      "dealt": 0.7134,
+      "trade": 0.1722,
+      "long": 0.2463,
+      "dealt": 0.7125,
       "taken": 0.5404,
-      "pressure": 0.662,
+      "pressure": 0.66,
       "exec": {
        "killed": true,
        "time": 0.0,
@@ -6264,24 +6264,24 @@
       }
      },
      "mage": {
-      "trade": 0.3716,
-      "long": 0.6639,
-      "dealt": 0.6864,
+      "trade": 0.3704,
+      "long": 0.6638,
+      "dealt": 0.6852,
       "taken": 0.3148,
-      "pressure": 0.711,
+      "pressure": 0.709,
       "exec": {
        "killed": true,
        "time": 0.0,
-       "cost": -0.0005245345106398954,
+       "cost": -0.000524534510639826,
        "died": false
       }
      },
      "tank": {
-      "trade": 0.0674,
-      "long": 0.2098,
-      "dealt": 0.3094,
+      "trade": 0.0668,
+      "long": 0.2095,
+      "dealt": 0.3088,
       "taken": 0.242,
-      "pressure": 0.313,
+      "pressure": 0.312,
       "exec": {
        "killed": true,
        "time": 1.4,
@@ -6297,50 +6297,50 @@
     "id": "3071",
     "cost": 3000,
     "boots": "Berserker's Greaves",
-    "score": 0.4119,
+    "score": 0.4109,
     "trade_gain": 23.5,
-    "trade": 0.1961,
+    "trade": 0.1953,
     "long": 0.3692,
-    "pressure": 0.586,
+    "pressure": 0.584,
     "execs": 3,
     "exec_cost": 0.104,
     "per": {
      "marksman": {
-      "trade": 0.1692,
-      "long": 0.2004,
-      "dealt": 0.725,
+      "trade": 0.1686,
+      "long": 0.2007,
+      "dealt": 0.7243,
       "taken": 0.5558,
-      "pressure": 0.831,
+      "pressure": 0.829,
       "exec": {
        "killed": true,
        "time": 0.0,
-       "cost": 0.13636325033545962,
+       "cost": 0.13636325033545968,
        "died": false
       }
      },
      "mage": {
-      "trade": 0.3514,
-      "long": 0.6807,
-      "dealt": 0.6146,
+      "trade": 0.3502,
+      "long": 0.6808,
+      "dealt": 0.6134,
       "taken": 0.2632,
-      "pressure": 0.642,
+      "pressure": 0.639,
       "exec": {
        "killed": true,
        "time": 0.0,
-       "cost": 0.004745664637086595,
+       "cost": 0.004745664637086484,
        "died": false
       }
      },
      "tank": {
-      "trade": 0.0676,
-      "long": 0.2265,
-      "dealt": 0.2802,
+      "trade": 0.067,
+      "long": 0.2262,
+      "dealt": 0.2797,
       "taken": 0.2127,
-      "pressure": 0.286,
+      "pressure": 0.285,
       "exec": {
        "killed": true,
        "time": 1.4,
-       "cost": 0.17128502547541355,
+       "cost": 0.1712850254754136,
        "died": false
       }
      }
@@ -6348,79 +6348,24 @@
     "rank": 8
    },
    {
-    "item": "Kraken Slayer",
-    "id": "6672",
-    "cost": 3000,
-    "boots": "Mercury's Treads",
-    "score": 0.4114,
-    "trade_gain": 25.9,
-    "trade": 0.2193,
-    "long": 0.2461,
-    "pressure": 0.725,
-    "execs": 3,
-    "exec_cost": 0.122,
-    "per": {
-     "marksman": {
-      "trade": 0.0376,
-      "long": -0.158,
-      "dealt": 0.7273,
-      "taken": 0.6897,
-      "pressure": 0.859,
-      "exec": {
-       "killed": true,
-       "time": 0.0,
-       "cost": 0.16961548317246633,
-       "died": false
-      }
-     },
-     "mage": {
-      "trade": 0.5084,
-      "long": 0.7171,
-      "dealt": 0.7731,
-      "taken": 0.2647,
-      "pressure": 0.918,
-      "exec": {
-       "killed": true,
-       "time": 0.0,
-       "cost": 0.005902896846575135,
-       "died": false
-      }
-     },
-     "tank": {
-      "trade": 0.112,
-      "long": 0.1791,
-      "dealt": 0.3477,
-      "taken": 0.2357,
-      "pressure": 0.399,
-      "exec": {
-       "killed": true,
-       "time": 1.1,
-       "cost": 0.19172751990703119,
-       "died": false
-      }
-     }
-    },
-    "rank": 9
-   },
-   {
     "item": "Terminus",
     "id": "3302",
     "cost": 3000,
     "boots": "Plated Steelcaps",
-    "score": 0.4019,
+    "score": 0.4011,
     "trade_gain": 22.1,
-    "trade": 0.1817,
-    "long": 0.3691,
-    "pressure": 0.581,
+    "trade": 0.1809,
+    "long": 0.3692,
+    "pressure": 0.579,
     "execs": 3,
     "exec_cost": 0.109,
     "per": {
      "marksman": {
-      "trade": 0.1696,
-      "long": 0.2281,
-      "dealt": 0.7113,
+      "trade": 0.1689,
+      "long": 0.2284,
+      "dealt": 0.7106,
       "taken": 0.5417,
-      "pressure": 0.816,
+      "pressure": 0.814,
       "exec": {
        "killed": true,
        "time": 0.0,
@@ -6429,121 +6374,11 @@
       }
      },
      "mage": {
-      "trade": 0.2991,
-      "long": 0.6843,
-      "dealt": 0.6148,
+      "trade": 0.298,
+      "long": 0.6847,
+      "dealt": 0.6137,
       "taken": 0.3157,
-      "pressure": 0.642,
-      "exec": {
-       "killed": true,
-       "time": 0.0,
-       "cost": -0.0005245345106398954,
-       "died": false
-      }
-     },
-     "tank": {
-      "trade": 0.0764,
-      "long": 0.1949,
-      "dealt": 0.3149,
-      "taken": 0.2385,
-      "pressure": 0.285,
-      "exec": {
-       "killed": true,
-       "time": 1.4,
-       "cost": 0.19912315073977047,
-       "died": false
-      }
-     }
-    },
-    "rank": 10
-   },
-   {
-    "item": "Wit's End",
-    "id": "3091",
-    "cost": 2800,
-    "boots": "Plated Steelcaps",
-    "score": 0.3935,
-    "trade_gain": 23.9,
-    "trade": 0.1993,
-    "long": 0.3408,
-    "pressure": 0.55,
-    "execs": 3,
-    "exec_cost": 0.095,
-    "per": {
-     "marksman": {
-      "trade": 0.0953,
-      "long": 0.0974,
-      "dealt": 0.6451,
-      "taken": 0.5498,
-      "pressure": 0.735,
-      "exec": {
-       "killed": true,
-       "time": 0.0,
-       "cost": 0.12742222884553728,
-       "died": false
-      }
-     },
-     "mage": {
-      "trade": 0.3859,
-      "long": 0.7098,
-      "dealt": 0.6144,
-      "taken": 0.2285,
-      "pressure": 0.569,
-      "exec": {
-       "killed": true,
-       "time": 0.0,
-       "cost": -0.0005245345106398954,
-       "died": false
-      }
-     },
-     "tank": {
-      "trade": 0.1168,
-      "long": 0.2152,
-      "dealt": 0.3126,
-      "taken": 0.1958,
-      "pressure": 0.347,
-      "exec": {
-       "killed": true,
-       "time": 1.2000000000000002,
-       "cost": 0.1576359812224433,
-       "died": false
-      }
-     }
-    },
-    "rank": 11
-   },
-   {
-    "item": "Blade of The Ruined King",
-    "id": "3153",
-    "cost": 3200,
-    "boots": "Plated Steelcaps",
-    "score": 0.3907,
-    "trade_gain": 22.4,
-    "trade": 0.1844,
-    "long": 0.3891,
-    "pressure": 0.498,
-    "execs": 3,
-    "exec_cost": 0.107,
-    "per": {
-     "marksman": {
-      "trade": 0.1504,
-      "long": 0.2626,
-      "dealt": 0.6716,
-      "taken": 0.5212,
-      "pressure": 0.584,
-      "exec": {
-       "killed": true,
-       "time": 0.0,
-       "cost": 0.12742222884553722,
-       "died": false
-      }
-     },
-     "mage": {
-      "trade": 0.3334,
-      "long": 0.6642,
-      "dealt": 0.6382,
-      "taken": 0.3049,
-      "pressure": 0.635,
+      "pressure": 0.64,
       "exec": {
        "killed": true,
        "time": 0.0,
@@ -6552,15 +6387,180 @@
       }
      },
      "tank": {
-      "trade": 0.0695,
-      "long": 0.2404,
-      "dealt": 0.3054,
-      "taken": 0.2359,
-      "pressure": 0.274,
+      "trade": 0.0759,
+      "long": 0.1946,
+      "dealt": 0.3145,
+      "taken": 0.2385,
+      "pressure": 0.284,
       "exec": {
        "killed": true,
        "time": 1.4,
-       "cost": 0.19338969468136108,
+       "cost": 0.19912315073977038,
+       "died": false
+      }
+     }
+    },
+    "rank": 9
+   },
+   {
+    "item": "Wit's End",
+    "id": "3091",
+    "cost": 2800,
+    "boots": "Plated Steelcaps",
+    "score": 0.3927,
+    "trade_gain": 23.9,
+    "trade": 0.1987,
+    "long": 0.3407,
+    "pressure": 0.549,
+    "execs": 3,
+    "exec_cost": 0.095,
+    "per": {
+     "marksman": {
+      "trade": 0.0947,
+      "long": 0.0976,
+      "dealt": 0.6444,
+      "taken": 0.5498,
+      "pressure": 0.733,
+      "exec": {
+       "killed": true,
+       "time": 0.0,
+       "cost": 0.12742222884553722,
+       "died": false
+      }
+     },
+     "mage": {
+      "trade": 0.385,
+      "long": 0.7096,
+      "dealt": 0.6134,
+      "taken": 0.2285,
+      "pressure": 0.567,
+      "exec": {
+       "killed": true,
+       "time": 0.0,
+       "cost": -0.000524534510639826,
+       "died": false
+      }
+     },
+     "tank": {
+      "trade": 0.1165,
+      "long": 0.215,
+      "dealt": 0.3123,
+      "taken": 0.1958,
+      "pressure": 0.346,
+      "exec": {
+       "killed": true,
+       "time": 1.2000000000000002,
+       "cost": 0.1576359812224433,
+       "died": false
+      }
+     }
+    },
+    "rank": 10
+   },
+   {
+    "item": "Blade of The Ruined King",
+    "id": "3153",
+    "cost": 3200,
+    "boots": "Plated Steelcaps",
+    "score": 0.3899,
+    "trade_gain": 22.4,
+    "trade": 0.1836,
+    "long": 0.3892,
+    "pressure": 0.496,
+    "execs": 3,
+    "exec_cost": 0.107,
+    "per": {
+     "marksman": {
+      "trade": 0.1496,
+      "long": 0.263,
+      "dealt": 0.6707,
+      "taken": 0.5212,
+      "pressure": 0.582,
+      "exec": {
+       "killed": true,
+       "time": 0.0,
+       "cost": 0.12742222884553722,
+       "died": false
+      }
+     },
+     "mage": {
+      "trade": 0.3323,
+      "long": 0.6644,
+      "dealt": 0.6371,
+      "taken": 0.3049,
+      "pressure": 0.633,
+      "exec": {
+       "killed": true,
+       "time": 0.0,
+       "cost": -0.000524534510639826,
+       "died": false
+      }
+     },
+     "tank": {
+      "trade": 0.069,
+      "long": 0.2402,
+      "dealt": 0.3049,
+      "taken": 0.2359,
+      "pressure": 0.273,
+      "exec": {
+       "killed": true,
+       "time": 1.4,
+       "cost": 0.1933836648742339,
+       "died": false
+      }
+     }
+    },
+    "rank": 11
+   },
+   {
+    "item": "Kraken Slayer",
+    "id": "6672",
+    "cost": 3000,
+    "boots": "Plated Steelcaps",
+    "score": 0.3836,
+    "trade_gain": 21.3,
+    "trade": 0.1727,
+    "long": 0.3383,
+    "pressure": 0.579,
+    "execs": 3,
+    "exec_cost": 0.109,
+    "per": {
+     "marksman": {
+      "trade": 0.1811,
+      "long": 0.1675,
+      "dealt": 0.7215,
+      "taken": 0.5404,
+      "pressure": 0.849,
+      "exec": {
+       "killed": true,
+       "time": 0.0,
+       "cost": 0.12742222884553728,
+       "died": false
+      }
+     },
+     "mage": {
+      "trade": 0.272,
+      "long": 0.6792,
+      "dealt": 0.5896,
+      "taken": 0.3176,
+      "pressure": 0.617,
+      "exec": {
+       "killed": true,
+       "time": 0.0,
+       "cost": -0.000524534510639826,
+       "died": false
+      }
+     },
+     "tank": {
+      "trade": 0.0651,
+      "long": 0.1682,
+      "dealt": 0.3041,
+      "taken": 0.239,
+      "pressure": 0.27,
+      "exec": {
+       "killed": true,
+       "time": 1.4,
+       "cost": 0.19960190736226965,
        "died": false
       }
      }
@@ -6572,46 +6572,46 @@
     "id": "3033",
     "cost": 3000,
     "boots": "Plated Steelcaps",
-    "score": 0.3827,
+    "score": 0.3816,
     "trade_gain": 22.1,
-    "trade": 0.1814,
-    "long": 0.3325,
-    "pressure": 0.563,
+    "trade": 0.1804,
+    "long": 0.3324,
+    "pressure": 0.562,
     "execs": 3,
     "exec_cost": 0.109,
     "per": {
      "marksman": {
-      "trade": 0.0865,
-      "long": 0.129,
-      "dealt": 0.6373,
+      "trade": 0.0854,
+      "long": 0.1291,
+      "dealt": 0.6362,
       "taken": 0.5508,
-      "pressure": 0.657,
+      "pressure": 0.655,
       "exec": {
        "killed": true,
        "time": 0.0,
-       "cost": 0.12742222884553728,
+       "cost": 0.12742222884553722,
        "died": false
       }
      },
      "mage": {
-      "trade": 0.3726,
-      "long": 0.6441,
-      "dealt": 0.6843,
+      "trade": 0.3714,
+      "long": 0.6438,
+      "dealt": 0.6831,
       "taken": 0.3117,
-      "pressure": 0.706,
+      "pressure": 0.704,
       "exec": {
        "killed": true,
        "time": 0.0,
-       "cost": -0.0005245345106398954,
+       "cost": -0.000524534510639826,
        "died": false
       }
      },
      "tank": {
-      "trade": 0.085,
-      "long": 0.2244,
-      "dealt": 0.3248,
+      "trade": 0.0844,
+      "long": 0.2242,
+      "dealt": 0.3242,
       "taken": 0.2398,
-      "pressure": 0.327,
+      "pressure": 0.326,
       "exec": {
        "killed": true,
        "time": 1.4,
@@ -6627,20 +6627,20 @@
     "id": "3124",
     "cost": 3000,
     "boots": "Plated Steelcaps",
-    "score": 0.3813,
-    "trade_gain": 21.7,
-    "trade": 0.178,
+    "score": 0.3806,
+    "trade_gain": 21.8,
+    "trade": 0.1773,
     "long": 0.324,
-    "pressure": 0.58,
+    "pressure": 0.578,
     "execs": 3,
     "exec_cost": 0.109,
     "per": {
      "marksman": {
-      "trade": 0.1652,
-      "long": 0.1327,
-      "dealt": 0.7082,
+      "trade": 0.1645,
+      "long": 0.1325,
+      "dealt": 0.7075,
       "taken": 0.543,
-      "pressure": 0.815,
+      "pressure": 0.814,
       "exec": {
        "killed": true,
        "time": 0.0,
@@ -6649,28 +6649,28 @@
       }
      },
      "mage": {
-      "trade": 0.2966,
-      "long": 0.6681,
-      "dealt": 0.6123,
+      "trade": 0.2955,
+      "long": 0.6686,
+      "dealt": 0.6111,
       "taken": 0.3157,
-      "pressure": 0.642,
+      "pressure": 0.64,
       "exec": {
        "killed": true,
        "time": 0.0,
-       "cost": -0.0005245345106398954,
+       "cost": -0.000524534510639826,
        "died": false
       }
      },
      "tank": {
-      "trade": 0.0723,
-      "long": 0.1712,
-      "dealt": 0.3111,
+      "trade": 0.0719,
+      "long": 0.171,
+      "dealt": 0.3107,
       "taken": 0.2388,
-      "pressure": 0.282,
+      "pressure": 0.281,
       "exec": {
        "killed": true,
        "time": 1.4,
-       "cost": 0.19934493939165937,
+       "cost": 0.19934493939165945,
        "died": false
       }
      }
@@ -6682,50 +6682,50 @@
     "id": "3115",
     "cost": 2900,
     "boots": "Berserker's Greaves",
-    "score": 0.3811,
+    "score": 0.3803,
     "trade_gain": 21.8,
-    "trade": 0.1788,
-    "long": 0.3265,
-    "pressure": 0.573,
+    "trade": 0.1782,
+    "long": 0.3266,
+    "pressure": 0.571,
     "execs": 3,
     "exec_cost": 0.13,
     "per": {
      "marksman": {
-      "trade": 0.1413,
-      "long": 0.1474,
-      "dealt": 0.8216,
-      "taken": 0.6803,
-      "pressure": 0.805,
+      "trade": 0.1408,
+      "long": 0.1475,
+      "dealt": 0.8211,
+      "taken": 0.6802,
+      "pressure": 0.803,
       "exec": {
        "killed": true,
        "time": 0.0,
-       "cost": 0.1696154831724662,
+       "cost": 0.16961548317246625,
        "died": false
       }
      },
      "mage": {
-      "trade": 0.3504,
-      "long": 0.6537,
-      "dealt": 0.6722,
+      "trade": 0.3495,
+      "long": 0.654,
+      "dealt": 0.6712,
       "taken": 0.3217,
-      "pressure": 0.635,
+      "pressure": 0.632,
       "exec": {
        "killed": true,
        "time": 0.0,
-       "cost": 0.005902896846575066,
+       "cost": 0.005902896846575135,
        "died": false
       }
      },
      "tank": {
-      "trade": 0.0447,
-      "long": 0.1785,
-      "dealt": 0.306,
+      "trade": 0.0442,
+      "long": 0.1783,
+      "dealt": 0.3056,
       "taken": 0.2614,
-      "pressure": 0.279,
+      "pressure": 0.278,
       "exec": {
        "killed": true,
        "time": 1.4,
-       "cost": 0.21310642630042467,
+       "cost": 0.21310642630042473,
        "died": false
       }
      }
@@ -6737,20 +6737,20 @@
     "id": "6333",
     "cost": 3300,
     "boots": "Berserker's Greaves",
-    "score": 0.3766,
+    "score": 0.3756,
     "trade_gain": 21.6,
-    "trade": 0.1769,
-    "long": 0.3129,
-    "pressure": 0.581,
+    "trade": 0.1761,
+    "long": 0.3127,
+    "pressure": 0.579,
     "execs": 3,
     "exec_cost": 0.108,
     "per": {
      "marksman": {
-      "trade": 0.1932,
-      "long": 0.1614,
-      "dealt": 0.7108,
+      "trade": 0.1925,
+      "long": 0.1611,
+      "dealt": 0.71,
       "taken": 0.5175,
-      "pressure": 0.814,
+      "pressure": 0.812,
       "exec": {
        "killed": true,
        "time": 0.0,
@@ -6759,11 +6759,11 @@
       }
      },
      "mage": {
-      "trade": 0.3023,
+      "trade": 0.3011,
       "long": 0.6129,
-      "dealt": 0.6198,
+      "dealt": 0.6187,
       "taken": 0.3176,
-      "pressure": 0.646,
+      "pressure": 0.644,
       "exec": {
        "killed": true,
        "time": 0.0,
@@ -6772,15 +6772,15 @@
       }
      },
      "tank": {
-      "trade": 0.0352,
-      "long": 0.1644,
-      "dealt": 0.2766,
+      "trade": 0.0347,
+      "long": 0.1641,
+      "dealt": 0.276,
       "taken": 0.2413,
-      "pressure": 0.283,
+      "pressure": 0.282,
       "exec": {
        "killed": true,
        "time": 1.4,
-       "cost": 0.19868458342448417,
+       "cost": 0.19868458342448403,
        "died": false
       }
      }
@@ -6792,20 +6792,20 @@
     "id": "6694",
     "cost": 3000,
     "boots": "Plated Steelcaps",
-    "score": 0.3742,
+    "score": 0.3731,
     "trade_gain": 21.5,
-    "trade": 0.1762,
-    "long": 0.3215,
-    "pressure": 0.559,
+    "trade": 0.1752,
+    "long": 0.3214,
+    "pressure": 0.558,
     "execs": 3,
     "exec_cost": 0.035,
     "per": {
      "marksman": {
-      "trade": 0.0776,
-      "long": 0.1121,
-      "dealt": 0.6302,
+      "trade": 0.0765,
+      "long": 0.1123,
+      "dealt": 0.6291,
       "taken": 0.5526,
-      "pressure": 0.65,
+      "pressure": 0.648,
       "exec": {
        "killed": true,
        "time": 0.0,
@@ -6814,24 +6814,24 @@
       }
      },
      "mage": {
-      "trade": 0.3649,
-      "long": 0.6323,
-      "dealt": 0.6772,
+      "trade": 0.3637,
+      "long": 0.632,
+      "dealt": 0.6761,
       "taken": 0.3123,
-      "pressure": 0.7,
+      "pressure": 0.698,
       "exec": {
        "killed": true,
        "time": 0.0,
-       "cost": -0.0005245345106398954,
+       "cost": -0.000524534510639826,
        "died": false
       }
      },
      "tank": {
-      "trade": 0.0861,
-      "long": 0.2201,
-      "dealt": 0.3259,
+      "trade": 0.0855,
+      "long": 0.2199,
+      "dealt": 0.3253,
       "taken": 0.2398,
-      "pressure": 0.328,
+      "pressure": 0.327,
       "exec": {
        "killed": true,
        "time": 0.25,
@@ -6847,50 +6847,50 @@
     "id": "3072",
     "cost": 3400,
     "boots": "Plated Steelcaps",
-    "score": 0.3726,
+    "score": 0.3715,
     "trade_gain": 21.6,
-    "trade": 0.1765,
-    "long": 0.3298,
-    "pressure": 0.539,
+    "trade": 0.1755,
+    "long": 0.3297,
+    "pressure": 0.537,
     "execs": 3,
     "exec_cost": 0.105,
     "per": {
      "marksman": {
-      "trade": 0.0897,
-      "long": 0.1454,
-      "dealt": 0.6159,
+      "trade": 0.0886,
+      "long": 0.1455,
+      "dealt": 0.6149,
       "taken": 0.5262,
-      "pressure": 0.637,
+      "pressure": 0.635,
       "exec": {
        "killed": true,
        "time": 0.0,
-       "cost": 0.12742222884553728,
+       "cost": 0.12742222884553722,
        "died": false
       }
      },
      "mage": {
-      "trade": 0.3755,
-      "long": 0.659,
-      "dealt": 0.6586,
+      "trade": 0.3743,
+      "long": 0.6588,
+      "dealt": 0.6574,
       "taken": 0.2831,
-      "pressure": 0.683,
+      "pressure": 0.68,
       "exec": {
        "killed": true,
        "time": 0.0,
-       "cost": -0.0005245345106398954,
+       "cost": -0.000524534510639826,
        "died": false
       }
      },
      "tank": {
-      "trade": 0.0642,
-      "long": 0.185,
-      "dealt": 0.2936,
+      "trade": 0.0637,
+      "long": 0.1847,
+      "dealt": 0.2931,
       "taken": 0.2294,
-      "pressure": 0.298,
+      "pressure": 0.297,
       "exec": {
        "killed": true,
        "time": 1.4,
-       "cost": 0.18913834274677338,
+       "cost": 0.18913834274677332,
        "died": false
       }
      }
@@ -6902,46 +6902,46 @@
     "id": "6676",
     "cost": 3000,
     "boots": "Plated Steelcaps",
-    "score": 0.3647,
+    "score": 0.3636,
     "trade_gain": 20.8,
-    "trade": 0.1689,
-    "long": 0.3131,
-    "pressure": 0.552,
+    "trade": 0.1679,
+    "long": 0.3129,
+    "pressure": 0.551,
     "execs": 3,
     "exec_cost": 0.109,
     "per": {
      "marksman": {
-      "trade": 0.0848,
-      "long": 0.1269,
-      "dealt": 0.6356,
+      "trade": 0.0837,
+      "long": 0.127,
+      "dealt": 0.6346,
       "taken": 0.5509,
-      "pressure": 0.655,
+      "pressure": 0.653,
       "exec": {
        "killed": true,
        "time": 0.0,
-       "cost": 0.12742222884553728,
+       "cost": 0.12742222884553722,
        "died": false
       }
      },
      "mage": {
-      "trade": 0.3666,
-      "long": 0.6376,
-      "dealt": 0.6787,
+      "trade": 0.3654,
+      "long": 0.6373,
+      "dealt": 0.6775,
       "taken": 0.3121,
-      "pressure": 0.701,
+      "pressure": 0.699,
       "exec": {
        "killed": true,
        "time": 0.0,
-       "cost": -0.0005245345106398954,
+       "cost": -0.000524534510639826,
        "died": false
       }
      },
      "tank": {
-      "trade": 0.0553,
-      "long": 0.1748,
-      "dealt": 0.2966,
+      "trade": 0.0547,
+      "long": 0.1745,
+      "dealt": 0.2961,
       "taken": 0.2414,
-      "pressure": 0.301,
+      "pressure": 0.3,
       "exec": {
        "killed": true,
        "time": 1.4,
@@ -6957,20 +6957,20 @@
     "id": "2523",
     "cost": 2800,
     "boots": "Plated Steelcaps",
-    "score": 0.3625,
+    "score": 0.3613,
     "trade_gain": 20.5,
-    "trade": 0.1661,
-    "long": 0.3135,
-    "pressure": 0.55,
+    "trade": 0.1651,
+    "long": 0.3133,
+    "pressure": 0.548,
     "execs": 3,
     "exec_cost": 0.109,
     "per": {
      "marksman": {
-      "trade": 0.0787,
+      "trade": 0.0776,
       "long": 0.1239,
-      "dealt": 0.6297,
+      "dealt": 0.6286,
       "taken": 0.551,
-      "pressure": 0.649,
+      "pressure": 0.647,
       "exec": {
        "killed": true,
        "time": 0.0,
@@ -6979,11 +6979,11 @@
       }
      },
      "mage": {
-      "trade": 0.361,
-      "long": 0.634,
-      "dealt": 0.6733,
+      "trade": 0.3598,
+      "long": 0.6336,
+      "dealt": 0.6721,
       "taken": 0.3123,
-      "pressure": 0.696,
+      "pressure": 0.693,
       "exec": {
        "killed": true,
        "time": 0.0,
@@ -6992,11 +6992,11 @@
       }
      },
      "tank": {
-      "trade": 0.0586,
-      "long": 0.1827,
-      "dealt": 0.2997,
+      "trade": 0.058,
+      "long": 0.1824,
+      "dealt": 0.2992,
       "taken": 0.2412,
-      "pressure": 0.304,
+      "pressure": 0.303,
       "exec": {
        "killed": true,
        "time": 1.4,
@@ -7012,20 +7012,20 @@
     "id": "3026",
     "cost": 3200,
     "boots": "Berserker's Greaves",
-    "score": 0.3594,
-    "trade_gain": 20.2,
-    "trade": 0.1631,
-    "long": 0.2959,
-    "pressure": 0.573,
+    "score": 0.3585,
+    "trade_gain": 20.3,
+    "trade": 0.1623,
+    "long": 0.2958,
+    "pressure": 0.571,
     "execs": 3,
     "exec_cost": 0.109,
     "per": {
      "marksman": {
-      "trade": 0.167,
-      "long": 0.1292,
-      "dealt": 0.6997,
+      "trade": 0.1663,
+      "long": 0.1289,
+      "dealt": 0.699,
       "taken": 0.5327,
-      "pressure": 0.802,
+      "pressure": 0.8,
       "exec": {
        "killed": true,
        "time": 0.0,
@@ -7034,11 +7034,11 @@
       }
      },
      "mage": {
-      "trade": 0.2936,
-      "long": 0.6054,
-      "dealt": 0.6102,
+      "trade": 0.2924,
+      "long": 0.6055,
+      "dealt": 0.609,
       "taken": 0.3166,
-      "pressure": 0.637,
+      "pressure": 0.635,
       "exec": {
        "killed": true,
        "time": 0.0,
@@ -7047,11 +7047,11 @@
       }
      },
      "tank": {
-      "trade": 0.0288,
-      "long": 0.1532,
-      "dealt": 0.2723,
+      "trade": 0.0283,
+      "long": 0.1529,
+      "dealt": 0.2717,
       "taken": 0.2435,
-      "pressure": 0.279,
+      "pressure": 0.278,
       "exec": {
        "killed": true,
        "time": 1.4,
@@ -7067,46 +7067,46 @@
     "id": "3142",
     "cost": 2800,
     "boots": "Plated Steelcaps",
-    "score": 0.358,
+    "score": 0.3569,
     "trade_gain": 20.5,
-    "trade": 0.1656,
-    "long": 0.3027,
-    "pressure": 0.55,
+    "trade": 0.1646,
+    "long": 0.3025,
+    "pressure": 0.548,
     "execs": 3,
     "exec_cost": 0.109,
     "per": {
      "marksman": {
-      "trade": 0.0827,
-      "long": 0.117,
-      "dealt": 0.6347,
+      "trade": 0.0816,
+      "long": 0.1171,
+      "dealt": 0.6336,
       "taken": 0.552,
-      "pressure": 0.655,
+      "pressure": 0.652,
       "exec": {
        "killed": true,
        "time": 0.0,
-       "cost": 0.12742222884553728,
+       "cost": 0.12742222884553722,
        "died": false
       }
      },
      "mage": {
-      "trade": 0.3645,
-      "long": 0.6312,
-      "dealt": 0.6768,
+      "trade": 0.3633,
+      "long": 0.6308,
+      "dealt": 0.6757,
       "taken": 0.3124,
-      "pressure": 0.7,
+      "pressure": 0.698,
       "exec": {
        "killed": true,
        "time": 0.0,
-       "cost": -0.0005245345106398954,
+       "cost": -0.000524534510639826,
        "died": false
       }
      },
      "tank": {
-      "trade": 0.0495,
-      "long": 0.16,
-      "dealt": 0.2913,
+      "trade": 0.049,
+      "long": 0.1597,
+      "dealt": 0.2907,
       "taken": 0.2418,
-      "pressure": 0.296,
+      "pressure": 0.295,
       "exec": {
        "killed": true,
        "time": 1.4,
@@ -7122,46 +7122,46 @@
     "id": "3100",
     "cost": 2900,
     "boots": "Plated Steelcaps",
-    "score": 0.3482,
+    "score": 0.3471,
     "trade_gain": 20.9,
-    "trade": 0.1699,
-    "long": 0.2772,
-    "pressure": 0.541,
+    "trade": 0.1691,
+    "long": 0.2769,
+    "pressure": 0.54,
     "execs": 3,
     "exec_cost": 0.109,
     "per": {
      "marksman": {
-      "trade": 0.1223,
-      "long": 0.1068,
-      "dealt": 0.6703,
+      "trade": 0.1215,
+      "long": 0.1064,
+      "dealt": 0.6695,
       "taken": 0.548,
-      "pressure": 0.636,
+      "pressure": 0.634,
       "exec": {
        "killed": true,
        "time": 0.0,
-       "cost": 0.12742222884553728,
+       "cost": 0.12742222884553722,
        "died": false
       }
      },
      "mage": {
-      "trade": 0.3354,
-      "long": 0.5784,
-      "dealt": 0.6521,
+      "trade": 0.3342,
+      "long": 0.5782,
+      "dealt": 0.6509,
       "taken": 0.3167,
-      "pressure": 0.685,
+      "pressure": 0.683,
       "exec": {
        "killed": true,
        "time": 0.0,
-       "cost": -0.0005245345106398954,
+       "cost": -0.000524534510639826,
        "died": false
       }
      },
      "tank": {
-      "trade": 0.0521,
-      "long": 0.1463,
-      "dealt": 0.295,
+      "trade": 0.0515,
+      "long": 0.1461,
+      "dealt": 0.2944,
       "taken": 0.2429,
-      "pressure": 0.303,
+      "pressure": 0.302,
       "exec": {
        "killed": true,
        "time": 1.4,
@@ -7177,50 +7177,50 @@
     "id": "6653",
     "cost": 3000,
     "boots": "Berserker's Greaves",
-    "score": 0.3428,
-    "trade_gain": 19.1,
-    "trade": 0.1513,
+    "score": 0.3425,
+    "trade_gain": 19.2,
+    "trade": 0.1516,
     "long": 0.2787,
-    "pressure": 0.562,
+    "pressure": 0.56,
     "execs": 3,
     "exec_cost": 0.11,
     "per": {
      "marksman": {
-      "trade": 0.0975,
-      "long": 0.0326,
-      "dealt": 0.6873,
+      "trade": 0.0968,
+      "long": 0.0325,
+      "dealt": 0.6866,
       "taken": 0.5898,
-      "pressure": 0.781,
+      "pressure": 0.779,
       "exec": {
        "killed": true,
        "time": 0.0,
-       "cost": 0.1433910159620455,
+       "cost": 0.14339101596204545,
        "died": false
       }
      },
      "mage": {
-      "trade": 0.3073,
-      "long": 0.6264,
-      "dealt": 0.5878,
-      "taken": 0.2805,
-      "pressure": 0.623,
+      "trade": 0.3095,
+      "long": 0.6266,
+      "dealt": 0.5897,
+      "taken": 0.2803,
+      "pressure": 0.621,
       "exec": {
        "killed": true,
        "time": 0.0,
-       "cost": 0.004990242400741946,
+       "cost": 0.004990242400741829,
        "died": false
       }
      },
      "tank": {
-      "trade": 0.0491,
-      "long": 0.1771,
-      "dealt": 0.2726,
+      "trade": 0.0485,
+      "long": 0.1769,
+      "dealt": 0.272,
       "taken": 0.2235,
-      "pressure": 0.282,
+      "pressure": 0.281,
       "exec": {
        "killed": true,
        "time": 1.4,
-       "cost": 0.18060148016731908,
+       "cost": 0.18060148016731914,
        "died": false
       }
      }
@@ -7232,20 +7232,20 @@
     "id": "3089",
     "cost": 3500,
     "boots": "Plated Steelcaps",
-    "score": 0.3415,
+    "score": 0.3405,
     "trade_gain": 18.9,
-    "trade": 0.1496,
+    "trade": 0.1487,
     "long": 0.2901,
-    "pressure": 0.543,
+    "pressure": 0.541,
     "execs": 3,
     "exec_cost": 0.109,
     "per": {
      "marksman": {
-      "trade": 0.0562,
-      "long": 0.0967,
-      "dealt": 0.614,
+      "trade": 0.0551,
+      "long": 0.0969,
+      "dealt": 0.6129,
       "taken": 0.5578,
-      "pressure": 0.64,
+      "pressure": 0.638,
       "exec": {
        "killed": true,
        "time": 0.0,
@@ -7254,24 +7254,24 @@
       }
      },
      "mage": {
-      "trade": 0.3437,
-      "long": 0.6117,
-      "dealt": 0.657,
+      "trade": 0.3425,
+      "long": 0.6116,
+      "dealt": 0.6558,
       "taken": 0.3133,
-      "pressure": 0.687,
+      "pressure": 0.685,
       "exec": {
        "killed": true,
        "time": 0.0,
-       "cost": -0.000524534510639826,
+       "cost": -0.0005245345106398954,
        "died": false
       }
      },
      "tank": {
-      "trade": 0.0489,
-      "long": 0.162,
-      "dealt": 0.2894,
+      "trade": 0.0484,
+      "long": 0.1617,
+      "dealt": 0.2888,
       "taken": 0.2404,
-      "pressure": 0.301,
+      "pressure": 0.3,
       "exec": {
        "killed": true,
        "time": 1.4,
@@ -7287,20 +7287,20 @@
     "id": "3156",
     "cost": 3100,
     "boots": "Plated Steelcaps",
-    "score": 0.3375,
+    "score": 0.3357,
     "trade_gain": 19.8,
-    "trade": 0.1585,
-    "long": 0.2869,
-    "pressure": 0.511,
+    "trade": 0.1575,
+    "long": 0.2865,
+    "pressure": 0.506,
     "execs": 3,
     "exec_cost": 0.096,
     "per": {
      "marksman": {
-      "trade": 0.0213,
-      "long": 0.0472,
-      "dealt": 0.5796,
+      "trade": 0.0202,
+      "long": 0.0467,
+      "dealt": 0.5785,
       "taken": 0.5583,
-      "pressure": 0.603,
+      "pressure": 0.593,
       "exec": {
        "killed": true,
        "time": 0.0,
@@ -7309,11 +7309,11 @@
       }
      },
      "mage": {
-      "trade": 0.3819,
-      "long": 0.6408,
-      "dealt": 0.6198,
+      "trade": 0.3808,
+      "long": 0.6405,
+      "dealt": 0.6187,
       "taken": 0.2379,
-      "pressure": 0.646,
+      "pressure": 0.644,
       "exec": {
        "killed": true,
        "time": 0.0,
@@ -7322,15 +7322,15 @@
       }
      },
      "tank": {
-      "trade": 0.0722,
-      "long": 0.1726,
-      "dealt": 0.2766,
+      "trade": 0.0716,
+      "long": 0.1723,
+      "dealt": 0.276,
       "taken": 0.2044,
-      "pressure": 0.283,
+      "pressure": 0.282,
       "exec": {
        "killed": true,
        "time": 1.4,
-       "cost": 0.16125318440814168,
+       "cost": 0.1612531844081416,
        "died": false
       }
      }
@@ -7342,46 +7342,46 @@
     "id": "4633",
     "cost": 3100,
     "boots": "Berserker's Greaves",
-    "score": 0.3343,
+    "score": 0.3333,
     "trade_gain": 18.6,
-    "trade": 0.1466,
+    "trade": 0.1457,
     "long": 0.2727,
-    "pressure": 0.549,
+    "pressure": 0.547,
     "execs": 3,
     "exec_cost": 0.107,
     "per": {
      "marksman": {
-      "trade": 0.0965,
-      "long": 0.0321,
-      "dealt": 0.6728,
-      "taken": 0.5764,
-      "pressure": 0.771,
+      "trade": 0.0958,
+      "long": 0.032,
+      "dealt": 0.6722,
+      "taken": 0.5763,
+      "pressure": 0.769,
       "exec": {
        "killed": true,
        "time": 0.0,
-       "cost": 0.13978886016125558,
+       "cost": 0.13978886016125552,
        "died": false
       }
      },
      "mage": {
-      "trade": 0.3064,
-      "long": 0.6288,
-      "dealt": 0.5805,
+      "trade": 0.3052,
+      "long": 0.629,
+      "dealt": 0.5793,
       "taken": 0.2741,
-      "pressure": 0.609,
+      "pressure": 0.607,
       "exec": {
        "killed": true,
        "time": 0.0,
-       "cost": 0.004864881474253089,
+       "cost": 0.004864881474252975,
        "died": false
       }
      },
      "tank": {
-      "trade": 0.0368,
-      "long": 0.1573,
-      "dealt": 0.2557,
+      "trade": 0.0362,
+      "long": 0.1571,
+      "dealt": 0.2551,
       "taken": 0.2189,
-      "pressure": 0.267,
+      "pressure": 0.265,
       "exec": {
        "killed": true,
        "time": 1.4,
@@ -7397,20 +7397,20 @@
     "id": "3139",
     "cost": 3200,
     "boots": "Plated Steelcaps",
-    "score": 0.3255,
+    "score": 0.3244,
     "trade_gain": 18.9,
-    "trade": 0.1501,
-    "long": 0.2801,
-    "pressure": 0.494,
+    "trade": 0.1492,
+    "long": 0.2797,
+    "pressure": 0.492,
     "execs": 3,
     "exec_cost": 0.095,
     "per": {
      "marksman": {
-      "trade": 0.0263,
-      "long": 0.0485,
-      "dealt": 0.5698,
+      "trade": 0.0252,
+      "long": 0.048,
+      "dealt": 0.5688,
       "taken": 0.5436,
-      "pressure": 0.578,
+      "pressure": 0.576,
       "exec": {
        "killed": true,
        "time": 0.0,
@@ -7419,28 +7419,28 @@
       }
      },
      "mage": {
-      "trade": 0.3616,
-      "long": 0.6289,
-      "dealt": 0.6005,
+      "trade": 0.3604,
+      "long": 0.6287,
+      "dealt": 0.5993,
       "taken": 0.2389,
-      "pressure": 0.628,
+      "pressure": 0.626,
       "exec": {
        "killed": true,
        "time": 0.0,
-       "cost": -0.0005245345106398954,
+       "cost": -0.000524534510639826,
        "died": false
       }
      },
      "tank": {
-      "trade": 0.0625,
-      "long": 0.1628,
-      "dealt": 0.268,
+      "trade": 0.0619,
+      "long": 0.1625,
+      "dealt": 0.2674,
       "taken": 0.2056,
-      "pressure": 0.275,
+      "pressure": 0.274,
       "exec": {
        "killed": true,
        "time": 1.4,
-       "cost": 0.15934649160641695,
+       "cost": 0.159346491606417,
        "died": false
       }
      }
@@ -7452,50 +7452,50 @@
     "id": "3046",
     "cost": 2650,
     "boots": "Plated Steelcaps",
-    "score": 0.3206,
+    "score": 0.3198,
     "trade_gain": 17.2,
-    "trade": 0.1325,
-    "long": 0.2853,
-    "pressure": 0.508,
+    "trade": 0.1319,
+    "long": 0.2851,
+    "pressure": 0.507,
     "execs": 2,
     "exec_cost": 0.128,
     "per": {
      "marksman": {
-      "trade": 0.1486,
-      "long": 0.1261,
-      "dealt": 0.6931,
+      "trade": 0.1482,
+      "long": 0.1257,
+      "dealt": 0.6926,
       "taken": 0.5444,
-      "pressure": 0.719,
+      "pressure": 0.718,
       "exec": {
        "killed": true,
        "time": 0.0,
-       "cost": 0.12742222884553728,
+       "cost": 0.12742222884553722,
        "died": false
       }
      },
      "mage": {
-      "trade": 0.2201,
-      "long": 0.6009,
-      "dealt": 0.542,
+      "trade": 0.2189,
+      "long": 0.6008,
+      "dealt": 0.5408,
       "taken": 0.3219,
-      "pressure": 0.557,
+      "pressure": 0.555,
       "exec": {
        "killed": true,
        "time": 0.0,
-       "cost": -0.0005245345106398954,
+       "cost": -0.000524534510639826,
        "died": false
       }
      },
      "tank": {
-      "trade": 0.0289,
-      "long": 0.1289,
-      "dealt": 0.2704,
+      "trade": 0.0285,
+      "long": 0.1287,
+      "dealt": 0.27,
       "taken": 0.2415,
-      "pressure": 0.248,
+      "pressure": 0.247,
       "exec": {
        "killed": false,
        "time": null,
-       "cost": 0.25660664285768303,
+       "cost": 0.2566996270061142,
        "died": false
       }
      }
@@ -7507,50 +7507,50 @@
     "id": "8010",
     "cost": 2900,
     "boots": "Berserker's Greaves",
-    "score": 0.312,
+    "score": 0.3106,
     "trade_gain": 17.5,
-    "trade": 0.1361,
-    "long": 0.247,
-    "pressure": 0.526,
+    "trade": 0.1352,
+    "long": 0.2462,
+    "pressure": 0.524,
     "execs": 3,
     "exec_cost": 0.104,
     "per": {
      "marksman": {
-      "trade": 0.0843,
-      "long": 0.0242,
-      "dealt": 0.6486,
+      "trade": 0.0833,
+      "long": 0.0237,
+      "dealt": 0.6475,
       "taken": 0.5643,
-      "pressure": 0.743,
+      "pressure": 0.74,
       "exec": {
        "killed": true,
        "time": 0.0,
-       "cost": 0.13636325033545957,
+       "cost": 0.13636325033545962,
        "died": false
       }
      },
      "mage": {
-      "trade": 0.2914,
-      "long": 0.5776,
-      "dealt": 0.5604,
+      "trade": 0.2902,
+      "long": 0.5765,
+      "dealt": 0.5592,
       "taken": 0.2689,
-      "pressure": 0.578,
+      "pressure": 0.576,
       "exec": {
        "killed": true,
        "time": 0.0,
-       "cost": 0.004745664637086595,
+       "cost": 0.004745664637086484,
        "died": false
       }
      },
      "tank": {
-      "trade": 0.0327,
-      "long": 0.1392,
-      "dealt": 0.2469,
+      "trade": 0.0321,
+      "long": 0.1385,
+      "dealt": 0.2463,
       "taken": 0.2142,
-      "pressure": 0.257,
+      "pressure": 0.256,
       "exec": {
        "killed": true,
        "time": 1.4,
-       "cost": 0.171762646473042,
+       "cost": 0.1717626464730419,
        "died": false
       }
      }
@@ -7562,46 +7562,46 @@
     "id": "3094",
     "cost": 2650,
     "boots": "Plated Steelcaps",
-    "score": 0.3034,
+    "score": 0.3024,
     "trade_gain": 16.3,
-    "trade": 0.1235,
-    "long": 0.2468,
-    "pressure": 0.522,
+    "trade": 0.1228,
+    "long": 0.2465,
+    "pressure": 0.521,
     "execs": 3,
     "exec_cost": 0.109,
     "per": {
      "marksman": {
-      "trade": 0.0993,
-      "long": 0.0465,
-      "dealt": 0.6486,
+      "trade": 0.0987,
+      "long": 0.0464,
+      "dealt": 0.6479,
       "taken": 0.5493,
-      "pressure": 0.736,
+      "pressure": 0.734,
       "exec": {
        "killed": true,
        "time": 0.0,
-       "cost": 0.12742222884553728,
+       "cost": 0.12742222884553722,
        "died": false
       }
      },
      "mage": {
-      "trade": 0.2329,
-      "long": 0.5795,
-      "dealt": 0.5538,
+      "trade": 0.2317,
+      "long": 0.5791,
+      "dealt": 0.5527,
       "taken": 0.3209,
-      "pressure": 0.575,
+      "pressure": 0.573,
       "exec": {
        "killed": true,
        "time": 0.0,
-       "cost": -0.0005245345106398954,
+       "cost": -0.000524534510639826,
        "died": false
       }
      },
      "tank": {
-      "trade": 0.0383,
-      "long": 0.1143,
-      "dealt": 0.2799,
+      "trade": 0.0379,
+      "long": 0.1141,
+      "dealt": 0.2794,
       "taken": 0.2415,
-      "pressure": 0.256,
+      "pressure": 0.255,
       "exec": {
        "killed": true,
        "time": 1.4,
@@ -7617,50 +7617,50 @@
     "id": "6675",
     "cost": 2650,
     "boots": "Plated Steelcaps",
-    "score": 0.2918,
+    "score": 0.2909,
     "trade_gain": 14.9,
-    "trade": 0.1094,
-    "long": 0.248,
-    "pressure": 0.508,
+    "trade": 0.1086,
+    "long": 0.2476,
+    "pressure": 0.507,
     "execs": 2,
     "exec_cost": 0.128,
     "per": {
      "marksman": {
-      "trade": 0.0791,
-      "long": 0.0774,
-      "dealt": 0.6309,
+      "trade": 0.0785,
+      "long": 0.077,
+      "dealt": 0.6302,
       "taken": 0.5518,
-      "pressure": 0.719,
+      "pressure": 0.718,
       "exec": {
        "killed": true,
        "time": 0.0,
-       "cost": 0.12742222884553728,
+       "cost": 0.12742222884553722,
        "died": false
       }
      },
      "mage": {
-      "trade": 0.2201,
-      "long": 0.5616,
-      "dealt": 0.542,
+      "trade": 0.2189,
+      "long": 0.5611,
+      "dealt": 0.5408,
       "taken": 0.3219,
-      "pressure": 0.557,
+      "pressure": 0.555,
       "exec": {
        "killed": true,
        "time": 0.0,
-       "cost": -0.0005245345106398954,
+       "cost": -0.000524534510639826,
        "died": false
       }
      },
      "tank": {
-      "trade": 0.0289,
-      "long": 0.1049,
-      "dealt": 0.2704,
+      "trade": 0.0285,
+      "long": 0.1047,
+      "dealt": 0.27,
       "taken": 0.2415,
-      "pressure": 0.248,
+      "pressure": 0.247,
       "exec": {
        "killed": false,
        "time": null,
-       "cost": 0.25660664285768303,
+       "cost": 0.2566996270061142,
        "died": false
       }
      }
@@ -7672,50 +7672,50 @@
     "id": "3085",
     "cost": 2650,
     "boots": "Plated Steelcaps",
-    "score": 0.2918,
+    "score": 0.2909,
     "trade_gain": 14.9,
-    "trade": 0.1094,
-    "long": 0.248,
-    "pressure": 0.508,
+    "trade": 0.1086,
+    "long": 0.2476,
+    "pressure": 0.507,
     "execs": 2,
     "exec_cost": 0.128,
     "per": {
      "marksman": {
-      "trade": 0.0791,
-      "long": 0.0774,
-      "dealt": 0.6309,
+      "trade": 0.0785,
+      "long": 0.077,
+      "dealt": 0.6302,
       "taken": 0.5518,
-      "pressure": 0.719,
+      "pressure": 0.718,
       "exec": {
        "killed": true,
        "time": 0.0,
-       "cost": 0.12742222884553728,
+       "cost": 0.12742222884553722,
        "died": false
       }
      },
      "mage": {
-      "trade": 0.2201,
-      "long": 0.5616,
-      "dealt": 0.542,
+      "trade": 0.2189,
+      "long": 0.5611,
+      "dealt": 0.5408,
       "taken": 0.3219,
-      "pressure": 0.557,
+      "pressure": 0.555,
       "exec": {
        "killed": true,
        "time": 0.0,
-       "cost": -0.0005245345106398954,
+       "cost": -0.000524534510639826,
        "died": false
       }
      },
      "tank": {
-      "trade": 0.0289,
-      "long": 0.1049,
-      "dealt": 0.2704,
+      "trade": 0.0285,
+      "long": 0.1047,
+      "dealt": 0.27,
       "taken": 0.2415,
-      "pressure": 0.248,
+      "pressure": 0.247,
       "exec": {
        "killed": false,
        "time": null,
-       "cost": 0.25660664285768303,
+       "cost": 0.2566996270061142,
        "died": false
       }
      }
@@ -7727,33 +7727,33 @@
     "id": "4646",
     "cost": 2800,
     "boots": "Plated Steelcaps",
-    "score": 0.279,
+    "score": 0.2778,
     "trade_gain": 13.8,
-    "trade": 0.0987,
-    "long": 0.2296,
-    "pressure": 0.512,
+    "trade": 0.0976,
+    "long": 0.2293,
+    "pressure": 0.51,
     "execs": 3,
     "exec_cost": 0.109,
     "per": {
      "marksman": {
-      "trade": -0.0068,
-      "long": 0.0253,
-      "dealt": 0.557,
+      "trade": -0.008,
+      "long": 0.0248,
+      "dealt": 0.5558,
       "taken": 0.5638,
-      "pressure": 0.57,
+      "pressure": 0.568,
       "exec": {
        "killed": true,
        "time": 0.0,
-       "cost": 0.12742222884553722,
+       "cost": 0.12742222884553728,
        "died": false
       }
      },
      "mage": {
-      "trade": 0.2881,
-      "long": 0.554,
-      "dealt": 0.6062,
+      "trade": 0.2867,
+      "long": 0.5538,
+      "dealt": 0.6049,
       "taken": 0.3182,
-      "pressure": 0.695,
+      "pressure": 0.692,
       "exec": {
        "killed": true,
        "time": 0.0,
@@ -7762,11 +7762,11 @@
       }
      },
      "tank": {
-      "trade": 0.0148,
-      "long": 0.1094,
-      "dealt": 0.2579,
+      "trade": 0.0142,
+      "long": 0.1092,
+      "dealt": 0.2573,
       "taken": 0.2431,
-      "pressure": 0.271,
+      "pressure": 0.27,
       "exec": {
        "killed": true,
        "time": 1.4,
@@ -7782,33 +7782,33 @@
     "id": "4645",
     "cost": 3200,
     "boots": "Plated Steelcaps",
-    "score": 0.2776,
+    "score": 0.2764,
     "trade_gain": 14.1,
-    "trade": 0.1016,
-    "long": 0.2262,
-    "pressure": 0.505,
+    "trade": 0.1006,
+    "long": 0.2259,
+    "pressure": 0.503,
     "execs": 3,
     "exec_cost": 0.109,
     "per": {
      "marksman": {
-      "trade": -0.0007,
-      "long": 0.0119,
-      "dealt": 0.5627,
+      "trade": -0.0019,
+      "long": 0.0114,
+      "dealt": 0.5615,
       "taken": 0.5634,
-      "pressure": 0.584,
+      "pressure": 0.582,
       "exec": {
        "killed": true,
        "time": 0.0,
-       "cost": 0.12742222884553722,
+       "cost": 0.12742222884553728,
        "died": false
       }
      },
      "mage": {
-      "trade": 0.2836,
-      "long": 0.546,
-      "dealt": 0.6023,
+      "trade": 0.2823,
+      "long": 0.5458,
+      "dealt": 0.601,
       "taken": 0.3187,
-      "pressure": 0.639,
+      "pressure": 0.636,
       "exec": {
        "killed": true,
        "time": 0.0,
@@ -7817,11 +7817,11 @@
       }
      },
      "tank": {
-      "trade": 0.022,
-      "long": 0.1207,
-      "dealt": 0.2646,
+      "trade": 0.0214,
+      "long": 0.1204,
+      "dealt": 0.264,
       "taken": 0.2426,
-      "pressure": 0.291,
+      "pressure": 0.29,
       "exec": {
        "killed": true,
        "time": 1.4,
@@ -7837,46 +7837,46 @@
     "id": "3135",
     "cost": 3000,
     "boots": "Plated Steelcaps",
-    "score": 0.2672,
+    "score": 0.2657,
     "trade_gain": 13.3,
-    "trade": 0.0941,
-    "long": 0.217,
-    "pressure": 0.496,
+    "trade": 0.093,
+    "long": 0.2168,
+    "pressure": 0.493,
     "execs": 3,
     "exec_cost": 0.109,
     "per": {
      "marksman": {
-      "trade": -0.0113,
-      "long": -0.0033,
-      "dealt": 0.5531,
+      "trade": -0.0125,
+      "long": -0.0038,
+      "dealt": 0.5518,
       "taken": 0.5644,
-      "pressure": 0.576,
+      "pressure": 0.573,
       "exec": {
        "killed": true,
        "time": 0.0,
-       "cost": 0.12742222884553722,
+       "cost": 0.12742222884553728,
        "died": false
       }
      },
      "mage": {
-      "trade": 0.2721,
-      "long": 0.5333,
-      "dealt": 0.5918,
+      "trade": 0.2708,
+      "long": 0.5332,
+      "dealt": 0.5905,
       "taken": 0.3197,
-      "pressure": 0.629,
+      "pressure": 0.626,
       "exec": {
        "killed": true,
        "time": 0.0,
-       "cost": -0.0005245345106398954,
+       "cost": -0.000524534510639826,
        "died": false
       }
      },
      "tank": {
-      "trade": 0.0214,
-      "long": 0.1211,
-      "dealt": 0.2644,
+      "trade": 0.0206,
+      "long": 0.1209,
+      "dealt": 0.2637,
       "taken": 0.243,
-      "pressure": 0.282,
+      "pressure": 0.28,
       "exec": {
        "killed": true,
        "time": 1.4,
@@ -7900,14 +7900,14 @@
    {
     "stage": "Level 2",
     "trade": 0.0,
-    "long": 0.0719,
+    "long": 0.0736,
     "pressure": 0.355,
     "execs": 3,
     "exec_cost": 0.163,
     "per": {
      "marksman": {
       "trade": -0.0082,
-      "long": 0.0303,
+      "long": 0.0319,
       "dealt": 0.3811,
       "taken": 0.3893,
       "pressure": 0.353,
@@ -7920,7 +7920,7 @@
      },
      "mage": {
       "trade": -0.0012,
-      "long": 0.1167,
+      "long": 0.1185,
       "dealt": 0.427,
       "taken": 0.4283,
       "pressure": 0.395,
@@ -7933,7 +7933,7 @@
      },
      "tank": {
       "trade": 0.0095,
-      "long": 0.0688,
+      "long": 0.0703,
       "dealt": 0.3436,
       "taken": 0.3341,
       "pressure": 0.318,
@@ -7993,14 +7993,14 @@
    {
     "stage": "Level 3",
     "trade": -0.01,
-    "long": 0.0644,
+    "long": 0.067,
     "pressure": 0.325,
     "execs": 3,
     "exec_cost": 0.236,
     "per": {
      "marksman": {
       "trade": -0.0145,
-      "long": 0.0372,
+      "long": 0.0398,
       "dealt": 0.3499,
       "taken": 0.3644,
       "pressure": 0.324,
@@ -8013,7 +8013,7 @@
      },
      "mage": {
       "trade": -0.013,
-      "long": 0.0996,
+      "long": 0.1025,
       "dealt": 0.3886,
       "taken": 0.4016,
       "pressure": 0.36,
@@ -8026,7 +8026,7 @@
      },
      "tank": {
       "trade": -0.0025,
-      "long": 0.0565,
+      "long": 0.0588,
       "dealt": 0.3144,
       "taken": 0.3169,
       "pressure": 0.291,
@@ -8086,14 +8086,14 @@
    {
     "stage": "Level 6",
     "trade": 0.0133,
-    "long": 0.1111,
+    "long": 0.1141,
     "pressure": 0.305,
     "execs": 3,
     "exec_cost": 0.301,
     "per": {
      "marksman": {
       "trade": 0.0268,
-      "long": 0.1065,
+      "long": 0.1095,
       "dealt": 0.3325,
       "taken": 0.3057,
       "pressure": 0.308,
@@ -8106,7 +8106,7 @@
      },
      "mage": {
       "trade": 0.018,
-      "long": 0.1529,
+      "long": 0.1562,
       "dealt": 0.3604,
       "taken": 0.3424,
       "pressure": 0.334,
@@ -8119,7 +8119,7 @@
      },
      "tank": {
       "trade": -0.005,
-      "long": 0.074,
+      "long": 0.0767,
       "dealt": 0.2958,
       "taken": 0.3008,
       "pressure": 0.274,
@@ -8178,31 +8178,31 @@
    },
    {
     "stage": "Item 1 \u00b7 lvl 9",
-    "trade": 0.1483,
-    "long": 0.284,
-    "pressure": 0.513,
+    "trade": 0.1473,
+    "long": 0.2848,
+    "pressure": 0.51,
     "execs": 3,
     "exec_cost": 0.028,
     "per": {
      "marksman": {
-      "trade": 0.0858,
-      "long": 0.182,
-      "dealt": 0.5489,
+      "trade": 0.0847,
+      "long": 0.1829,
+      "dealt": 0.5478,
       "taken": 0.4631,
-      "pressure": 0.567,
+      "pressure": 0.565,
       "exec": {
        "killed": true,
        "time": 0.0,
-       "cost": 0.10574614096682161,
+       "cost": 0.10574614096682168,
        "died": false
       }
      },
      "mage": {
-      "trade": 0.2865,
-      "long": 0.4976,
-      "dealt": 0.5808,
+      "trade": 0.2854,
+      "long": 0.4985,
+      "dealt": 0.5796,
       "taken": 0.2942,
-      "pressure": 0.622,
+      "pressure": 0.619,
       "exec": {
        "killed": true,
        "time": 0.0,
@@ -8211,11 +8211,11 @@
       }
      },
      "tank": {
-      "trade": 0.0726,
-      "long": 0.1725,
-      "dealt": 0.3339,
+      "trade": 0.0719,
+      "long": 0.1731,
+      "dealt": 0.3332,
       "taken": 0.2613,
-      "pressure": 0.349,
+      "pressure": 0.347,
       "exec": {
        "killed": true,
        "time": 0.25,
@@ -8274,31 +8274,31 @@
    },
    {
     "stage": "Item 2 \u00b7 lvl 11",
-    "trade": 0.2096,
-    "long": 0.37,
-    "pressure": 0.681,
+    "trade": 0.2088,
+    "long": 0.3732,
+    "pressure": 0.679,
     "execs": 3,
     "exec_cost": 0.051,
     "per": {
      "marksman": {
-      "trade": 0.1359,
-      "long": 0.1493,
-      "dealt": 0.8154,
-      "taken": 0.6795,
-      "pressure": 0.936,
+      "trade": 0.1353,
+      "long": 0.1494,
+      "dealt": 0.8147,
+      "taken": 0.6794,
+      "pressure": 0.934,
       "exec": {
        "killed": true,
        "time": 0.0,
-       "cost": 0.1696154831724662,
+       "cost": 0.16961548317246633,
        "died": false
       }
      },
      "mage": {
-      "trade": 0.3904,
-      "long": 0.6828,
-      "dealt": 0.7072,
+      "trade": 0.3892,
+      "long": 0.683,
+      "dealt": 0.706,
       "taken": 0.3168,
-      "pressure": 0.741,
+      "pressure": 0.738,
       "exec": {
        "killed": true,
        "time": 0.0,
@@ -8307,15 +8307,15 @@
       }
      },
      "tank": {
-      "trade": 0.1025,
-      "long": 0.2778,
-      "dealt": 0.3629,
+      "trade": 0.1019,
+      "long": 0.2871,
+      "dealt": 0.3623,
       "taken": 0.2604,
-      "pressure": 0.365,
+      "pressure": 0.364,
       "exec": {
        "killed": true,
        "time": 0.25,
-       "cost": -0.023757966633650235,
+       "cost": -0.023757966633650165,
        "died": false
       }
      }
@@ -8333,7 +8333,7 @@
       "dealt_by": {
        "Pierce (Q)": 259,
        "Auto attacks": 537,
-       "Press the Attack": 79,
+       "Press the Attack": 80,
        "Rend (E)": 566
       }
      },
@@ -8385,35 +8385,35 @@
     {
      "stage": "Level 2",
      "trade": -0.0012,
-     "long": 0.07,
+     "long": 0.0716,
      "pressure": 0.355,
      "execs": 3
     },
     {
      "stage": "Level 3",
      "trade": -0.0111,
-     "long": 0.0626,
+     "long": 0.0652,
      "pressure": 0.325,
      "execs": 3
     },
     {
      "stage": "Level 6",
      "trade": 0.0124,
-     "long": 0.1097,
+     "long": 0.1127,
      "pressure": 0.305,
      "execs": 3
     },
     {
      "stage": "Item 1 \u00b7 lvl 9",
-     "trade": 0.1111,
-     "long": 0.2813,
+     "trade": 0.112,
+     "long": 0.2825,
      "pressure": 0.425,
      "execs": 2
     },
     {
      "stage": "Item 2 \u00b7 lvl 11",
-     "trade": 0.2244,
-     "long": 0.3681,
+     "trade": 0.2246,
+     "long": 0.3682,
      "pressure": 0.681,
      "execs": 3
     }
@@ -8425,43 +8425,43 @@
    "page": "Press the Attack / Bloodline / Coup de Grace",
    "items": [
     "Guardian Angel",
-    "Hextech Gunblade"
+    "Immortal Shieldbow"
    ],
-   "boots": "Plated Steelcaps",
+   "boots": "Mercury's Treads",
    "stages": [
     {
      "stage": "Level 2",
      "trade": -0.0285,
-     "long": 0.0382,
+     "long": 0.0398,
      "pressure": 0.381,
      "execs": 3
     },
     {
      "stage": "Level 3",
      "trade": -0.0361,
-     "long": 0.0299,
+     "long": 0.0323,
      "pressure": 0.351,
      "execs": 3
     },
     {
      "stage": "Level 6",
      "trade": -0.0112,
-     "long": 0.0745,
+     "long": 0.0773,
      "pressure": 0.329,
      "execs": 3
     },
     {
      "stage": "Item 1 \u00b7 lvl 9",
      "trade": 0.0466,
-     "long": 0.1572,
+     "long": 0.1585,
      "pressure": 0.399,
      "execs": 3
     },
     {
      "stage": "Item 2 \u00b7 lvl 11",
-     "trade": 0.1243,
-     "long": 0.2756,
-     "pressure": 0.523,
+     "trade": 0.0388,
+     "long": 0.2623,
+     "pressure": 0.448,
      "execs": 3
     }
    ]
@@ -8471,45 +8471,45 @@
    "name": "Best duelist, no GA",
    "page": "Press the Attack / Alacrity / Last Stand",
    "items": [
-    "Immortal Shieldbow",
-    "Blade of The Ruined King"
+    "Black Cleaver",
+    "Immortal Shieldbow"
    ],
    "boots": "Plated Steelcaps",
    "stages": [
     {
      "stage": "Level 2",
      "trade": -0.0253,
-     "long": 0.052,
+     "long": 0.0536,
      "pressure": 0.371,
      "execs": 3
     },
     {
      "stage": "Level 3",
      "trade": -0.034,
-     "long": 0.0384,
+     "long": 0.0408,
      "pressure": 0.338,
      "execs": 3
     },
     {
      "stage": "Level 6",
      "trade": -0.012,
-     "long": 0.0732,
+     "long": 0.076,
      "pressure": 0.318,
      "execs": 3
     },
     {
      "stage": "Item 1 \u00b7 lvl 9",
-     "trade": 0.031,
-     "long": 0.1939,
-     "pressure": 0.425,
+     "trade": 0.0765,
+     "long": 0.2575,
+     "pressure": 0.386,
      "execs": 3
     },
     {
      "stage": "Item 2 \u00b7 lvl 11",
-     "trade": 0.1328,
-     "long": 0.3911,
-     "pressure": 0.523,
-     "execs": 2
+     "trade": 0.1239,
+     "long": 0.3618,
+     "pressure": 0.445,
+     "execs": 3
     }
    ]
   },
@@ -8643,5 +8643,5 @@
    "tenacity %": 0
   }
  ],
- "runtime_s": 1.8
+ "runtime_s": 1.4
 }

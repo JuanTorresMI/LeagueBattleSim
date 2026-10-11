@@ -1,0 +1,15 @@
+{
+ "_meta": {"about": "General game rules and Energized charging. Each entry: source page, patch, values."},
+ "crit": {"source": "https://wiki.leagueoflegends.com/en-us/Critical_strike", "patch": "16.20.1",
+          "values": {"base_damage": 2.00}, "note": "Wiki: 200% by default; it was 175% from V10.23 and reverted to 200% in V26.01."},
+ "attack_speed": {"source": "https://wiki.leagueoflegends.com/en-us/Attack_speed", "patch": "16.20.1",
+                  "values": {"cap": 2.5}},
+ "stat_growth": {"source": "https://wiki.leagueoflegends.com/en-us/Champion_statistic", "patch": "16.20.1",
+                 "values": {"a": 0.7025, "b": 0.0175},
+                 "note": "stat(n) = base + g (n-1) (a + b (n-1)); level-scaled rune and item values use the same curve (lvl_scale)."},
+ "energized": {"source": "https://wiki.leagueoflegends.com/en-us/Energized", "patch": "16.20.1",
+               "values": {"charge_per_attack": 6, "units_per_charge": 24, "max": 100},
+               "note": "Charge per attack plus 1 per 24 units moved."},
+ "grievous_wounds": {"source": "https://wiki.leagueoflegends.com/en-us/Grievous_Wounds", "patch": "16.20.1",
+                     "values": {"healing_cut": 0.40}}
+}

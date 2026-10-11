@@ -1,0 +1,128 @@
+{
+ "patch": "16.20.1",
+ "duel_calibration": {
+  "marksman": 1.675,
+  "bruiser": 2.813,
+  "tank": 4.554,
+  "mage": 2.61
+ },
+ "builds": {
+  "kill": {
+   "page": "Press the Attack / Alacrity / Cut Down",
+   "boots": "Berserker's Greaves",
+   "items": [
+    "Yun Tal Wildarrows",
+    "Infinity Edge",
+    "Lord Dominik's Regards",
+    "Stormrazor",
+    "Youmuu's Ghostblade"
+   ],
+   "avg_kill_s": 2.61,
+   "avg_duel": 0.032,
+   "duel_wins": 15
+  },
+  "duel": {
+   "page": "Press the Attack / Bloodline / Coup de Grace",
+   "boots": "Mercury's Treads",
+   "items": [
+    "Guardian Angel",
+    "Immortal Shieldbow",
+    "Hextech Gunblade",
+    "Youmuu's Ghostblade",
+    "Navori Flickerblade"
+   ],
+   "avg_kill_s": 5.87,
+   "avg_duel": 0.394,
+   "duel_wins": 20
+  },
+  "practical": {
+   "page": "Press the Attack / Alacrity / Last Stand",
+   "boots": "Plated Steelcaps",
+   "items": [
+    "Black Cleaver",
+    "Immortal Shieldbow",
+    "Blade of The Ruined King",
+    "Dusk and Dawn",
+    "Mortal Reminder"
+   ],
+   "avg_kill_s": 4.73,
+   "avg_duel": 0.333,
+   "duel_wins": 20
+  },
+  "safe": {
+   "page": "Fleet Footwork / Bloodline / Coup de Grace",
+   "boots": "Plated Steelcaps",
+   "items": [
+    "Guardian Angel",
+    "Immortal Shieldbow",
+    "Death's Dance",
+    "Mercurial Scimitar",
+    "Riftmaker"
+   ],
+   "avg_kill_s": 7.42,
+   "avg_duel": 0.285,
+   "duel_wins": 20
+  }
+ },
+ "ap_build": {
+  "page": "Press the Attack / Alacrity / Last Stand",
+  "items": [
+   "Hextech Gunblade",
+   "Terminus",
+   "Dusk and Dawn",
+   "Riftmaker",
+   "Rabadon's Deathcap"
+  ],
+  "avg_duel": 0.145
+ },
+ "lane_calibration": {
+  "marksman": 1.85,
+  "mage": 1.118,
+  "tank": 2.227
+ },
+ "lane": {
+  "page": "Press the Attack / Bloodline / Cut Down",
+  "items": [
+   "Hextech Gunblade",
+   "Lord Dominik's Regards"
+  ],
+  "boots": "Berserker's Greaves",
+  "stages": [
+   {
+    "stage": "Level 2",
+    "trade": 0.0,
+    "long": 0.0736,
+    "pressure": 0.355,
+    "execs": 3
+   },
+   {
+    "stage": "Level 3",
+    "trade": -0.01,
+    "long": 0.067,
+    "pressure": 0.325,
+    "execs": 3
+   },
+   {
+    "stage": "Level 6",
+    "trade": 0.0133,
+    "long": 0.1141,
+    "pressure": 0.305,
+    "execs": 3
+   },
+   {
+    "stage": "Item 1 · lvl 9",
+    "trade": 0.1473,
+    "long": 0.2848,
+    "pressure": 0.51,
+    "execs": 3
+   },
+   {
+    "stage": "Item 2 · lvl 11",
+    "trade": 0.2088,
+    "long": 0.3732,
+    "pressure": 0.679,
+    "execs": 3
+   }
+  ]
+ }
+}

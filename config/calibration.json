@@ -1,0 +1,14 @@
+{
+ "_meta": {"about": "Calibration targets. Each threat gets one damage multiplier, found by bisection so the reference setup hits the target. Ask before changing these (HANDOFF.md)."},
+ "duel": {
+  "reference_items": ["3032", "3031", "3036", "3095", "3153"], "reference_boots": "3006",
+  "reference_page": ["Press the Attack", "Alacrity", "Cut Down"],
+  "target": 0.05, "bisect": [0.5, 8.0, 30],
+  "note": "Standard crit Kalista (Yun Tal, IE, LDR, Stormrazor, BotRK) narrowly wins: +5% HP left on average over the five spikes."
+ },
+ "lane": {
+  "reference_items": ["1055"], "reference_page": ["Press the Attack", "Alacrity", "Cut Down"], "reference_legend_stacks": 1,
+  "levels": [2, 3, 6], "target": 0.0, "bisect": [0.2, 6.0, 30],
+  "note": "Doran's Blade + Press the Attack / Alacrity / Cut Down trades exactly even across levels 2, 3 and 6."
+ }
+}

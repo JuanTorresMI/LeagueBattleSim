@@ -1,0 +1,33 @@
+{
+ "_meta": {"about": "Model choices: spike schedule, search, scenario setup and scoring weights. Ask before changing a scoring weight or calibration target (HANDOFF.md)."},
+ "fight": {
+  "kite_uptime": 0.65, "hop_units_per_attack": 200.0, "max_time": 40.0, "margin_cap": 5.0, "soul_mark": false,
+  "note": "kite_uptime: share of melee damage that lands while Kalista hops. hop_units_per_attack: movement per attack, for Energized and Fleet charge. soul_mark: Kalista's support keeps targets Soul-Marked (off by default, an opt-in extension)."
+ },
+ "spikes": {
+  "starter": "1055",
+  "boots": {"3006": "Berserker's Greaves", "3047": "Plated Steelcaps", "3111": "Mercury's Treads"},
+  "slots": [[1, 9, 1], [2, 11, 2], [3, 13, 3], [4, 15, 4], [5, 17, 5]],
+  "slots_note": "[item number, level, enemy items]; boots come with item 2, the starter is sold at item 5.",
+  "weights": {"1": 0.30, "2": 0.25, "3": 0.20, "4": 0.15, "5": 0.10},
+  "legend_stacks": {"0": 1, "1": 3, "2": 5, "3": 7, "4": 9, "5": 10},
+  "kill_hp_grid": [0.85, 0.925, 1.0, 1.075, 1.15],
+  "duel_hp_grid": [0.9, 1.0, 1.1],
+  "td_cap": 30.0,
+  "beam_width": 8,
+  "kite_check": [0.4, 0.65, 0.9],
+  "early_rune_levels": [3, 6]
+ },
+ "lane": {
+  "threats": {"marksman": "Enemy marksman", "mage": "Poke mage support", "tank": "Engage tank support"},
+  "quick_windows": [1.75, 2.0, 2.25],
+  "long_windows": [3.25, 3.5, 3.75],
+  "stages": [["Level 2", 2, 0, 0], ["Level 3", 3, 0, 0], ["Level 6", 6, 0, 0], ["Item 1 · lvl 9", 9, 1, 1], ["Item 2 · lvl 11", 11, 2, 2]],
+  "stages_note": "[label, level, our item count, enemy items]",
+  "weights": {"quick": 0.6, "long": 0.4, "pressure": 0.25},
+  "execute": {"window": 2.0, "enemy_start": 0.25, "kal_start": 0.6},
+  "pressure": {"window": 2.0, "kal_start": 0.8, "lo": 0.02, "steps": 12},
+  "gunblade_trade_share": 0.5,
+  "gunblade_note": "Gunblade's active (60 s cooldown) is up in half of quick and extended trades, and in every all-in or duel."
+ }
+}
