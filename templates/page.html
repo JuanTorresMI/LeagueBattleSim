@@ -225,6 +225,7 @@ ul.plain{margin:0;padding-left:1.1rem;display:flex;flex-direction:column;gap:5px
   <div id="edform" hidden>
     <div class="edgrid">
       <label class="wide">Start from<select id="edpreset"></select></label>
+      <label>Champion<select id="edch"></select></label>
       <label>Level <output id="edlvlout"></output><input type="range" id="edlevel" min="1" max="18" value="13"></label>
       <label>Enemy items<select id="edne"></select></label>
       <label>Keystone<select id="edks"></select></label>
@@ -232,6 +233,8 @@ ul.plain{margin:0;padding-left:1.1rem;display:flex;flex-direction:column;gap:5px
       <label>Combat rune<select id="edcb"></select></label>
       <label>Legend stacks <output id="edstout"></output><input type="range" id="edstacks" min="0" max="10" value="10"></label>
       <label>Melee damage landing <output id="edkiteout"></output><input type="range" id="edkite" min="0.3" max="1" step="0.05"></label>
+      <label>Soul-Mark (Kalista W)<select id="edsoul"><option value="0">Off</option><option value="1">Support marks the target</option></select></label>
+      <label>Other enemies in reach<select id="edsec"></select></label>
     </div>
     <div class="eitems" id="eitems"></div>
     <p class="warn" id="edwarn" hidden></p>
@@ -523,6 +526,8 @@ function inventoryIds(p){
 function setupForm(){
   $("edpreset").innerHTML = PRESETS.map((p, i) => opt(i, p.label, p.goal === goal && p.slot === 3)).join("");
   $("edne").innerHTML = opt("auto", "Same as yours", true) + [0,1,2,3,4,5].map(n => opt(n, n)).join("");
+  $("edch").innerHTML = ED.champions.map(c => opt(c, c, c === (R.champion || "Kalista"))).join("");
+  $("edsec").innerHTML = [0,1,2,3,4].map(n => opt(n, n === 0 ? "None (one target)" : n)).join("");
   $("edks").innerHTML = ED.keystones.map(k => opt(k, k)).join("");
   $("edlg").innerHTML = ED.legends.map(k => opt(k, k)).join("");
   $("edcb").innerHTML = ED.combat.map(k => opt(k, k)).join("");
@@ -572,18 +577,22 @@ function runEditor(){
     stacks: +$("edstacks").value, enemy_items: ne === "auto" ? null : +ne,
     duel_mults: Object.fromEntries(TH.map(t => [t, R.calibration[t].mult])),
     lane_mults: Object.fromEntries(Object.keys(R.lane.calibration).map(t => [t, R.lane.calibration[t].mult])),
-    kite: +$("edkite").value};
+    kite: +$("edkite").value, champion: $("edch").value, soul_mark: $("edsoul").value === "1", secondary: +$("edsec").value};
   let r;
   try { py.globals.set("args_json", JSON.stringify(args)); r = JSON.parse(py.runPython("json.dumps(evaluate_build(**json.loads(args_json)))")); }
   catch (e) { $("edwarn").hidden = false; $("edwarn").textContent = "Simulator error: " + e.message.split("\n").slice(-2).join(" "); return; }
   $("edwarn").hidden = !r.warnings.length; $("edwarn").textContent = r.warnings.join(" ");
   $("edstats").innerHTML = Object.entries(r.stats).filter(([k]) => k !== "level").map(([k, v]) => `<span class="chip">${esc(k)} <b>${esc(v)}</b></span>`).join("");
   const sg = x => (x >= 0 ? "+" : "−") + Math.abs(x * 100).toFixed(1) + "%";
-  $("edfights").innerHTML = `<thead><tr><th>Enemy</th><th class="n">Kill time</th><th>Duel</th><th class="n">Kill</th><th class="n">Death</th><th>Damage taken</th></tr></thead><tbody>` +
-    Object.entries(r.fights).map(([t, f]) => `<tr><td>${esc(R.threats[t] || t)}</td><td class="n">${f.ttk == null ? "—" : f2(f.ttk) + "s"}</td><td class="${f.win ? "cw" : "cl"}">${f.win ? "Won, " + Math.round(f.kal_hp_left * 100) + "% HP left" : "Lost, enemy on " + Math.round(f.enemy_hp_left * 100) + "%"}</td><td class="n">${f2(f.tk)}s</td><td class="n">${f.td >= 99 ? "—" : f2(f.td) + "s"}</td><td>${Object.entries(f.taken_by).sort((a, b) => b[1] - a[1]).map(([k, v]) => esc(k) + " " + v).join(" · ") || "—"}</td></tr>`).join("") + "</tbody>";
+  const sec = r.secondary > 0;
+  $("edfights").innerHTML = `<thead><tr><th>Enemy</th><th class="n">Kill time</th>${sec ? `<th class="n">To ${r.secondary} other${r.secondary > 1 ? "s" : ""}</th>` : ""}<th>Duel</th><th class="n">Kill</th><th class="n">Death</th><th>Damage taken</th></tr></thead><tbody>` +
+    Object.entries(r.fights).map(([t, f]) => `<tr><td>${esc(R.threats[t] || t)}</td><td class="n">${f.ttk == null ? "—" : f2(f.ttk) + "s"}</td>${sec ? `<td class="n" title="${esc(Object.entries(f.splash_by || {}).map(([k, v]) => k + " " + v).join(", "))}">${Math.round(f.splash || 0)}</td>` : ""}<td class="${f.win ? "cw" : "cl"}">${f.win ? "Won, " + Math.round(f.kal_hp_left * 100) + "% HP left" : "Lost, enemy on " + Math.round(f.enemy_hp_left * 100) + "%"}</td><td class="n">${f2(f.tk)}s</td><td class="n">${f.td >= 99 ? "—" : f2(f.td) + "s"}</td><td>${Object.entries(f.taken_by).sort((a, b) => b[1] - a[1]).map(([k, v]) => esc(k) + " " + v).join(" · ") || "—"}</td></tr>`).join("") + "</tbody>";
   $("edlane").innerHTML = `<thead><tr><th>Lane enemy</th><th class="n">Quick trade</th><th class="n">Extended</th><th class="n">Kill pressure</th></tr></thead><tbody>` +
     Object.entries(r.lane).map(([t, l]) => `<tr><td>${esc(R.lane.threats[t] || t)}</td><td class="n ${l.quick > 0.005 ? "cw" : l.quick < -0.005 ? "cl" : ""}">${sg(l.quick)}</td><td class="n ${l.long > 0.005 ? "cw" : l.long < -0.005 ? "cl" : ""}">${sg(l.long)}</td><td class="n">${Math.round(l.pressure * 100)}% HP</td></tr>`).join("") + "</tbody>";
-  $("ednote").textContent = `Level ${r.level} against enemies with ${r.enemy_items} item${r.enemy_items === 1 ? "" : "s"}. Lane enemies are calibrated for levels 2–11; later levels are a stress test, not a lane read.`;
+  $("ednote").textContent = `${r.champion} at level ${r.level} against enemies with ${r.enemy_items} item${r.enemy_items === 1 ? "" : "s"}.` +
+    (r.champion !== "Kalista" ? " Enemies stay calibrated against Kalista, so this compares champions on the same fights." : "") +
+    (sec ? ` Damage to other enemies counts Runaan's bolts, Statikk's chain and Rend on their spears while killing the main target; it is not part of any score.` : "") +
+    " Lane enemies are calibrated for levels 2–11; later levels are a stress test, not a lane read.";
 }
 
 renderStatic(); render(); renderLane();

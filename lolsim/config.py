@@ -35,6 +35,7 @@ class Config:
     lane_cal: dict = field(default_factory=lambda: dict(CALIBRATION["lane"]))
     champion: str = "Kalista"                                         # whose builds are scored
     soul_mark: bool = FT.get("soul_mark", False)                      # Kalista's Oathsworn Soul-Mark (W)
+    secondary_targets: int = 0                                        # multi-target damage (reported, not scored)
     jobs: int = 1                                                     # worker processes
 
     def with_(self, **kw):

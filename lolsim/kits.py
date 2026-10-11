@@ -65,6 +65,9 @@ class Kit:
     def scale_cooldowns(self, mult):
         """Scale remaining basic-ability cooldowns (Navori)."""
 
+    def on_secondary_hits(self, n):
+        """On-hit landed on n secondary targets (multi-target option)."""
+
     def counter(self):
         """A number for traces and results (Kalista: spears)."""
         return 0
@@ -82,6 +85,7 @@ class Kalista(Kit):
         self.spears = 0
         self.q_cd = 0.0
         self.soul_ready = 0.0 if f.opts.soul_mark and self.wr else None
+        self.sec_spears = 0                  # spears on each secondary target (multi-target option)
 
     def before_attack(self, limit):
         f = self.f
@@ -110,17 +114,28 @@ class Kalista(Kit):
     def rend(self):
         return rend_raw(self.f.cur_ad(), self.f.cur_ap(), self.er, self.spears)
 
+    def on_secondary_hits(self, n):
+        if self.f.n_sec: self.sec_spears += n / self.f.n_sec       # spread over the secondary targets
+
+    def rend_secondaries(self):
+        f = self.f
+        if f.n_sec and self.sec_spears >= 1 and self.er:
+            f.splash("Rend (E)", rend_raw(f.cur_ad(), f.cur_ap(), self.er, int(self.sec_spears)), "physical", f.n_sec)
+            self.sec_spears = 0
+
     def finisher(self):
         f = self.f
         if self.er and self.spears > 0:
             raw = self.rend()
             if raw * f.mitig("physical") * f.amp("physical") >= f.hp:
+                self.rend_secondaries()
                 f.deal("Rend (E)", raw, "physical"); return True
         return False
 
     def exit_burst(self, limit):
         if self.spears > 0 and self.er:
             self.f.t = limit
+            self.rend_secondaries()
             return self.f.deal("Rend (E)", self.rend(), "physical")
         return 0.0
 

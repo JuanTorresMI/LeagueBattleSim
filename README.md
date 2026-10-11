@@ -188,3 +188,14 @@ measure: Dusk and Dawn's spear, Gunblade at 18, Kraken's missing-health curve.
   (by W rank) once per 10 s. Off by default.
 - Ability hooks now pass `damaging`: Conqueror and Liandry's react only to ability damage
   (Vayne's Tumble is basic-attack damage).
+
+## v5.4: multi-target value (roadmap step 9, part 2)
+- `Opts(secondary_targets=N)` / `--secondary N`: N other enemies with the main target's
+  stats stand in reach. Runaan's bolts (2 × 60% AD, crit, on-hit), Statikk's chain (60 magic,
+  4–8 targets by level, on-hit) and Rend on the spears those hits leave are tracked as
+  `splash` / `splash_by` in the result. Reported, never scored; fight results are identical.
+- `./kalista multitarget [owned items] --level 13`: items ranked by damage per second they add
+  to the other enemies. `kalista build --secondary 2` and the page editor show it per fight.
+- Simplifications: secondaries stay at full HP (BotRK uses their max health), take base
+  resistances and no damage amplifiers.
+- spikes.json now records `champion`.

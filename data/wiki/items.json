@@ -81,12 +81,17 @@
           "note": "Wiki: 150 + 5 per level from level 9, ranged 80% (120 to level 8, 160 at 18), up to +75% by target missing health. v4 assumed 120-168 linear.",
           "verify": "Missing-health bonus assumed linear (wiki shows 0-75% in 5% steps)."},
  "3087": {"name": "Statikk Shiv", "source": "https://wiki.leagueoflegends.com/en-us/Statikk_Shiv", "patch": "16.20.1",
-          "values": {"energized": 60, "charge_per_attack": 15}},
+          "values": {"energized": 60, "charge_per_attack": 15,
+                     "chain_targets_by_level": [[1, 4], [6, 5], [10, 6], [14, 7], [20, 8]]},
+          "note": "Energized attack chains to up to 4-8 targets (by level 1/6/10/14/20) for 60 magic damage each, applying on-hit to secondary targets (multi-target option only)."},
  "3095": {"name": "Stormrazor", "source": "https://wiki.leagueoflegends.com/en-us/Stormrazor", "patch": "16.20.1",
           "values": {"energized": 100}},
  "3094": {"name": "Rapid Firecannon", "source": "https://wiki.leagueoflegends.com/en-us/Rapid_Firecannon", "patch": "16.20.1",
           "values": {"energized": 40}},
  "6675": {"name": "Navori Flickerblade", "source": "https://wiki.leagueoflegends.com/en-us/Navori_Flickerblade", "patch": "16.20.1",
           "values": {"cd_left_per_attack": 0.85},
-          "note": "Each attack cuts the remaining basic ability cooldown by 15%."}
+          "note": "Each attack cuts the remaining basic ability cooldown by 15%."},
+ "3085": {"name": "Runaan's Hurricane", "source": "https://wiki.leagueoflegends.com/en-us/Runaan%27s_Hurricane", "patch": "16.20.1",
+          "values": {"bolts": 2, "bolt_ad_ratio": 0.60},
+          "note": "Each attack fires bolts at up to 2 other enemies for 60% AD physical damage; bolts apply on-hit and crit modifiers. Only counted with the multi-target option (secondary_targets > 0)."}
 }

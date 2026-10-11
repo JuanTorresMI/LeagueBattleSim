@@ -53,3 +53,13 @@ def test_soul_mark_is_opt_in_and_once_per_ten_seconds():
 def test_no_soul_mark_before_w():
     r = simulate([], 2, make_dummy("tank", 2, 0), PAGE, Opts(soul_mark=True))   # W unlocks at level 3
     assert "Soul-Marked (W)" not in r["by_source"]
+
+
+def test_multi_target_is_reported_not_scored():
+    d = make_dummy("bruiser", 13, 3)
+    plain = simulate(["3085", "3031", "3006"], 13, d, PAGE, Opts())
+    multi = simulate(["3085", "3031", "3006"], 13, d, PAGE, Opts(secondary_targets=2))
+    assert "splash" not in plain
+    assert multi["ttk"] == plain["ttk"] and multi["by_source"] == plain["by_source"]
+    assert {"Runaan's bolts", "Rend (E)"} <= set(multi["splash_by"])
+    assert simulate(["3031", "3006"], 13, d, PAGE, Opts(secondary_targets=2))["splash"] == 0

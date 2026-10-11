@@ -64,13 +64,15 @@ def add_scenario(p, lane=True):
         g.add_argument("--gunblade-share", type=float, help="share of trades with Gunblade's active up (default 0.5)")
     g.add_argument("--champion", help="whose builds to score (default Kalista; kits: %s; others auto-attack only)" % ", ".join(KITS))
     g.add_argument("--soul-mark", action="store_true", help="Kalista's Oathsworn support keeps targets Soul-Marked (W)")
+    g.add_argument("--secondary", type=int, help="other enemies in reach: report multi-target damage (build, multitarget)")
     g.add_argument("--jobs", type=int, default=os.cpu_count() or 1, help="worker processes (default: all cores)")
 
 
 def config_from(a):
     d = Config()
     kw = {"jobs": a.jobs, "kite_uptime": getattr(a, "kite", None), "beam_width": getattr(a, "beam_width", None),
-          "gunblade_share": getattr(a, "gunblade_share", None), "soul_mark": True if getattr(a, "soul_mark", False) else None}
+          "gunblade_share": getattr(a, "gunblade_share", None), "soul_mark": True if getattr(a, "soul_mark", False) else None,
+          "secondary_targets": getattr(a, "secondary", None)}
     if getattr(a, "champion", None):
         from .stats import CHAMPS
         name = next((c for c in CHAMPS if c.lower() == a.champion.lower()), None)
@@ -169,11 +171,36 @@ def cmd_build(a):
     for kind, f in r["fights"].items():
         res = f"won, {f['kal_hp_left'] * 100:.0f}% HP left" if f["win"] else f"lost, enemy on {f['enemy_hp_left'] * 100:.0f}%"
         ttk = f"{f['ttk']:8.2f}s" if f["ttk"] is not None else "   never"
-        print(f"{kind:10s} {ttk}   {res} (kill {f['tk']:.2f}s, death {f['td']:.2f}s)")
+        sp = f"   +{f['splash']:.0f} to {r['secondary']} other enemies" if f.get("splash") is not None else ""
+        print(f"{kind:10s} {ttk}   {res} (kill {f['tk']:.2f}s, death {f['td']:.2f}s){sp}")
     print(f"\n{'lane enemy':10s} {'quick':>7s} {'extended':>9s} {'pressure':>9s}")
     for kind, l in r["lane"].items():
         print(f"{kind:10s} {l['quick'] * 100:+6.1f}% {l['long'] * 100:+8.1f}% {l['pressure'] * 100:8.0f}%")
     if not duel_m: print("\n(no spikes.json yet: enemy damage is uncalibrated; run `kalista run` first)")
+
+
+def cmd_multitarget(a):
+    """Rank items by the damage they add to other enemies while killing the main target."""
+    from .runes import RunePage as RP
+    cfg = config_from(a)
+    n = cfg.secondary_targets or 2
+    base = [find_item(x) for x in a.items]
+    page = RP.parse(a.runes, a.stacks)
+    ne = a.enemy_items if a.enemy_items is not None else sum(i not in SPK.BOOTS and i != SPK.DORANS for i in base) + 1
+    def splash(inv):
+        tot = 0.0
+        for kind in cfg.threats:
+            r = simulate(inv, a.level, make_dummy(kind, a.level, ne), page, Opts(secondary_targets=n), champ=cfg.champion)
+            tot += r["splash"] / max(r["ttk"], 1e-6)
+        return tot / len(cfg.threats)
+    b = splash(base)
+    rows = sorted(((splash(base + [c]) - b, c) for c in SPK.POOL if c not in base and SPK.legal(tuple(base) + (c,))), reverse=True)
+    print(f"Damage per second to each fight's {n} other enemies, added to: {', '.join(item_name(i) for i in base) or 'nothing'} "
+          f"(level {a.level}, enemies with {ne} items; base {b:.0f}/s)")
+    rows = [r for r in rows if r[0] > 0.5]
+    for i, (gain, c) in enumerate(rows[:a.top], 1):
+        print(f"{i:3d}. {item_name(c):28s} {gain:+7.0f}/s")
+    if not rows: print("  no item in the pool adds multi-target damage here")
 
 
 def cmd_items(a):
@@ -209,6 +236,14 @@ def main(argv=None):
     p.add_argument("--stacks", type=int, default=10, help="Legend stacks, 0-10")
     p.add_argument("--enemy-items", type=int, help="enemy item count (default: same as yours)")
     add_scenario(p); p.set_defaults(fn=cmd_build)
+    p = sub.add_parser("multitarget", help="rank items by damage to other enemies in reach")
+    p.add_argument("items", nargs="*", help="items already owned")
+    p.add_argument("--level", type=int, default=13)
+    p.add_argument("--runes", default="Press the Attack / Alacrity / Cut Down")
+    p.add_argument("--stacks", type=int, default=10)
+    p.add_argument("--enemy-items", type=int)
+    p.add_argument("--top", type=int, default=10)
+    add_scenario(p, lane=False); p.set_defaults(fn=cmd_multitarget)
     p = sub.add_parser("items", help="items the tool understands"); p.set_defaults(fn=cmd_items)
     p = sub.add_parser("update-data", help="refresh Data Dragon files and AD growth")
     p.add_argument("--apply", action="store_true"); p.add_argument("--version")

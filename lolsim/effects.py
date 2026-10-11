@@ -273,8 +273,32 @@ class Energized(Effect):
         if self.charge >= EN["max"]:
             self.charge = 0
             hit.mg += self.proc
+            f = self.f
+            if f.n_sec and "3087" in f.has:                      # Statikk chain lightning
+                n = min(f.n_sec, chain_targets(f.level) - 1)
+                ph, mg = f.secondary_on_hit(hit)
+                f.splash("Statikk chain", ITEM["3087"]["energized"], "magic", n)
+                f.splash("On-hit (secondary)", ph, "physical", n); f.splash("On-hit (secondary)", mg, "magic", n)
+                f.kit.on_secondary_hits(n)
         else:
             self.charge = min(EN["max"], self.charge + self.per)
+
+
+def chain_targets(level):
+    return max(n for lv, n in ITEM["3087"]["chain_targets_by_level"] if level >= lv)
+
+
+@effect("3085")
+class Runaans(Effect):
+    """Bolts at up to 2 other enemies (multi-target option only)."""
+    def on_attack_bonus(self, hit):
+        f, v = self.f, self.v
+        n = min(f.n_sec, v["bolts"])
+        if not n: return
+        ph, mg = f.secondary_on_hit(hit)
+        f.splash("Runaan's bolts", v["bolt_ad_ratio"] * hit.ad * f.crit_factor, "physical", n)
+        f.splash("On-hit (secondary)", ph, "physical", n); f.splash("On-hit (secondary)", mg, "magic", n)
+        f.kit.on_secondary_hits(n * hit.times)
 
 
 # ------------------------------------------------------------- damage taken

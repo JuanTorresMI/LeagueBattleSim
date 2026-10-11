@@ -32,6 +32,7 @@ class Opts:
     kal_start: float = 1.0         # Kalista's starting HP fraction
     gunblade_active: bool = True   # Hextech Gunblade's active is off cooldown
     soul_mark: bool = False        # Kalista's Oathsworn support keeps the target Soul-Marked (W)
+    secondary_targets: int = 0     # other enemies in reach: count multi-target damage (not scored)
     margin_cap: float = FIGHT["margin_cap"]
 
 
@@ -95,6 +96,8 @@ class Fight:
         # damage reduction is fixed for the fight unless an effect shreds or penetrates over time
         self.phys_mult = None if self.h_armor_red or self.h_armor_pen else self._mitig("physical")
         self.magic_mult = None if self.h_mr_red else self._mitig("magic")
+        self.n_sec = opts.secondary_targets
+        self.splash_by = {}
         bonus_crit = 0
         for h in H["bonus_crit"]: bonus_crit += h()
         self.crit = min(1.0, st.crit + bonus_crit)
@@ -146,6 +149,23 @@ class Fight:
             if is_attack: self.heal("Lifesteal", self.st.lifesteal * dmg)
             for h in self.h_dealt_heal: h(dmg)
         return dmg
+
+    def splash(self, src, raw, kind, targets=1):
+        """Damage to `targets` secondary enemies (same stats as the main target, full HP,
+        base resistances, no damage amplifiers). Tracked, never scored."""
+        if raw <= 0 or targets <= 0: return
+        st, d = self.st, self.dummy
+        if kind == "physical": m = resist_mult(eff_resist(d.armor, 0, st.armor_pen, st.lethality))
+        elif kind == "magic": m = resist_mult(eff_resist(d.mr, 0, st.magic_pen_pct, st.magic_pen))
+        else: m = 1.0
+        self.splash_by[src] = self.splash_by.get(src, 0) + raw * m * targets
+
+    def secondary_on_hit(self, hit):
+        """(physical, magic) on-hit damage one secondary target takes per application."""
+        mg = 0.0
+        for h in self.h_on_hit: mg += h(hit)[1]
+        ph = ITEM["3153"]["current_hp_ranged"] * self.dummy.hp if "3153" in self.has else 0.0
+        return ph, mg
 
     def heal(self, src, amount):
         kal = self.kal
@@ -289,6 +309,11 @@ class Fight:
         return self.window_result(limit) if opts.window > 0 else self.result()
 
     # ---------------------------------------------------------------- results
+    def _splash(self):
+        if not self.n_sec: return {}
+        return {"splash": round(sum(self.splash_by.values()), 1),
+                "splash_by": {k: round(v) for k, v in self.splash_by.items()}}
+
     def _rounded(self):
         kal = self.kal
         return {"taken_by": {k: round(v) for k, v in kal.taken_by.items()},
@@ -307,7 +332,7 @@ class Fight:
                 "dealt_frac": (self.hp0 - max(self.hp, 0)) / self.dummy.hp,
                 # damage still stored in Death's Dance lands after the trade, so it counts
                 "taken_frac": ((self.st.hp * opts.kal_start - kal.hp + sum(d[1] for d in kal.dd)) / kal.max) if self.duel else 0.0,
-                "exit_rend": exit_burst, "spears": self.kit.counter(), **self._rounded()}
+                "exit_rend": exit_burst, "spears": self.kit.counter(), **self._rounded(), **self._splash()}
 
     def result(self):
         kal, t, hp, dummy = self.kal, self.t, self.hp, self.dummy
@@ -315,7 +340,8 @@ class Fight:
         if not self.duel:
             ttk = t if killed else math.inf
             return {"ttk": ttk, "dps": dummy.hp / ttk if ttk < math.inf else 0,
-                    "attacks": self.attacks, "spears": self.kit.counter(), "by_source": self.by_src, "trace": self.log}
+                    "attacks": self.attacks, "spears": self.kit.counter(), "by_source": self.by_src, "trace": self.log,
+                    **self._splash()}
         died = kal.dead_at is not None
         k_eff = kal.hp + kal.ichor + sum(sh[1] for sh in kal.shields if sh[2] >= t)
         if killed:
@@ -339,10 +365,11 @@ class Fight:
                 "enemy_hp_left": max(0.0, hp / dummy.hp),
                 **self._rounded(),
                 "ga_used": "3026" in self.has and not kal.ga,
-                "trace": self.log}
+                "trace": self.log, **self._splash()}
 
 
 from params import ITEM as _ITEM
+ITEM = _ITEM
 Fight.effects_dd_duration = _ITEM["6333"]["bleed_duration"]
 
 

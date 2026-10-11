@@ -37,10 +37,12 @@ def editor_data():
     from lolsim.config import Config
     from lolsim.runes import KEYSTONES, LEGENDS, COMBAT
     from lolsim.stats import item_name
+    from lolsim.kits import KITS
     cfg = Config()
     ids = list(spikes.POOL) + list(spikes.BOOTS) + [spikes.DORANS]
     return {"items": {i: item_name(i) for i in ids}, "starter": spikes.DORANS, "legend": cfg.legend,
             "keystones": KEYSTONES, "legends": LEGENDS, "combat": COMBAT, "kite": cfg.kite_uptime,
+            "champions": list(KITS),
             "lane_stages": [list(s) for s in cfg.lane_stages]}
 
 
