@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Kalista DPS checker command line: ./kalista --help"""
-import os, sys
+import os, signal, sys
+if hasattr(signal, "SIGPIPE"): signal.signal(signal.SIGPIPE, signal.SIG_DFL)   # quiet when piped into head
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from lolsim.cli import main
 sys.exit(main())

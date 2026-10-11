@@ -1,4 +1,14 @@
-# LoL DPS Checker v4 (patch 16.20.1)
+# LoL DPS Checker v5 (patch 16.20.1)
+
+## Quick start
+Plain Python 3, no packages (pytest only for tests).
+- `./run_all.sh` (or `./kalista run`): about 15 s on 4 cores; writes spikes.json, lane.json and
+  **kalista_spikes.html** (open it in a browser; its build editor runs the simulator in-page).
+- `./kalista optimize --goal practical`: best build for one goal (`kill`, `duel`, `practical`, `safe`).
+- `./kalista build yuntal ie ldr zerks --level 13`: check any build (`./kalista items` lists names).
+- `./kalista --help` for scenario flags (threats, kiting, weights, real enemy kits, Vayne, Soul-Mark).
+- `pytest` (about 2 s), `pytest --runslow` (adds a full pipeline run).
+- Assumptions and their wiki status: `docs/ASSUMPTIONS.md`. Change log by version below.
 
 Run: `./run_all.sh` (~80 s): spikes.py → spikes.json, lane.py → lane.json, build_page.py → kalista_spikes.html. See HANDOFF.md for the full write-up.
 
