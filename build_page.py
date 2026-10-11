@@ -1,9 +1,5 @@
-"""Render spikes.json (v3: damage + duel) into a self-contained HTML page."""
+"""Render spikes.json + lane.json into a self-contained HTML page (kalista_spikes.html)."""
 import json, html
-
-r = json.load(open("spikes.json"))
-r["lane"] = json.load(open("lane.json"))
-DATA = json.dumps(r, separators=(",", ":"))
 
 PAGE = r"""<title>Kalista Spike Ranker</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -463,6 +459,19 @@ let rz; window.addEventListener("resize", () => { clearTimeout(rz); rz = setTime
 </script>
 """
 
-out = PAGE.replace("__DATA__", DATA).replace("__PATCH__", html.escape(r["patch"]))
-open("kalista_spikes.html", "w", encoding="utf-8").write(out)
-print("wrote", len(out), "bytes")
+def render(spikes, lane):
+    r = dict(spikes, lane=lane)
+    data = json.dumps(r, separators=(",", ":"))
+    return PAGE.replace("__DATA__", data).replace("__PATCH__", html.escape(r["patch"]))
+
+
+def main(spikes_path="spikes.json", lane_path="lane.json", out_path="kalista_spikes.html"):
+    with open(spikes_path, encoding="utf-8") as f: spikes = json.load(f)
+    with open(lane_path, encoding="utf-8") as f: lane = json.load(f)
+    out = render(spikes, lane)
+    with open(out_path, "w", encoding="utf-8") as f: f.write(out)
+    print("wrote", len(out), "bytes")
+
+
+if __name__ == "__main__":
+    main()

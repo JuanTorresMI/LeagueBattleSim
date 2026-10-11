@@ -97,7 +97,7 @@ def stat_mismatches(wiki, champs):
 
 
 def model_item_ids():
-    import spikes
+    from . import spikes
     return set(ITEM_INFO) | set(spikes.POOL) | set(spikes.BOOTS) | {spikes.DORANS}
 
 

@@ -10,7 +10,8 @@ import json, math, os, random, sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.dirname(HERE))
 
-import engine, spikes  # noqa: E402
+import engine  # noqa: E402
+from lolsim import spikes  # noqa: E402
 
 CORPUS = os.path.join(HERE, "snapshots", "fights.json")
 POOL = sorted(spikes.POOL) + sorted(spikes.BOOTS) + [spikes.DORANS]
@@ -20,7 +21,7 @@ def cases(n=1000, seed=7):
     rng = random.Random(seed)
     for _ in range(n):
         case = {"items": rng.sample(POOL, rng.randint(0, 6)), "level": rng.randint(1, 18),
-                "kind": rng.choice(spikes.KINDS), "enemy_items": rng.randint(0, 5),
+                "kind": rng.choice(list(engine.THREATS)), "enemy_items": rng.randint(0, 5),
                 "page": rng.choice(spikes.ALL_PAGES).label(), "stacks": rng.randint(0, 10),
                 "duel": rng.random() < 0.7, "mult": rng.choice([1.0, 1.85, 2.8, 4.5]),
                 "opts": {"yuntal_prestacked": rng.random() < 0.7, "kite_uptime": rng.choice([0.4, 0.65, 0.9]),

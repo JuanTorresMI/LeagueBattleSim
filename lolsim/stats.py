@@ -11,6 +11,8 @@ def _load(name):
 
 
 CHAMPS = _load("champion.json")
+with open(os.path.join(HERE, "data", "champion.json"), encoding="utf-8") as _f:
+    PATCH = json.load(_f)["version"]                 # Data Dragon version, e.g. 16.20.1
 ITEMS = _load("item.json")
 
 CRIT_BASE = MECH["crit"]["base_damage"]          # VERIFY: wiki lists 200% default crit damage

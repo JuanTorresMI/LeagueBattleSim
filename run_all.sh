@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-# Runs the whole Kalista DPS checker pipeline in order (~80 s, Python 3, no packages).
+# Runs the whole Kalista DPS checker pipeline (Python 3, no packages):
+# spikes.json (full-fight goals) -> lane.json (lane trades) -> kalista_spikes.html.
+# Same as ./kalista run; pass scenario flags there (./kalista run --help).
 set -euo pipefail
 cd "$(dirname "$0")"
-python3 spikes.py      # full-fight goals, duel calibration      -> spikes.json
-python3 lane.py        # lane trades (reads spikes.json)          -> lane.json
-python3 build_page.py  # results page                             -> kalista_spikes.html
+python3 kalista run "$@"
 echo "Done: open kalista_spikes.html"

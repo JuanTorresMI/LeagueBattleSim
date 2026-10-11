@@ -144,3 +144,19 @@ measure: Dusk and Dawn's spear, Gunblade at 18, Kraken's missing-health curve.
   Mercury's Treads with GA → Shieldbow → Gunblade → Youmuu's → Navori.
 - `tests/fight_corpus.py` + `tests/test_corpus.py`: 1,000 stored random fights must
   reproduce exactly (replaces the v3 code oracle, which no longer matches by design).
+
+## v5.1: command line (roadmap step 7)
+`./kalista --help` (or `python3 -m lolsim`):
+- `./kalista run [flags]`: whole pipeline (also `./run_all.sh`), parallel on all cores.
+- `./kalista optimize --goal practical --threat bruiser --kite 0.8 --runes auto`: one goal.
+  `--runes` takes `auto` (search 24 pages) or a page label; `--ap` limits to AP/on-hit items.
+- `./kalista build yuntal ie ldr zerks --level 13`: stat line, kill time and duel per threat,
+  quick/extended trades and kill pressure per lane threat. Items by name, id or nickname
+  (`./kalista items`).
+- `./kalista update-data [--apply]`: Data Dragon and AD growth refresh.
+- Scenario flags: `--threat`, `--kite`, `--weights`, `--beam-width`, `--lane-threat`,
+  `--quick-windows`, `--long-windows`, `--lane-weights`, `--gunblade-share`, `--jobs`.
+  Defaults come from `config/*.json`; calibration stays on config/calibration.json.
+- Analysis code moved into `lolsim/spikes.py` (`Ranker`) and `lolsim/lane.py`
+  (`LaneAnalysis`); each holds its own threat multipliers, so nothing mutates globals.
+  `spikes.py`, `lane.py` and `build_page.py` remain as thin scripts.

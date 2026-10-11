@@ -3,8 +3,9 @@ one lane trade per lane threat. These lock behavior for the refactor; if a chang
 meant to move them, update the numbers and say why in the commit."""
 import pytest
 
-import lane, spikes
 from engine import Opts, RunePage, THREATS, make_dummy, simulate
+from lolsim import spikes
+from lolsim.lane import LaneAnalysis
 
 DUEL_MULTS = {"marksman": 1.675, "bruiser": 2.813, "tank": 4.554, "mage": 2.61}
 LANE_MULTS = {"marksman": 1.85, "mage": 1.118, "tank": 2.227}
@@ -66,10 +67,10 @@ TRADES = {
 
 
 @pytest.mark.parametrize("kind", sorted(TRADES))
-def test_lane_trade_per_threat(kind, threat_mults):
+def test_lane_trade_per_threat(kind):
     """Doran's Blade, Press the Attack / Alacrity / Cut Down at level 3, quick trades."""
-    threat_mults(LANE_MULTS)
-    t = lane.trade([spikes.DORANS], 3, kind, 0, lane.BASE_PAGE)
+    la = LaneAnalysis(mults=LANE_MULTS)
+    t = la.trade([spikes.DORANS], 3, kind, 0, la.base_page)
     net, dealt, taken = TRADES[kind]
     assert t["net"] == pytest.approx(net, abs=1e-6)
     assert t["dealt"] == pytest.approx(dealt, abs=1e-6)
@@ -79,7 +80,7 @@ def test_lane_trade_per_threat(kind, threat_mults):
 def test_trade_window_rips_rend_on_exit(threat_mults):
     threat_mults(LANE_MULTS)
     d = make_dummy("marksman", 6, 0)
-    r = simulate([spikes.DORANS], 6, d, lane.BASE_PAGE, Opts(window=2.0, exit_e=True),
+    r = simulate([spikes.DORANS], 6, d, LaneAnalysis().base_page, Opts(window=2.0, exit_e=True),
                  THREATS["marksman"], 0)
     assert not r["killed"]
     assert r["exit_rend"] > 0
