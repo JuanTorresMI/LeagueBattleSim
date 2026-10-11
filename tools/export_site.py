@@ -1,0 +1,106 @@
+"""Copy the results page into the personal site (JuanTorresMI.github.io), split into the pieces
+its project page loads, and record a test run for the page to show.
+
+    python3 tools/export_site.py ../JuanTorresMI.github.io           # results + tests
+    python3 tools/export_site.py ../JuanTorresMI.github.io --runslow # also the full-pipeline test
+
+Writes, inside the site:
+  kalista/_body.html         the page's markup (the site page includes it; the site styles it)
+  kalista/app.js             the page's script, reading its data from results.js
+  kalista/results.js         spikes.json + lane.json + the build editor's lists
+  kalista/engine.json        the simulator's source and trimmed data, fetched when the editor loads
+  _data/kalista_tests.json   the pytest run: totals and every test by file
+
+The template's styles are not copied: the site has its own (kalista/kalista.css). Run
+./run_all.sh first so spikes.json and lane.json are current."""
+import argparse, datetime, json, os, platform, re, subprocess, sys, tempfile
+import xml.etree.ElementTree as ET
+
+HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, HERE)
+import build_page  # noqa: E402
+
+
+def split_template():
+    """The template's markup and script, without its <title>, font links and styles."""
+    with open(build_page.TEMPLATE, encoding="utf-8") as f: page = f.read()
+    body = page.split("</style>", 1)[1].split('<script type="application/json" id="engine-files">', 1)[0]
+    script = page.split('<script type="application/json" id="engine-files">__ENGINE__</script>', 1)[1]
+    script = script.strip().removeprefix("<script>").removesuffix("</script>").strip()
+    return body.strip(), script
+
+
+def run_tests(runslow):
+    """pytest's JUnit report, reduced to what the page shows."""
+    with tempfile.TemporaryDirectory() as tmp:
+        xml = os.path.join(tmp, "junit.xml")
+        cmd = [sys.executable, "-m", "pytest", "-q", "-p", "no:cacheprovider", f"--junitxml={xml}"] + (["--runslow"] if runslow else [])
+        subprocess.run(cmd, cwd=HERE, check=False, stdout=subprocess.DEVNULL)
+        root = ET.parse(xml).getroot()
+    suite = root if root.tag == "testsuite" else root.find("testsuite")
+    files, totals = {}, {"passed": 0, "failed": 0, "skipped": 0}
+    for case in suite.iter("testcase"):
+        mod = case.get("classname", "").split(".")
+        path = "/".join(p for p in mod if not p[:1].isupper()) + ".py"
+        name = case.get("name")
+        if mod[-1][:1].isupper(): name = f"{mod[-1]}::{name}"
+        status = ("failed" if case.find("failure") is not None or case.find("error") is not None
+                  else "skipped" if case.find("skipped") is not None else "passed")
+        totals[status] += 1
+        f = files.setdefault(path, {"file": path, "passed": 0, "failed": 0, "skipped": 0, "tests": []})
+        f[status] += 1
+        f["tests"].append({"name": name, "status": status, "seconds": round(float(case.get("time", 0)), 3)})
+    return {"total": sum(totals.values()), **totals, "seconds": round(float(suite.get("time", 0)), 1),
+            "runslow": runslow, "files": sorted(files.values(), key=lambda f: f["file"])}
+
+
+def git(*args):
+    try: return subprocess.run(["git", *args], cwd=HERE, capture_output=True, text=True, check=True).stdout.strip()
+    except Exception: return ""
+
+
+def main():
+    ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
+    ap.add_argument("site", help="the site repository's root folder")
+    ap.add_argument("--runslow", action="store_true", help="include the full-pipeline test (about a minute more)")
+    ap.add_argument("--no-tests", action="store_true", help="leave _data/kalista_tests.json as it is")
+    a = ap.parse_args()
+
+    out = os.path.join(a.site, "kalista")
+    os.makedirs(out, exist_ok=True)
+    with open(os.path.join(HERE, "spikes.json"), encoding="utf-8") as f: spikes = json.load(f)
+    with open(os.path.join(HERE, "lane.json"), encoding="utf-8") as f: lane = json.load(f)
+
+    body, script = split_template()
+    body = body.replace("__PATCH__", spikes["patch"])
+    # The site loads engine.json only when the reader opens the build editor.
+    body += '\n<script type="application/json" id="engine-files" data-src="/kalista/engine.json"></script>\n'
+    # Liquid reads the include; the markup has no braces today, and this keeps it that way.
+    if re.search(r"\{\{|\{%", body): raise SystemExit("template markup contains Liquid-like braces")
+    script = script.replace("const R = __DATA__;", "const R = window.KALISTA.results;")
+    script = script.replace("const ED = __EDITOR__;", "const ED = window.KALISTA.editor;")
+    if re.search(r"__(DATA|EDITOR|ENGINE|PATCH)__", script): raise SystemExit("unreplaced placeholder in the script")
+
+    def write(rel, text):
+        with open(os.path.join(a.site, rel), "w", encoding="utf-8") as f: f.write(text)
+        print(f"wrote {rel} ({len(text):,} bytes)")
+
+    header = "// Generated by LeagueBattleSim/tools/export_site.py from templates/page.html. Do not edit here.\n"
+    write("kalista/_body.html", "<!-- Generated by LeagueBattleSim/tools/export_site.py. Do not edit here. -->\n" + body)
+    write("kalista/app.js", header + script + "\n")
+    data = {"results": dict(spikes, lane=lane), "editor": build_page.editor_data()}
+    write("kalista/results.js", header + "window.KALISTA = " + json.dumps(data, separators=(",", ":")) + ";\n")
+    write("kalista/engine.json", json.dumps(build_page.engine_files(), separators=(",", ":")))
+
+    if not a.no_tests:
+        t = run_tests(a.runslow)
+        t.update(commit=git("rev-parse", "--short", "HEAD"), commit_date=git("log", "-1", "--format=%cs"),
+                 ran=datetime.date.today().isoformat(), python=platform.python_version(), patch=spikes["patch"])
+        os.makedirs(os.path.join(a.site, "_data"), exist_ok=True)
+        write("_data/kalista_tests.json", json.dumps(t, indent=1) + "\n")
+        print(f"tests: {t['passed']} passed, {t['failed']} failed, {t['skipped']} skipped")
+        if t["failed"]: sys.exit(1)
+
+
+if __name__ == "__main__":
+    main()

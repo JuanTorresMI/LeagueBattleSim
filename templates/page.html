@@ -577,7 +577,9 @@ async function startEngine(){
     if (!window.loadPyodide) await loadScript(PYODIDE);
     py = await loadPyodide();
     st.textContent = "Loading the simulator…";
-    const files = JSON.parse($("engine-files").textContent);
+    // Inline in kalista_spikes.html; a site copy (tools/export_site.py) fetches it from data-src instead.
+    const ef = $("engine-files");
+    const files = ef.dataset.src ? await (await fetch(ef.dataset.src)).json() : JSON.parse(ef.textContent);
     for (const [path, text] of Object.entries(files)) {
       const parts = ("sim/" + path).split("/"); let dir = "";
       for (const d of parts.slice(0, -1)) { dir += "/" + d; try { py.FS.mkdir(dir); } catch(e) {} }
